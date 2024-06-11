@@ -6,12 +6,12 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
-import { DollarSign } from 'lucide-react'
-import { DynamicCardProps } from '@/types/dashboard'
+
+import { DashboardCardProps } from '@/types/dashboard'
 
 
 
-const DynamicCard = ({title, amount, description, Icon}: DynamicCardProps) => {
+const DashboardCard = ({title, amount, description, Icon}: DashboardCardProps) => {
   return (
     <Card x-chunk="dashboard-01-chunk-0">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -30,4 +30,4 @@ const DynamicCard = ({title, amount, description, Icon}: DynamicCardProps) => {
   )
 }
 
-export default DynamicCard
+export default DashboardCard

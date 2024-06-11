@@ -1,4 +1,4 @@
-export interface DynamicCardProps{
+export interface DashboardCardProps{
     title:string;
     amount:number;
     description:string;

@@ -1,13 +1,13 @@
 import React from "react";
 import MobileNav from "./MobileNav";
 import Link from "next/link";
-import { Bell, Package2, Search } from "lucide-react";
+import { Package2, Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <div className="flex h-14 items-center justify-between  bg-muted fixed top-0 z-50 w-full py-4 px-4 lg:h-[60px] lg:px-6 overflow-hidden ">
+    <div className="flex h-14 items-center justify-between  bg-muted fixed top-0 z-50 w-full py-4 px-4 lg:h-[60px] lg:px-6 overflow-hidden">
       <MobileNav />
 
       <div className="flex gap-4 h-14 items-center border-b lg:h-[60px] ">

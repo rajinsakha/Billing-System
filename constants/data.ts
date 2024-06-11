@@ -1,5 +1,5 @@
 import { ISidebar } from "@/types/dashboard";
-import {  HomeIcon, LineChart, Package, ReceiptText, } from 'lucide-react'
+import {  Boxes, HomeIcon, LineChart, Package, ReceiptText, } from 'lucide-react'
 
 export const sidebarlist:ISidebar[] = [
     {
@@ -7,6 +7,12 @@ export const sidebarlist:ISidebar[] = [
         href:"/",
         Icon: HomeIcon 
     },
+    {
+        title:"Inventory",
+        href:"/inventory",
+        Icon: Boxes
+    },
+
     {
         title:"Products",
         href:"/products",
