@@ -9,7 +9,7 @@ export const authenticationFormSchema = z.object({
   .string()
   .trim()
   .refine((val) => val.length > 0, {
-    message: "This field has to be filled.",
+    message: "Password cannot be empty.",
   })
   .refine((val) => val.length >= 8, {
     message: "Password must be at least 8 characters long.",

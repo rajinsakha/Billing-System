@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -9,43 +9,25 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-
-
-
+import { Trash2 } from "lucide-react";
 
 const DeleteModal = () => {
   const dispatch = useAppDispatch();
-  const { singleData, type, refetch, isDeleting } = useAppSelector(
-    (state) => state.tableReducer
-  );
-  const { activeTab } = useAppSelector((state) => state.authReducer);
+  const [deleteStatus, setDeleteStatus] = useState<boolean>(false);
+  const { refetch } = useAppSelector((state) => state.tableReducer);
 
-
-
-
-
-  const { language } = useAppSelector((state) => state.dashboardReducer);
-
-  const handleDelete = async () => {
-
-
-  };
+  const handleDelete = async () => {};
 
   return (
     <Dialog>
       <DialogTrigger
-        className={`${
-       
-        " w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary "
-        }cursor-pointer`}
+        className={`${" w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary "}cursor-pointer`}
       >
-         <RiDeleteBin6Line fontSize={20} />
+        <Trash2 fontSize={20} />
         <p
           className={`
            text-[13.4px] leading-5 text-textColor`}
-        >
-         
-        </p>
+        ></p>
       </DialogTrigger>
       <DialogContent className="sm:w-[484px] rounded-t-lg rounded-b-none  py-4 px-5 flex flex-col justify-between gap-3">
         <DialogHeader className="pt-1 pb-4">
@@ -56,13 +38,12 @@ const DeleteModal = () => {
 
         <p className="text-[13.4px] leading-[22px]">
           <span className="font-semibold">
-            {type === "comment"
-              ? singleComment.comment_text
-              : singleData.title ||
+            {/* {
+              singleData.title ||
                 singleData.name ||
                 singleData.media_name ||
                 singleData.member?.label ||
-                singleData.agenda}
+                singleData.agenda} */}
           </span>{" "}
           will be permanently deleted from the system. Do you want to delete?
         </p>
@@ -71,24 +52,13 @@ const DeleteModal = () => {
             Cancel
           </DialogClose>
           <Button
-            disabled={isDeleting}
+            disabled={deleteStatus}
             className={`${
-              isDeleting ? "bg-primary" : "bg-secondary"
+              deleteStatus ? "bg-primary" : "bg-secondary"
             } text-textColor text-base font-semibold rounded-sm hover:bg-primary hover:text-white`}
             onClick={handleDelete}
           >
-            {isDeleting ? (
-              <RotatingLines
-                visible={true}
-                width="20"
-                strokeWidth="5"
-                animationDuration="0.75"
-                ariaLabel="rotating-lines-loading"
-                strokeColor="white"
-              />
-            ) : (
-              " Delete"
-            )}
+            {deleteStatus ? <div className="loader"></div> : "Delete"}
           </Button>
         </div>
       </DialogContent>

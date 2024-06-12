@@ -7,13 +7,13 @@ const api = axios.create({
   baseURL,
 });
 
-// export const setAuthToken = (token: string) => {
+export const setAuthToken = (token: string) => {
 
-//   if (token) {
-//     api.defaults.headers.common["Authorization"] = `TOKEN ${token}`;
-//   } else {
-//     delete api.defaults.headers.common["Authorization"];
-//   }
-// };
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `TOKEN ${token}`;
+  } else {
+    delete api.defaults.headers.common["Authorization"];
+  }
+};
 
 export default api;

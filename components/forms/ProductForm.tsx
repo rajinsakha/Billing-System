@@ -1,8 +1,6 @@
 "use client";
 
-
 import { Button } from "@/components/ui/button";
-
 
 import { Input } from "@/components/ui/input";
 
@@ -14,8 +12,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-
-;
 import { useForm } from "react-hook-form";
 import { productFormSchema } from "@/schemas/formSchema";
 import { z } from "zod";
@@ -24,7 +20,6 @@ import { formProps } from "@/types/form";
 import {
   Form,
   FormControl,
-
   FormField,
   FormItem,
   FormLabel,
@@ -55,10 +50,9 @@ const ProductForm = ({ initialData }: formProps) => {
       if (initialData) {
       } else {
         const res = await addProduct(data);
-        if(res.status === 200){
+        if (res.status === 200) {
           console.log(res.data);
         }
-
       }
     } catch (error) {
       console.log(error);
@@ -138,41 +132,47 @@ const ProductForm = ({ initialData }: formProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Category</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a Category" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Pipes">Pipes</SelectItem>
-                  <SelectItem value="Cement">Cement</SelectItem>
-                  <SelectItem value="Taps">Taps</SelectItem>
-                </SelectContent>
-              </Select>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a Category" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Pipes">Pipes</SelectItem>
+                    <SelectItem value="Cement">Cement</SelectItem>
+                    <SelectItem value="Taps">Taps</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-        <FormField
+          <FormField
             control={form.control}
             name="subCategory"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Sub Category</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a subCategory" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="sub1">sub1</SelectItem>
-                  <SelectItem value="sub2">sub2</SelectItem>
-                  <SelectItem value="sub3">sub3</SelectItem>
-                </SelectContent>
-              </Select>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a subCategory" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="sub1">sub1</SelectItem>
+                    <SelectItem value="sub2">sub2</SelectItem>
+                    <SelectItem value="sub3">sub3</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

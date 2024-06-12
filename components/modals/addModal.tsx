@@ -2,6 +2,7 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { CircleFadingPlus } from "lucide-react";
+import { useState } from "react";
 
 interface AddModalProps {
   type: string;
@@ -9,37 +10,13 @@ interface AddModalProps {
   subType?: string;
 }
 
-const FormModal = ({ type, activeTab, subType }: AddModalProps) => {
-  const dispatch = useAppDispatch();
+const AddModal = ({ type }: AddModalProps) => {
+  
   const [isHovered, setIsHovered] = useState(false);
-  const pathname = usePathname();
-  const isDashboard = pathname.split("/")[1] === "dashboard";
-  const { language } = useAppSelector((state) => state.dashboardReducer);
+ 
 
-  const displayTitle = () => {
-    switch (type) {
-      case "Attendance":
-        return "Meeting";
 
-      case "Sub Report":
-        return "Report";
-      case "attendanceParliamentMember":
-        return "Attendance";
-      case "Sub Meeting":
-        return "Meeting";
 
-      case "bill2":
-        return "Bill";
-
-      case "Publication2":
-        return "Publication";
-      case "Report Card2":
-        return "Report Card";
-      default:
-        return type;
-    }
-  };
-  console.log(type);
 
   return (
     <Dialog>
@@ -62,4 +39,4 @@ const FormModal = ({ type, activeTab, subType }: AddModalProps) => {
   );
 };
 
-export default FormModal;
+export default AddModal;

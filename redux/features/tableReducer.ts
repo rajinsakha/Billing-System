@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type HomeState = {
   type: string;
+  refetch: boolean;
 };
 
 const initialState = {
   type: "",
-};
+  refetch:false,
+} as HomeState;
 
 export const table = createSlice({
   name: "table",
@@ -15,8 +17,11 @@ export const table = createSlice({
     setType: (state, action) => {
       state.type = action.payload;
     },
+    setRefetch:(state, action) =>{
+      state.refetch = action.payload;
+    }
   },
 });
 
-export const { setType } = table.actions;
+export const { setType, setRefetch } = table.actions;
 export default table.reducer;

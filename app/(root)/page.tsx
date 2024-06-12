@@ -1,4 +1,4 @@
-
+"use client"
 import { DollarSign, Users } from "lucide-react";
 
 import DynamicCard from "@/components/DynamicCard";

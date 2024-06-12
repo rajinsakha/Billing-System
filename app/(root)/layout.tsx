@@ -1,8 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import isAuth from "@/lib/hooks/isAuth";
 import React, { ReactNode } from "react";
 
-const DashboardLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
+const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
