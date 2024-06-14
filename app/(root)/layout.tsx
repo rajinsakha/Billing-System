@@ -1,3 +1,4 @@
+"use client"
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import isAuth from "@/lib/hooks/isAuth";
@@ -16,4 +17,4 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default DashboardLayout;
+export default isAuth(DashboardLayout);

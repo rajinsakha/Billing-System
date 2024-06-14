@@ -14,17 +14,17 @@ import { TableDataItem } from "@/types/table";
 
 const RecentTransactions = () => {
 
-  const tableData: TableDataItem = {
-    headers: ["Customer","Category", "Status", "Date", "Amount"],
-    data:[{
-      id: 1,
-      category: "Pipe",
-      name: "Liam Johnson",
-      status:"sale",
-      date: "2023-06-23",
-      amount: 2500
-    }],
-  };
+  // const tableData: TableDataItem = {
+  //   headers: ["Customer","Category", "Status", "Date", "Amount"],
+  //   data:[{
+  //     id: 1,
+  //     category: "Pipe",
+  //     name: "Liam Johnson",
+  //     status:"sale",
+  //     date: "2023-06-23",
+  //     amount: 2500
+  //   }],
+  // };
 
   return (
     <Card x-chunk="dashboard-01-chunk-4">
@@ -43,7 +43,7 @@ const RecentTransactions = () => {
         </Button>
       </CardHeader>
       <CardContent>
-        <DynamicTable data={tableData.data} headers={tableData.headers} type="transactions" />
+        {/* <DynamicTable data={tableData.data} headers={tableData.headers} type="transactions" /> */}
       </CardContent>
     </Card>
   );

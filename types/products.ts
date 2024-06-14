@@ -13,6 +13,14 @@ export interface IProduct {
   added_date: string;
   updated_date: string;
   empty_date: string;
-  category: number;
-  sub_category: number;
+  category: {
+    label:string;
+    value:number;
+  };
+  sub_category: {
+    label:string;
+    value:number;
+  };
 }
+
+

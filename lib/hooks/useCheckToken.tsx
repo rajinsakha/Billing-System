@@ -12,7 +12,7 @@ const useCheckToken = () => {
     const checkToken = useCallback(async ()=>{
         try{
             setAuthToken(token);
-            const res = await api.get('');
+            const res = await api.get('/dashboard/check-token/');
             if(res.status === 200){
                 setIsAuthenticated(true);
             }else{
@@ -26,7 +26,7 @@ const useCheckToken = () => {
     },[token])
 
     useEffect(()=>{
-        checkToken();
+    checkToken();
     },[checkToken])
 
   return {isAuthenticated, loading}

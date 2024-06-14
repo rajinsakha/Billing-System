@@ -1,15 +1,28 @@
-export interface IDynamicData{
-    
+import { IProduct } from "./products";
+
+
+
+export interface IDynamicData {
+  total_pages: number;
+
+  count: number;
+
+  next: null | string;
+
+  previous: null | string;
+
+  results: IProduct[];
 }
+
 
 export interface TableDataItem {
     headers: string[];
-    data: any[]
-  }
+    data: IProduct[]
+}
 
-  export interface TableProps{
+export interface TableProps{
     headers:string[];
-    data:any[];
+    data: IProduct[];
     type: string;
-  }
+}
 

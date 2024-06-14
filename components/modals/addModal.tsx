@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { CircleFadingPlus } from "lucide-react";
 import { useState } from "react";
+import ProductForm from "../forms/ProductForm";
 
 interface AddModalProps {
   type: string;
@@ -34,7 +35,9 @@ const AddModal = ({ type }: AddModalProps) => {
           />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[773px]  hide-scrollbar rounded-t-lg rounded-b-none modal-content"></DialogContent>
+      <DialogContent className="sm:max-w-[773px]  hide-scrollbar rounded-t-lg rounded-b-none modal-content">
+        {type === "products" && <ProductForm initialData={null} />}
+      </DialogContent>
     </Dialog>
   );
 };
