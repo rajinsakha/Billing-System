@@ -38,6 +38,10 @@ const ProductForm = ({ initialData }: formProps) => {
       }
     : {
         name: "",
+        quantity: 0,
+        price: 0,
+        category:"",
+        subCategory:""
       };
 
   const form = useForm<ProductFormValues>({
@@ -106,7 +110,7 @@ const ProductForm = ({ initialData }: formProps) => {
                   <FormItem>
                     <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input placeholder="shadcn" {...field} />
+                      <Input type="number" placeholder="shadcn" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
