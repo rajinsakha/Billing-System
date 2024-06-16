@@ -1,7 +1,7 @@
 "use client"
 import { DollarSign, Users } from "lucide-react";
 
-import DynamicCard from "@/components/DynamicCard";
+import DynamicCard from "@/components/DashboardCard";
 import RecentSales from "@/components/RecentSales";
 import RecentTransactions from "@/components/RecentTransactions";
 

@@ -20,13 +20,28 @@ import {
 } from "../ui/form";
 import { Button } from "./button";
 import { genericSchema, singleProductFormSchema } from "@/schemas/formSchema";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Minus, Plus } from "lucide-react";
+import {
+  addToInvoice,
+  getAllInvoices,
+  updateInvoice,
+} from "@/api/products/product";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setInvoiceData, setRefetch } from "@/redux/features/tableReducer";
+import { useToast } from "./use-toast";
 
 // Define the type based on the schema
-type SingleProductFormValues = z.infer<typeof genericSchema>;
+export type SingleProductFormValues = z.infer<typeof genericSchema>;
 
-const ProductCard = ({ title, price, stock }: IProductCard) => {
+const ProductCard = ({ id, title, price, stock }: IProductCard) => {
+  const dispatch = useAppDispatch();
+  const { toast } = useToast();
+
+  const { invoiceData, refetch } = useAppSelector(
+    (state) => state.tableReducer
+  );
+
   const form = useForm<SingleProductFormValues>({
     resolver: zodResolver(singleProductFormSchema(stock)),
     defaultValues: {
@@ -38,15 +53,52 @@ const ProductCard = ({ title, price, stock }: IProductCard) => {
 
   const onSubmit = async (data: SingleProductFormValues) => {
     try {
-      console.log("Form data submitted:", data);
+      const productID = invoiceData.find((item) => item.product === id);
+      console.log(productID);
+      if (productID) {
+        let newQuantity = productID.quantity + data.quantity;
+        let newData = {
+          quantity: newQuantity,
+          total_price: data.price * newQuantity,
+        };
+        const res = await updateInvoice(productID.id, newData);
+        if (res.status === 200) {
+          console.log(res.data);
+        }
+      } else {
+        let newData = {
+          ...data,
+          product: id,
+          total_price: data.price * data.quantity,
+        };
+
+        const res = await addToInvoice(newData);
+
+        if (res?.status === 201) {
+          console.log(res.data);
+          dispatch(setRefetch(!refetch));
+          toast({
+            variant: "default",
+            title: "Product Added Successfully",
+            description: `${data.name} has been added to invoice.`,
+          });
+        }
+      }
     } catch (error) {
-      console.log("Error submitting form:", error);
+      toast({
+        title: "Failed to Add Product",
+        description: `Error Occured: ${error}`,
+      });
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6"
+        noValidate
+      >
         <Card className="flex flex-col items-center">
           <CardHeader>
             <CardTitle>{title}</CardTitle>
@@ -97,7 +149,7 @@ const ProductCard = ({ title, price, stock }: IProductCard) => {
               )}
             />
 
-            <Button>Add to Invoice</Button>
+            <Button type="submit">Add to Invoice</Button>
           </CardFooter>
         </Card>
       </form>

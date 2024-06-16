@@ -36,7 +36,7 @@ export const productFormSchema = z.object({
   category: z.string().min(3, {
     message: "Category must be selected.",
   }),
-  subCategory: z.string().optional(),
+  sub_category: z.string().optional(),
   quantity: z
     .number()
     .nonnegative({ message: "Quantity must be a non-negative number" }),
@@ -47,6 +47,16 @@ export const genericSchema = z.object({
   price: z.number(),
   quantity: z.number(),
 });
+
+export const singleInvoiceSchema = (stock:number) =>
+  z.object({
+    quantity: z
+    .number()
+    .nonnegative({ message: "Quantity must be a non-negative number" })
+    .max(stock, `Quantity must be less than or equal to ${stock}`)
+    .min(1, { message: "Quantity must be at least 1" }),
+  })
+  
 
 export const singleProductFormSchema = (stock:number)=>
   z.object({
@@ -62,3 +72,19 @@ export const singleProductFormSchema = (stock:number)=>
       .max(stock, `Quantity must be less than or equal to ${stock}`)
       .min(1, { message: "Quantity must be at least 1" }),
   });
+
+  export const categoryFormSchema = z.object({
+    category: z.string().min(3,{
+      message:"Category must be at least 3 characters."
+    })
+  })
+
+  export const subCategoryFormSchema = z.object({
+    category: z.string().min(3,{
+      message:"Category must be at least 3 characters."
+    }),
+    sub_category: z.string().min(3,{
+      message:"Category must be at least 3 characters."
+    }),
+
+  })

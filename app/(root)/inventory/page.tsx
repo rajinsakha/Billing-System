@@ -1,6 +1,7 @@
 "use client";
 import { getAllProducts } from "@/api/products/product";
 import DynamicTable from "@/components/DynamicTable";
+import TablePagination from "@/components/TablePagination";
 import AddModal from "@/components/modals/addModal";
 import { setDynamicData, setDynamicTableData } from "@/redux/features/tableReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -32,6 +33,7 @@ const Inventory = () => {
       "S.N.",
       "Name",
       "Price",
+      "Stock Quantity",
       "Category",
       "Sub-Category",
       "Added Date",
@@ -40,13 +42,21 @@ const Inventory = () => {
   };
 
   return (
-    <div className="mt-[60px]">
-      <AddModal type="products" />
+    <div className="mt-[60px] space-y-4">
+      <div className="flex gap-4 items-center justify-end">
+      <AddModal type="Category"/>
+      <AddModal type="Sub Category"/>
+      <AddModal type="Product"/>
+      </div>
+     
       <DynamicTable
         headers={tableData.headers}
         data={tableData.data}
         type="products"
       />
+
+      <TablePagination />
+
     </div>
   );
 };

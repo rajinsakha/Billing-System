@@ -41,7 +41,7 @@ const ProductForm = ({ initialData }: formProps) => {
         quantity: 0,
         price: 0,
         category:"",
-        subCategory:""
+        sub_category:""
       };
 
   const form = useForm<ProductFormValues>({
@@ -146,7 +146,7 @@ const ProductForm = ({ initialData }: formProps) => {
 
             <FormField
               control={form.control}
-              name="subCategory"
+              name="sub_category"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sub Category</FormLabel>

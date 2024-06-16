@@ -1,9 +1,12 @@
 "use client";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { CircleFadingPlus } from "lucide-react";
+import {  CirclePlus } from "lucide-react";
 import { useState } from "react";
 import ProductForm from "../forms/ProductForm";
+
+import CategoryForm from "../forms/CategoryForm";
+import SubCategoryForm from "../forms/SubCategoryForm";
 
 interface AddModalProps {
   type: string;
@@ -28,15 +31,17 @@ const AddModal = ({ type }: AddModalProps) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-            Add Product
-          <CircleFadingPlus
+            Add {type}
+          <CirclePlus 
             fontSize={16}
             className={`font-semibold ${isHovered ? "text-white" : ""}`}
           />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[773px]  hide-scrollbar rounded-t-lg rounded-b-none modal-content">
-        {type === "products" && <ProductForm initialData={null} />}
+        {type === "Product" && <ProductForm initialData={null} />}
+        {type === "Category" && <CategoryForm />}
+        {type === "Sub Category" && <SubCategoryForm />}
       </DialogContent>
     </Dialog>
   );

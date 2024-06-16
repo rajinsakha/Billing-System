@@ -9,13 +9,12 @@ import tableReducer from "./features/tableReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["authReducer",], 
+  whitelist: ["authReducer"], 
 };
 
 const rootReducer = combineReducers({
   authReducer: authReducer,
   tableReducer: tableReducer
-
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

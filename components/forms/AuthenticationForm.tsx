@@ -18,12 +18,18 @@ import {
 } from "../ui/form";
 import { setToken } from "@/redux/features/authReducer";
 import { useRouter } from "next/navigation";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
+import { useToast } from "../ui/use-toast";
 
 export type AuthenticationFormValues = z.infer<typeof authenticationFormSchema>;
 
 const AuthenticationForm = () => {
+  const {toast} = useToast();
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const form = useForm<AuthenticationFormValues>({
     resolver: zodResolver(authenticationFormSchema),
@@ -38,10 +44,28 @@ const AuthenticationForm = () => {
       const res = await userLogin(data);
       if (res.status === 200) {
         dispatch(setToken(res.data.token))
+        toast({
+          variant:'default',
+          title: "Login Successful",
+          description: `You have successfully logged in to the system.`,
+        })
         router.push('/');
+      }
+
+      if(res.status === 401){
+        toast({
+          variant: 'destructive',
+          title: "Failed to Log In",
+          description: `${res.data.error}`,
+        })
       }
     } catch (error) {
       console.log(error);
+      toast({
+        variant: 'destructive',
+        title: "Failed to Log In",
+        description: `Error Occured: ${error}`,
+      })
     }
   };
 
@@ -80,11 +104,25 @@ const AuthenticationForm = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="Enter your password"
-                          {...field}
-                        />
+                      <div className="relative">
+                      <Input
+                        type={passwordVisible ? "text" : "password"}
+                        placeholder={"Enter your password"
+                        }
+                        {...field}
+                      />
+                      <button
+                        type="button"
+                        className="absolute top-[10px] right-[10px]"
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                      >
+                        {passwordVisible ? (
+                          <FaEye className="text-primary" size={20} />
+                        ) : (
+                          <FaEyeSlash className="text-primary" size={20} />
+                        )}
+                      </button>
+                    </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

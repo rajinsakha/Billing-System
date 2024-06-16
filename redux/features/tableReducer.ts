@@ -6,7 +6,8 @@ type HomeState = {
   type: string;
   refetch: boolean;
   dynamicData: IDynamicData;
-  dynamicTableData: IProduct[]
+dynamicTableData: IProduct[];
+  invoiceData: any[];
 };
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   refetch:false,
   dynamicData:{} as IDynamicData,
   dynamicTableData:[],
+  invoiceData:[]
 } as HomeState;
 
 export const table = createSlice({
@@ -31,9 +33,12 @@ export const table = createSlice({
     },
     setRefetch:(state, action) =>{
       state.refetch = action.payload;
+    },
+    setInvoiceData:(state, action) =>{
+      state.invoiceData = action.payload;
     }
   },
 });
 
-export const { setType, setRefetch, setDynamicData, setDynamicTableData } = table.actions;
+export const { setType, setRefetch, setDynamicData, setDynamicTableData, setInvoiceData } = table.actions;
 export default table.reducer;

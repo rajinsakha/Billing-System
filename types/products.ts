@@ -1,4 +1,5 @@
 export interface IProductCard {
+  id:number;
   title: string;
   price: number;
   stock: number;
@@ -9,7 +10,7 @@ export interface IProduct {
   name: string;
   image: null;
   price: number;
-  quantity: number;
+  in_stock: number;
   added_date: string;
   updated_date: string;
   empty_date: string;

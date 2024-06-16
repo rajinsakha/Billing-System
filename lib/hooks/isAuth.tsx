@@ -10,7 +10,7 @@ export default function isAuth(Component: any) {
 
     useEffect(() => {
       if (!loading && !isAuthenticated) {
-        router.push("/");
+        router.push("/login");
       }
     }, [loading, isAuthenticated, router]);
 
