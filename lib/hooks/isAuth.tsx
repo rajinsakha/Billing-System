@@ -15,7 +15,7 @@ export default function isAuth(Component: any) {
     }, [loading, isAuthenticated, router]);
 
     if (loading) {
-      return "Loading...";
+      return <div className="flex items-center justify-center loader"></div>;
     }
 
     if (isAuthenticated) {
