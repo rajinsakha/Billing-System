@@ -1,5 +1,5 @@
 "use client";
-import { getAllInvoices, getAllProducts } from "@/api/products/product";
+import { getAllInvoices, getAllProducts, getCategory } from "@/api/products/product";
 import ProductCard from "@/components/ui/productCard";
 import {
   setDynamicData,
@@ -17,10 +17,14 @@ const ProductPage = () => {
   const getData = useCallback(async () => {
     try {
       const res = await getAllProducts();
+
+    
       if (res.status === 200) {
         dispatch(setDynamicData(res.data));
         dispatch(setDynamicTableData(res.data?.results));
       }
+
+    
 
       const invoiceRes = await getAllInvoices();
       if (invoiceRes.status === 200) {

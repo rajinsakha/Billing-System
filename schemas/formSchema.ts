@@ -74,17 +74,17 @@ export const singleProductFormSchema = (stock:number)=>
   });
 
   export const categoryFormSchema = z.object({
-    category: z.string().min(3,{
+    name: z.string().min(3,{
       message:"Category must be at least 3 characters."
     })
   })
 
   export const subCategoryFormSchema = z.object({
     category: z.string().min(3,{
-      message:"Category must be at least 3 characters."
+      message:"Category must be selected."
     }),
-    sub_category: z.string().min(3,{
-      message:"Category must be at least 3 characters."
+    name: z.string().min(3,{
+      message:"Sub-Category must be at least 3 characters."
     }),
 
   })

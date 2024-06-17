@@ -26,11 +26,18 @@ import {
   FormMessage,
 } from "../ui/form";
 import { addProduct } from "@/api/products/product";
+import { useToast } from "../ui/use-toast";
+import { useAppSelector } from "@/redux/hooks";
+import { ISubCategoryDropdown } from "@/types/products";
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
 
 const ProductForm = ({ initialData }: formProps) => {
+  const { toast } = useToast();
   const title = initialData ? "Edit Product" : "New Product";
+  const { categoryDropdown, subCategoryDropdown } = useAppSelector(
+    (state) => state.tableReducer
+  );
 
   const defaultValues = initialData
     ? {
@@ -40,9 +47,16 @@ const ProductForm = ({ initialData }: formProps) => {
         name: "",
         quantity: 0,
         price: 0,
-        category:"",
-        sub_category:""
+        category: "",
+        sub_category: "",
       };
+
+  // const filteredSubCategory: ISubCategoryDropdown[] =
+  //   subCategoryDropdown.filter(
+  //     (item) => item.name === defaultValues.category
+  //   );
+
+  //   console.log(filteredSubCategory);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
@@ -54,12 +68,22 @@ const ProductForm = ({ initialData }: formProps) => {
       if (initialData) {
       } else {
         const res = await addProduct(data);
-        if (res.status === 200) {
+        if (res.status === 201) {
+          document.getElementById("closeDialog")?.click();
+          toast({
+            variant: "default",
+            title: "New Product Added",
+            description: `PRoduct has been successfully added `,
+          });
           console.log(res.data);
         }
       }
     } catch (error) {
-      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Error Occured",
+        description: `Error Occured: ${error}`,
+      });
     }
   };
 
@@ -134,9 +158,11 @@ const ProductForm = ({ initialData }: formProps) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Pipes">Pipes</SelectItem>
-                      <SelectItem value="Cement">Cement</SelectItem>
-                      <SelectItem value="Taps">Taps</SelectItem>
+                      {categoryDropdown.map((item, index) => (
+                        <SelectItem key={index} value={item.id.toString()}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -160,9 +186,11 @@ const ProductForm = ({ initialData }: formProps) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="sub1">sub1</SelectItem>
-                      <SelectItem value="sub2">sub2</SelectItem>
-                      <SelectItem value="sub3">sub3</SelectItem>
+                      {subCategoryDropdown.map((item, index) => (
+                        <SelectItem key={index} value={item.id.toString()}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />

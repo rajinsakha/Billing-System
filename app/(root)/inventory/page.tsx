@@ -1,9 +1,9 @@
 "use client";
-import { getAllProducts } from "@/api/products/product";
+import { getAllProducts, getCategory, getSubCategory } from "@/api/products/product";
 import DynamicTable from "@/components/DynamicTable";
 import TablePagination from "@/components/TablePagination";
 import AddModal from "@/components/modals/addModal";
-import { setDynamicData, setDynamicTableData } from "@/redux/features/tableReducer";
+import { setCategoryDropdown, setDynamicData, setDynamicTableData, setSubCategoryDropdown } from "@/redux/features/tableReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
 import React, { useCallback, useEffect } from "react";
@@ -15,9 +15,17 @@ const Inventory = () => {
   const getData = useCallback(async () => {
     try {
       const res = await getAllProducts();
+      const categoryRes = await getCategory();
+      const subCategoryRes = await getSubCategory();
       if (res.status === 200) {
         dispatch(setDynamicData(res.data));
         dispatch(setDynamicTableData(res.data?.results));
+      }
+      if(categoryRes.status === 200){
+        dispatch(setCategoryDropdown(categoryRes.data));
+      }
+      if(subCategoryRes.status === 200){
+       dispatch(setSubCategoryDropdown(subCategoryRes.data));
       }
     } catch (error) {
       console.log(error);

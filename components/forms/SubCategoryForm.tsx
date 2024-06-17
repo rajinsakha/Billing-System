@@ -15,15 +15,18 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import { useToast } from '../ui/use-toast'
 
 
 export type SubCategoryFormValues = z.infer<typeof subCategoryFormSchema>
 
 const SubCategoryForm = () => {
 
+  const {toast} = useToast();
+
 const defaultValues = {
     category:'',
-    sub_category: ''
+    name: ''
 }
 
 const form = useForm<SubCategoryFormValues>({
@@ -35,11 +38,21 @@ const onSubmit = async (data:SubCategoryFormValues)=>{
 try{
 const res = await addSubCategory(data);
 if(res.status === 201){
+  document.getElementById("closeDialog")?.click();
+  toast({
+    variant:'default',
+    title: "New Sub-Category Added",
+    description: `Sub-Category has been successfully added `,
+  })
     console.log(res.data);
 
 }
 }catch(error){
-    console.log(error);
+  toast({
+    variant: 'destructive',
+    title: "Error Occured",
+    description: `Error Occured: ${error}`,
+  })
 }
 }
 
@@ -82,7 +95,7 @@ if(res.status === 201){
 
             <FormField
               control={form.control}
-              name="sub_category"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sub Category</FormLabel>

@@ -24,4 +24,15 @@ export interface IProduct {
   };
 }
 
+export interface ICategoryDropdown{
+  id:number;
+  name:string;
+}
+
+export interface ISubCategoryDropdown{
+  id:number;
+  name:string;
+  category:number;
+}
+
 

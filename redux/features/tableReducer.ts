@@ -1,4 +1,4 @@
-import { IProduct } from "@/types/products";
+import { ICategoryDropdown, IProduct, ISubCategoryDropdown } from "@/types/products";
 import { IDynamicData } from "@/types/table";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -7,6 +7,8 @@ type HomeState = {
   refetch: boolean;
   dynamicData: IDynamicData;
 dynamicTableData: IProduct[];
+categoryDropdown: ICategoryDropdown[];
+subCategoryDropdown: ISubCategoryDropdown[];
   invoiceData: any[];
 };
 
@@ -15,6 +17,8 @@ const initialState = {
   refetch:false,
   dynamicData:{} as IDynamicData,
   dynamicTableData:[],
+  categoryDropdown:[],
+  subCategoryDropdown: [],
   invoiceData:[]
 } as HomeState;
 
@@ -28,6 +32,12 @@ export const table = createSlice({
     setDynamicTableData:(state, action)=>{
       state.dynamicTableData = action.payload
     },
+    setCategoryDropdown:(state, action)=>{
+      state.categoryDropdown = action.payload
+    },
+    setSubCategoryDropdown:(state, action)=>{
+      state.subCategoryDropdown = action.payload
+    },
     setType: (state, action) => {
       state.type = action.payload;
     },
@@ -40,5 +50,5 @@ export const table = createSlice({
   },
 });
 
-export const { setType, setRefetch, setDynamicData, setDynamicTableData, setInvoiceData } = table.actions;
+export const { setType, setRefetch, setDynamicData, setDynamicTableData, setCategoryDropdown, setSubCategoryDropdown, setInvoiceData } = table.actions;
 export default table.reducer;
