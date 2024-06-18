@@ -56,9 +56,7 @@ const ProductForm = ({ initialData }: formProps) => {
         sub_category: "",
       };
 
-  console.log(defaultValues.category);
-  console.log(categoryDropdown);
-  console.log(subCategoryDropdown);
+
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
@@ -82,8 +80,8 @@ const ProductForm = ({ initialData }: formProps) => {
         name: data.name,
         price: data.price,
         in_stock: data.quantity,
-        category: Number(data.category),
-        sub_category: Number(data.sub_category),
+        category: data.category,
+        sub_category: data.sub_category,
       };
       if (initialData) {
         const res = await updateProduct(singleData.id, transformedData);

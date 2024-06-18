@@ -15,11 +15,15 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setRefetch } from "@/redux/features/tableReducer";
 
 export type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 
 const CategoryForm = () => {
+  const dispatch = useAppDispatch();
   const { toast } = useToast();
+  const {refetch} = useAppSelector((state)=>state.tableReducer)
 
   const defaultValues = {
     name: "",
@@ -35,6 +39,7 @@ const CategoryForm = () => {
       const res = await addCategory(data);
       if (res.status === 201) {
         document.getElementById("closeDialog")?.click();
+        dispatch(setRefetch(!refetch));
         toast({
           variant: "default",
           title: "New Category Added",

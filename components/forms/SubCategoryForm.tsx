@@ -1,60 +1,72 @@
-import {  addSubCategory } from '@/api/products/product'
-import { subCategoryFormSchema } from '@/schemas/formSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+"use client";
+import { addSubCategory } from "@/api/products/product";
+import { subCategoryFormSchema } from "@/schemas/formSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select";
-import { useToast } from '../ui/use-toast'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "../ui/use-toast";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setRefetch } from "@/redux/features/tableReducer";
 
-
-export type SubCategoryFormValues = z.infer<typeof subCategoryFormSchema>
+export type SubCategoryFormValues = z.infer<typeof subCategoryFormSchema>;
 
 const SubCategoryForm = () => {
+  const dispatch = useAppDispatch();
+  const { categoryDropdown, refetch } = useAppSelector(
+    (state) => state.tableReducer
+  );
 
-  const {toast} = useToast();
+  const { toast } = useToast();
 
-const defaultValues = {
-    category:'',
-    name: ''
-}
+  const defaultValues = {
+    category: "",
+    name: "",
+  };
 
-const form = useForm<SubCategoryFormValues>({
+  const form = useForm<SubCategoryFormValues>({
     resolver: zodResolver(subCategoryFormSchema),
-    defaultValues
-})
+    defaultValues,
+  });
 
-const onSubmit = async (data:SubCategoryFormValues)=>{
-try{
-const res = await addSubCategory(data);
-if(res.status === 201){
-  document.getElementById("closeDialog")?.click();
-  toast({
-    variant:'default',
-    title: "New Sub-Category Added",
-    description: `Sub-Category has been successfully added `,
-  })
-    console.log(res.data);
-
-}
-}catch(error){
-  toast({
-    variant: 'destructive',
-    title: "Error Occured",
-    description: `Error Occured: ${error}`,
-  })
-}
-}
+  const onSubmit = async (data: SubCategoryFormValues) => {
+    try {
+      const res = await addSubCategory(data);
+      if (res.status === 201) {
+        document.getElementById("closeDialog")?.click();
+        dispatch(setRefetch(!refetch));
+        toast({
+          variant: "default",
+          title: "New Sub-Category Added",
+          description: `Sub-Category has been successfully added `,
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error Occured",
+        description: `Error Occured: ${error}`,
+      });
+    }
+  };
 
   return (
     <main className="">
@@ -67,7 +79,7 @@ if(res.status === 201){
           className="space-y-6 w-full"
         >
           <div className="overflow-y-scroll hide-scrollbar space-y-6">
-          <FormField
+            <FormField
               control={form.control}
               name="category"
               render={({ field }) => (
@@ -83,9 +95,11 @@ if(res.status === 201){
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Pipes">Pipes</SelectItem>
-                      <SelectItem value="Cement">Cement</SelectItem>
-                      <SelectItem value="Taps">Taps</SelectItem>
+                      {categoryDropdown.map((item, index) => (
+                        <SelectItem key={index} value={item.id.toString()}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -100,20 +114,22 @@ if(res.status === 201){
                 <FormItem>
                   <FormLabel>Sub Category</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the sub category name" {...field} />
+                    <Input
+                      placeholder="Enter the sub category name"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-      
           </div>
 
           <Button type="submit">Submit</Button>
         </form>
       </Form>
     </main>
-  )
-}
+  );
+};
 
-export default SubCategoryForm
+export default SubCategoryForm;

@@ -74,7 +74,7 @@ export const singleProductFormSchema = (stock:number)=>
   })
 
   export const subCategoryFormSchema = z.object({
-    category: z.string().min(3,{
+    category: z.string().min(1,{
       message:"Category must be selected."
     }),
     name: z.string().min(3,{

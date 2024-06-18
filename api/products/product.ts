@@ -36,7 +36,7 @@ export const addProduct = cache(async (data: any) => {
 });
 
 export const updateProduct = cache(async (id:number, data: any) => {
-  const response = await api.patch(`product/products/${id}`, data);
+  const response = await api.patch(`product/products/${id}/`, data);
   return response;
 });
 
