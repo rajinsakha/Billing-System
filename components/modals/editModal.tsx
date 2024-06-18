@@ -11,19 +11,21 @@ import {
 
 
 import { useAppSelector } from "@/redux/hooks";
+import ProductForm from "../forms/ProductForm";
 const EditModal = () => {
-  const { type } = useAppSelector((state) => state.tableReducer);
+  const { type, singleData } = useAppSelector((state) => state.tableReducer);
 
-
-  console.log(type);
+  console.log(singleData);
 
   return (
     <Dialog>
-      <DialogTrigger className="w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary cursor-pointer">
-        <Pencil fontSize={20} />
+      <DialogTrigger className="w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary cursor-pointer" >
+        <Pencil className="h-5 w-5" />
         <p className="text-[13.4px] leading-5 text-textColor">Edit</p>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[773px]    hide-scrollbar rounded-t-lg rounded-b-none"></DialogContent>
+      <DialogContent className="sm:max-w-[773px]    hide-scrollbar rounded-t-lg rounded-b-none">
+        {type === "Product" && <ProductForm initialData={singleData} />}
+      </DialogContent>
     </Dialog>
   );
 };

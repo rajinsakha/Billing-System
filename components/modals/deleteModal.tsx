@@ -10,24 +10,47 @@ import {
 import { Button } from "../ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Trash2 } from "lucide-react";
+import { deleteProduct } from "@/api/products/product";
+import { useToast } from "../ui/use-toast";
+import { setRefetch } from "@/redux/features/tableReducer";
 
 const DeleteModal = () => {
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
   const [deleteStatus, setDeleteStatus] = useState<boolean>(false);
-  const { refetch } = useAppSelector((state) => state.tableReducer);
+  const { refetch, singleData, type } = useAppSelector(
+    (state) => state.tableReducer
+  );
 
-  const handleDelete = async () => {};
+  const handleDelete = async () => {
+    let res;
+    if (type === "Product") {
+      res = await deleteProduct(singleData.id);
+    }
+
+    if (res?.status === 204) {
+      document.getElementById("closeDialog")?.click();
+      dispatch(setRefetch(!refetch));
+      toast({
+        variant: "default",
+        title: "Product Deleted",
+        description: `Product has been successfully deleted`,
+      });
+    }
+  };
 
   return (
     <Dialog>
       <DialogTrigger
-        className={`${" w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary "}cursor-pointer`}
+        className={`${"w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary"}cursor-pointer`}
       >
-        <Trash2 fontSize={20} />
+        <Trash2 className="h-5 w-5" />
         <p
           className={`
            text-[13.4px] leading-5 text-textColor`}
-        ></p>
+        >
+          Delete
+        </p>
       </DialogTrigger>
       <DialogContent className="sm:w-[484px] rounded-t-lg rounded-b-none  py-4 px-5 flex flex-col justify-between gap-3">
         <DialogHeader className="pt-1 pb-4">
@@ -38,12 +61,7 @@ const DeleteModal = () => {
 
         <p className="text-[13.4px] leading-[22px]">
           <span className="font-semibold">
-            {/* {
-              singleData.title ||
-                singleData.name ||
-                singleData.media_name ||
-                singleData.member?.label ||
-                singleData.agenda} */}
+            {singleData.title || singleData.name}
           </span>{" "}
           will be permanently deleted from the system. Do you want to delete?
         </p>

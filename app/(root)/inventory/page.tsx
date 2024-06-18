@@ -10,7 +10,7 @@ import React, { useCallback, useEffect } from "react";
 
 const Inventory = () => {
   const dispatch = useAppDispatch();
-  const { dynamicTableData } = useAppSelector((state) => state.tableReducer);
+  const { dynamicTableData, refetch } = useAppSelector((state) => state.tableReducer);
 
   const getData = useCallback(async () => {
     try {
@@ -34,7 +34,7 @@ const Inventory = () => {
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [getData, refetch]);
 
   const tableData: TableDataItem = {
     headers: [
@@ -60,7 +60,7 @@ const Inventory = () => {
       <DynamicTable
         headers={tableData.headers}
         data={tableData.data}
-        type="products"
+        type="Product"
       />
 
       <TablePagination />

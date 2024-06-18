@@ -15,13 +15,17 @@ export default function isAuth(Component: any) {
     }, [loading, isAuthenticated, router]);
 
     if (loading) {
-      return <div className="flex items-center justify-center loader"></div>;
+      return (
+        <div className="flex items-center justify-center">
+          <div className="loader"></div>
+        </div>
+      );
     }
 
     if (isAuthenticated) {
       return <Component {...props} />;
     }
 
-    return null; 
+    return null;
   };
 }

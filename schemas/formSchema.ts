@@ -24,22 +24,16 @@ export const productFormSchema = z.object({
   name: z.string().min(3, {
     message: "Product name must be at least 3 characters.",
   }),
-  description: z
-    .string()
-    .min(3, {
-      message: "Description must be at least 3 characters.",
-    })
-    .optional(),
-  price: z
+  quantity: z.coerce
     .number()
+    .nonnegative({ message: "Quantity must be a non-negative number" }),
+  price: z.coerce.number()
     .nonnegative({ message: "Price must be a non-negative number" }),
-  category: z.string().min(3, {
+  category: z.string().min(1, {
     message: "Category must be selected.",
   }),
   sub_category: z.string().optional(),
-  quantity: z
-    .number()
-    .nonnegative({ message: "Quantity must be a non-negative number" }),
+
 });
 
 export const genericSchema = z.object({

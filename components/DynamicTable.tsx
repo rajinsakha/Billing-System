@@ -1,3 +1,5 @@
+"use client"
+import React from "react";
 import {
   Table,
   TableBody,
@@ -8,14 +10,14 @@ import {
 } from "@/components/ui/table";
 import { TableProps } from "@/types/table";
 import { ScrollArea } from "./ui/scroll-area";
-import React from "react";
-import { SingleProductFormValues } from "./ui/productCard";
-import { useForm } from "react-hook-form";
-import { singleProductFormSchema } from "@/schemas/formSchema";
+import ToggleDropdown from "./toggleDropdown";
+import { useAppDispatch } from "@/redux/hooks";
+import { setSingleData, setType } from "@/redux/features/tableReducer";
 
 
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
+  const dispatch = useAppDispatch();
   let extractedData: any[] = [];
 
   // if(type === "transactions"){
@@ -33,7 +35,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
 
 
 
-  if (type === "products") {
+  if (type === "Product") {
     data?.forEach((item) => {
       const extractedItem: any = {
         id: item?.id,
@@ -48,7 +50,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     });
   }
 
-  if (type === "invoices") {
+  if (type === "Invoice") {
     data?.forEach((item) => {
       const extractedItem: any = {
         id: item?.id,
@@ -87,6 +89,13 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                   )}
                 </React.Fragment>
               ))}
+              <TableCell onClick={()=>{
+                dispatch(setSingleData(row));
+                dispatch(setType(type));
+              }}>
+              <ToggleDropdown />
+              </TableCell>
+              
             </TableRow>
           ))}
         </TableBody>

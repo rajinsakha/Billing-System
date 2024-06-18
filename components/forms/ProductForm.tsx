@@ -25,55 +25,86 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { addProduct } from "@/api/products/product";
+import { addProduct, updateProduct } from "@/api/products/product";
 import { useToast } from "../ui/use-toast";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ISubCategoryDropdown } from "@/types/products";
+import { setRefetch } from "@/redux/features/tableReducer";
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
 
 const ProductForm = ({ initialData }: formProps) => {
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
   const title = initialData ? "Edit Product" : "New Product";
-  const { categoryDropdown, subCategoryDropdown } = useAppSelector(
-    (state) => state.tableReducer
-  );
+  const { singleData, categoryDropdown, subCategoryDropdown, refetch } =
+    useAppSelector((state) => state.tableReducer);
 
   const defaultValues = initialData
     ? {
-        name: initialData.username,
+        name: initialData.name,
+        quantity: initialData.stock,
+        price: initialData.price,
+        category: initialData.category,
+        sub_category: initialData.sub_category,
       }
     : {
         name: "",
-        quantity: 0,
-        price: 0,
+        quantity: null,
+        price: null,
         category: "",
         sub_category: "",
       };
 
-  // const filteredSubCategory: ISubCategoryDropdown[] =
-  //   subCategoryDropdown.filter(
-  //     (item) => item.name === defaultValues.category
-  //   );
-
-  //   console.log(filteredSubCategory);
+  console.log(defaultValues.category);
+  console.log(categoryDropdown);
+  console.log(subCategoryDropdown);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
     defaultValues,
   });
 
+  const { watch } = form;
+
+  const selectedCategory = watch("category");
+
+  const filteredSubCategory: ISubCategoryDropdown[] =
+    subCategoryDropdown.filter(
+      (item) => item.category === Number(selectedCategory)
+    );
+
+  console.log(filteredSubCategory);
+
   const onSubmit = async (data: ProductFormValues) => {
     try {
+      const transformedData = {
+        name: data.name,
+        price: data.price,
+        in_stock: data.quantity,
+        category: Number(data.category),
+        sub_category: Number(data.sub_category),
+      };
       if (initialData) {
+        const res = await updateProduct(singleData.id, transformedData);
+        if (res.status === 200) {
+          document.getElementById("closeDialog")?.click();
+          dispatch(setRefetch(!refetch));
+          toast({
+            variant: "default",
+            title: "Product Updated",
+            description: `Product has been successfully updated`,
+          });
+        }
       } else {
-        const res = await addProduct(data);
+        const res = await addProduct(transformedData);
         if (res.status === 201) {
           document.getElementById("closeDialog")?.click();
+          dispatch(setRefetch(!refetch));
           toast({
             variant: "default",
             title: "New Product Added",
-            description: `PRoduct has been successfully added `,
+            description: `Product has been successfully added `,
           });
           console.log(res.data);
         }
@@ -118,9 +149,9 @@ const ProductForm = ({ initialData }: formProps) => {
                 name="quantity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Quantity</FormLabel>
+                    <FormLabel>Stock Quantity</FormLabel>
                     <FormControl>
-                      <Input placeholder="shadcn" {...field} />
+                      <Input type="number" placeholder="shadcn" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -186,11 +217,15 @@ const ProductForm = ({ initialData }: formProps) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {subCategoryDropdown.map((item, index) => (
-                        <SelectItem key={index} value={item.id.toString()}>
-                          {item.name}
-                        </SelectItem>
-                      ))}
+                      {filteredSubCategory.length === 0 ? (
+                        <p className="p-1">No SubCategory Found</p>
+                      ) : (
+                        filteredSubCategory.map((item, index) => (
+                          <SelectItem key={index} value={item.id.toString()}>
+                            {item.name}
+                          </SelectItem>
+                        ))
+                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />

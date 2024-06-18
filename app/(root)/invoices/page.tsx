@@ -47,7 +47,7 @@ const Invoices = () => {
        <DynamicTable
         headers={tableData.headers}
         data={tableData.data}
-        type="invoices"
+        type="Invoice"
       />
     </div>
     
