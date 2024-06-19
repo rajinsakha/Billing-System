@@ -105,6 +105,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
           </CardHeader>
           <CardContent>
             <p>Price: Rs{price}</p>
+            <p>Stock Left: {stock} </p>
           </CardContent>
           <CardFooter className="flex flex-col gap-4 ">
             <FormField
@@ -149,7 +150,8 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
               )}
             />
 
-            <Button type="submit">Add to Invoice</Button>
+
+            <Button type="submit" disabled={stock === 0} >Add to Invoice</Button>
           </CardFooter>
         </Card>
       </form>

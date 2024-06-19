@@ -5,6 +5,7 @@ import {
   getCategory,
 } from "@/api/products/product";
 import ProductCard from "@/components/ui/productCard";
+import useFetchData from "@/lib/hooks/useFetchData";
 import {
   setDynamicData,
   setDynamicTableData,
@@ -16,31 +17,32 @@ import { useCallback, useEffect } from "react";
 
 const ProductPage = () => {
   const dispatch = useAppDispatch();
+  const { loading, error } = useFetchData("Product");
   const { dynamicTableData, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
 
-  const getData = useCallback(async () => {
-    try {
-      const res = await getAllProducts();
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const res = await getAllProducts();
 
-      if (res.status === 200) {
-        dispatch(setDynamicData(res.data));
-        dispatch(setDynamicTableData(res.data?.results));
-      }
+  //     if (res.status === 200) {
+  //       dispatch(setDynamicData(res.data));
+  //       dispatch(setDynamicTableData(res.data?.results));
+  //     }
 
-      const invoiceRes = await getAllInvoices();
-      if (invoiceRes.status === 200) {
-        dispatch(setInvoiceData(invoiceRes.data.results));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, [dispatch]);
+  //     // const invoiceRes = await getAllInvoices();
+  //     // if (invoiceRes.status === 200) {
+  //     //   dispatch(setInvoiceData(invoiceRes.data.results));
+  //     // }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [dispatch]);
 
-  useEffect(() => {
-    getData();
-  }, [getData, refetch]);
+  // useEffect(() => {
+  //   getData();
+  // }, [getData, refetch]);
 
   return (
     <div className="mt-[60px]">

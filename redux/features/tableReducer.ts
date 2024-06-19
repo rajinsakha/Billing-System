@@ -10,7 +10,7 @@ type HomeState = {
   type: string;
   refetch: boolean;
   dynamicData: IDynamicData;
-  dynamicTableData: IProduct[];
+  dynamicTableData: IProduct[] | any[];
   singleData: IProduct | any;
   categoryDropdown: ICategoryDropdown[];
   subCategoryDropdown: ISubCategoryDropdown[];
