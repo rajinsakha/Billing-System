@@ -5,37 +5,18 @@ import DynamicTable from "@/components/DynamicTable";
 import { Input } from "@/components/ui/input";
 import { calculateTotalPrice } from "@/lib/calculation";
 import useFetchData from "@/lib/hooks/useFetchData";
-import {
-  setDynamicData,
-  setDynamicTableData,
-} from "@/redux/features/tableReducer";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+
+import {  useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
 const Invoices = () => {
-  const dispatch = useAppDispatch();
+ 
   const { loading, error } = useFetchData("Invoice");
   const { dynamicTableData } = useAppSelector((state) => state.tableReducer);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
 
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const res = await getAllInvoices();
-  //     if (res.status === 200) {
-  //       dispatch(setDynamicData(res.data));
-  //       dispatch(setDynamicTableData(res.data?.results));
-  //       console.log(res.data.results);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
 
   const tableData: TableDataItem = {
     headers: ["S.N.", "Name", "Quantity", "Total Price", "Added Date"],

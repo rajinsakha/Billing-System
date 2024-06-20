@@ -104,7 +104,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                   dispatch(setType(type));
                 }}
               >
-                {type !== "Invoice" ? <ToggleDropdown /> : <DeleteModal />}
+                {type !== "Invoice" ? <ToggleDropdown /> : <DeleteModal isSeparate />}
                 
               </TableCell>
             </TableRow>

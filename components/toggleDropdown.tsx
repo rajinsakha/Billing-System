@@ -24,7 +24,7 @@ const ToggleDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className={`w-[148px] rounded-sm`}  align="end">
         <EditModal />
-        <DeleteModal />
+        <DeleteModal isSeparate={false} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

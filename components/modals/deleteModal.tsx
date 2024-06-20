@@ -15,7 +15,7 @@ import { useToast } from "../ui/use-toast";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { deleteInvoice } from "@/api/invoices/invoice";
 
-const DeleteModal = () => {
+const DeleteModal = ({isSeparate}: { isSeparate?: boolean }) => {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const [deleteStatus, setDeleteStatus] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const DeleteModal = () => {
       res = await deleteProduct(singleData.id);
     }
 
-    if(type === "Invoice"){
+    if (type === "Invoice") {
       res = await deleteInvoice(singleData.id);
     }
 
@@ -47,12 +47,14 @@ const DeleteModal = () => {
   return (
     <Dialog>
       <DialogTrigger
-        className={`${"w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary"} cursor-pointer`}
+        className={`w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary cursor-pointer ${
+         isSeparate && "bg-red-500 text-white hover:bg-red-600 w-[105px] rounded-lg"
+        } `}
       >
         <Trash2 className="h-5 w-5" />
         <p
           className={`
-           text-[13.4px] leading-5 text-textColor`}
+           text-[13.4px] leading-5`}
         >
           Delete
         </p>
