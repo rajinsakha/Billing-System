@@ -5,7 +5,8 @@ import {
   setDynamicData,
   setDynamicTableData,
 } from "@/redux/features/tableReducer";
-import { getAllInvoices, getAllProducts } from "@/api/products/product";
+import {  getAllProducts } from "@/api/products/product";
+import { getAllInvoices } from "@/api/invoices/invoice";
 
 const useFetchData = (type: string) => {
   const dispatch = useAppDispatch();

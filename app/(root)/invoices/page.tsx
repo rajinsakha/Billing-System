@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllInvoices } from "@/api/products/product";
+
 import DynamicTable from "@/components/DynamicTable";
 import { Input } from "@/components/ui/input";
 import { calculateTotalPrice } from "@/lib/calculation";

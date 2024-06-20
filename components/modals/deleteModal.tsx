@@ -13,6 +13,7 @@ import { Trash2 } from "lucide-react";
 import { deleteProduct } from "@/api/products/product";
 import { useToast } from "../ui/use-toast";
 import { setRefetch } from "@/redux/features/tableReducer";
+import { deleteInvoice } from "@/api/invoices/invoice";
 
 const DeleteModal = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,10 @@ const DeleteModal = () => {
     let res;
     if (type === "Product") {
       res = await deleteProduct(singleData.id);
+    }
+
+    if(type === "Invoice"){
+      res = await deleteInvoice(singleData.id);
     }
 
     if (res?.status === 204) {
@@ -42,7 +47,7 @@ const DeleteModal = () => {
   return (
     <Dialog>
       <DialogTrigger
-        className={`${"w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary"}cursor-pointer`}
+        className={`${"w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary"} cursor-pointer`}
       >
         <Trash2 className="h-5 w-5" />
         <p

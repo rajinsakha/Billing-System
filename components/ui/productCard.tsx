@@ -20,15 +20,14 @@ import {
 } from "../ui/form";
 import { Button } from "./button";
 import { genericSchema, singleProductFormSchema } from "@/schemas/formSchema";
-import { useCallback, useEffect, useState } from "react";
+
 import { Minus, Plus } from "lucide-react";
 import {
   addToInvoice,
-  getAllInvoices,
   updateInvoice,
-} from "@/api/products/product";
+} from "@/api/invoices/invoice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setInvoiceData, setRefetch } from "@/redux/features/tableReducer";
+import { setRefetch } from "@/redux/features/tableReducer";
 import { useToast } from "./use-toast";
 
 // Define the type based on the schema
@@ -144,7 +143,6 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
                       </button>
                     </div>
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}

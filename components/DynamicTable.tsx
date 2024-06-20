@@ -13,6 +13,8 @@ import { ScrollArea } from "./ui/scroll-area";
 import ToggleDropdown from "./toggleDropdown";
 import { useAppDispatch } from "@/redux/hooks";
 import { setSingleData, setType } from "@/redux/features/tableReducer";
+import QuantityForm from "./forms/QuantityForm";
+import DeleteModal from "./modals/deleteModal";
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
   const dispatch = useAppDispatch();
@@ -31,6 +33,8 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
   //   });
   // }
 
+  console.log(data);
+
   if (type === "Product") {
     data?.forEach((item) => {
       const extractedItem: any = {
@@ -44,6 +48,8 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
       };
       extractedData.push(extractedItem);
     });
+
+
   }
 
   if (type === "Invoice") {
@@ -51,7 +57,11 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
       const extractedItem: any = {
         id: item?.id,
         name: item?.product_info?.label,
-        quantity: item?.quantity,
+        quantity: {
+          qty: item?.quantity,
+          stock: item?.product_info?.in_stock,
+          price: item?.product_info?.price
+        },
         total_price: item?.total_price,
         // category: item?.category?.label,
         // sub_category:item?.sub_category?.label,
@@ -61,6 +71,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     });
   }
 
+  console.log(extractedData);
   return (
     <ScrollArea className="h-[60vh]">
       <Table className="">
@@ -77,7 +88,9 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
               {Object.entries(row).map(([key, value]: any, colIndex) => (
                 <React.Fragment key={colIndex}>
                   {key === "quantity" ? (
-                    <TableCell>{value}</TableCell>
+                    <TableCell>
+                      <QuantityForm initialData={row} />
+                    </TableCell>
                   ) : (
                     <TableCell key={colIndex}>
                       <div className="font-medium">{value}</div>
@@ -91,7 +104,8 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                   dispatch(setType(type));
                 }}
               >
-                <ToggleDropdown />
+                {type !== "Invoice" ? <ToggleDropdown /> : <DeleteModal />}
+                
               </TableCell>
             </TableRow>
           ))}
