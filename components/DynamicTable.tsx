@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import {
   Table,
@@ -13,8 +13,6 @@ import { ScrollArea } from "./ui/scroll-area";
 import ToggleDropdown from "./toggleDropdown";
 import { useAppDispatch } from "@/redux/hooks";
 import { setSingleData, setType } from "@/redux/features/tableReducer";
-
-
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
   const dispatch = useAppDispatch();
@@ -33,15 +31,13 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
   //   });
   // }
 
-
-
   if (type === "Product") {
     data?.forEach((item) => {
       const extractedItem: any = {
         id: item?.id,
         name: item?.name,
         price: item?.price,
-        stock:item?.in_stock,
+        stock: item?.in_stock,
         category: item?.category?.label,
         sub_category: item?.sub_category?.label,
         added_date: item?.added_date,
@@ -89,13 +85,14 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                   )}
                 </React.Fragment>
               ))}
-              <TableCell onClick={()=>{
-                dispatch(setSingleData(row));
-                dispatch(setType(type));
-              }}>
-              <ToggleDropdown />
+              <TableCell
+                onClick={() => {
+                  dispatch(setSingleData(row));
+                  dispatch(setType(type));
+                }}
+              >
+                <ToggleDropdown />
               </TableCell>
-              
             </TableRow>
           ))}
         </TableBody>
