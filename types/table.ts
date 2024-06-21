@@ -9,7 +9,7 @@ export interface IDynamicData {
 }
 export interface TableDataItem {
   headers: string[];
-  data: IProduct[];
+  data: IProduct[] | any[];
 }
 export interface TableProps {
   headers: string[];

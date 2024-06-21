@@ -4,7 +4,8 @@ import {
   setCategoryDropdown,
   setSubCategoryDropdown,
 } from "@/redux/features/tableReducer";
-import { getCategory, getSubCategory } from "@/api/products/product";
+import { getCategoryDropdown, getSubCategoryDropdown } from "@/api/products/dropdown/dropdown";
+
 
 const useFetchDropdown = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +16,8 @@ const useFetchDropdown = () => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const categoryRes = await getCategory();
-      const subCategoryRes = await getSubCategory();
+      const categoryRes = await getCategoryDropdown();
+      const subCategoryRes = await getSubCategoryDropdown();
 
       if (categoryRes.status === 200) {
         dispatch(setCategoryDropdown(categoryRes.data));

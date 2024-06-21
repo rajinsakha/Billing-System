@@ -1,8 +1,7 @@
 "use client";
-import { addSubCategory } from "@/api/products/product";
 import { subCategoryFormSchema } from "@/schemas/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -26,21 +25,32 @@ import {
 import { useToast } from "../ui/use-toast";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setRefetch } from "@/redux/features/tableReducer";
+import { formProps } from "@/types/form";
+import {
+  addSubCategory,
+  updateSubCategory,
+} from "@/api/products/dropdown/dropdown";
 
 export type SubCategoryFormValues = z.infer<typeof subCategoryFormSchema>;
 
-const SubCategoryForm = () => {
+const SubCategoryForm = ({ initialData }: formProps) => {
   const dispatch = useAppDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { categoryDropdown, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
 
   const { toast } = useToast();
 
-  const defaultValues = {
-    category: "",
-    name: "",
-  };
+  const defaultValues = initialData
+    ? {
+        category: initialData?.category,
+        name: initialData?.name,
+      }
+    : {
+        category: "",
+        name: "",
+      };
 
   const form = useForm<SubCategoryFormValues>({
     resolver: zodResolver(subCategoryFormSchema),
@@ -48,16 +58,30 @@ const SubCategoryForm = () => {
   });
 
   const onSubmit = async (data: SubCategoryFormValues) => {
+    setIsSubmitting(true);
     try {
-      const res = await addSubCategory(data);
-      if (res.status === 201) {
-        document.getElementById("closeDialog")?.click();
-        dispatch(setRefetch(!refetch));
-        toast({
-          variant: "default",
-          title: "New Sub-Category Added",
-          description: `Sub-Category has been successfully added `,
-        });
+      if (initialData) {
+        const res = await updateSubCategory(initialData.id, data);
+        if (res.status === 200) {
+          document.getElementById("closeDialog")?.click();
+          dispatch(setRefetch(!refetch));
+          toast({
+            variant: "default",
+            title: "Sub-Category Updated",
+            description: `Sub-Category has been successfully updated `,
+          });
+        }
+      } else {
+        const res = await addSubCategory(data);
+        if (res.status === 201) {
+          document.getElementById("closeDialog")?.click();
+          dispatch(setRefetch(!refetch));
+          toast({
+            variant: "default",
+            title: "New Sub-Category Added",
+            description: `Sub-Category has been successfully added `,
+          });
+        }
       }
     } catch (error) {
       toast({
@@ -65,6 +89,8 @@ const SubCategoryForm = () => {
         title: "Error Occured",
         description: `Error Occured: ${error}`,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

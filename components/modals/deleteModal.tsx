@@ -14,6 +14,7 @@ import { deleteProduct } from "@/api/products/product";
 import { useToast } from "../ui/use-toast";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { deleteInvoice } from "@/api/invoices/invoice";
+import { deleteCategory } from "@/api/products/dropdown/dropdown";
 
 const DeleteModal = ({isSeparate}: { isSeparate?: boolean }) => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,10 @@ const DeleteModal = ({isSeparate}: { isSeparate?: boolean }) => {
 
     if (type === "Invoice") {
       res = await deleteInvoice(singleData.id);
+    }
+
+    if(type === "Category"){
+      res = await deleteCategory(singleData.id);
     }
 
     if (res?.status === 204) {

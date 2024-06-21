@@ -21,7 +21,6 @@ const AddModal = ({ type }: AddModalProps) => {
 
 
 
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -40,8 +39,8 @@ const AddModal = ({ type }: AddModalProps) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[773px]  hide-scrollbar rounded-t-lg rounded-b-none modal-content">
         {type === "Product" && <ProductForm initialData={null} />}
-        {type === "Category" && <CategoryForm />}
-        {type === "Sub Category" && <SubCategoryForm />}
+        {type === "Category" && <CategoryForm initialData={null}/>}
+        {type === "Sub Category" && <SubCategoryForm initialData={null} />}
       </DialogContent>
     </Dialog>
   );

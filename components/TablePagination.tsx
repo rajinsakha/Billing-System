@@ -72,8 +72,8 @@ const TablePagination = () => {
           (_, i) =>
             (i === 0 ||
               i === dynamicData.total_pages - 1 ||
-              i === currentPage + 1 ||
-              i === currentPage) && (
+              currentPage === i+1 ||
+              i === currentPage || (currentPage === dynamicData.total_pages && i === dynamicData.total_pages - 2 )) && (
               <PaginationItem key={i}>
                 <PaginationLink
                   className="cursor-pointer"

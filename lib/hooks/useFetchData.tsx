@@ -7,6 +7,7 @@ import {
 } from "@/redux/features/tableReducer";
 import {  getAllProducts } from "@/api/products/product";
 import { getAllInvoices } from "@/api/invoices/invoice";
+import { getAllCategories,  } from "@/api/products/dropdown/dropdown";
 
 const useFetchData = (type: string) => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,10 @@ const useFetchData = (type: string) => {
 
       if (type === "Invoice") {
         response = await getAllInvoices();
+      }
+
+      if(type === "Category"){
+        response = await getAllCategories();
       }
 
       if (response?.status === 200) {

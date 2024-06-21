@@ -1,9 +1,8 @@
 "use client";
 import { Pencil, X } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
 import {
   Dialog,
-  DialogClose,
+ 
   DialogContent,
 
   DialogTrigger,
@@ -12,10 +11,9 @@ import {
 
 import { useAppSelector } from "@/redux/hooks";
 import ProductForm from "../forms/ProductForm";
+import CategoryForm from "../forms/CategoryForm";
 const EditModal = () => {
   const { type, singleData } = useAppSelector((state) => state.tableReducer);
-
-  console.log(singleData);
 
   return (
     <Dialog>
@@ -25,6 +23,7 @@ const EditModal = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[773px]    hide-scrollbar rounded-t-lg rounded-b-none">
         {type === "Product" && <ProductForm initialData={singleData} />}
+        {type === "Category" && <CategoryForm initialData={singleData} />}
       </DialogContent>
     </Dialog>
   );
