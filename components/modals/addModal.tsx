@@ -20,7 +20,6 @@ const AddModal = ({ type }: AddModalProps) => {
  
 
 
-
   return (
     <Dialog>
       <DialogTrigger asChild>

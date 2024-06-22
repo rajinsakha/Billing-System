@@ -1,7 +1,7 @@
 
 const TitleText = ({title}:{title:string}) => {
   return (
-    <h1 className="text-3xl">{title}</h1>
+    <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
   )
 }
 

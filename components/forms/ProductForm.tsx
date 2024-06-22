@@ -72,7 +72,7 @@ const ProductForm = ({ initialData }: formProps) => {
       (item) => item.category === Number(selectedCategory)
     );
 
-  console.log(filteredSubCategory);
+
 
   const onSubmit = async (data: ProductFormValues) => {
     try {

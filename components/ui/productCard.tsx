@@ -22,10 +22,7 @@ import { Button } from "./button";
 import { genericSchema, singleProductFormSchema } from "@/schemas/formSchema";
 
 import { Minus, Plus } from "lucide-react";
-import {
-  addToInvoice,
-  updateInvoice,
-} from "@/api/invoices/invoice";
+import { addToInvoice, updateInvoice } from "@/api/invoices/invoice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { useToast } from "./use-toast";
@@ -53,7 +50,6 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
   const onSubmit = async (data: SingleProductFormValues) => {
     try {
       const productID = invoiceData.find((item) => item.product === id);
-      console.log(productID);
       if (productID) {
         let newQuantity = productID.quantity + data.quantity;
         let newData = {
@@ -95,15 +91,14 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6"
         noValidate
       >
         <Card className="flex flex-col items-center">
           <CardHeader>
             <CardTitle>{title}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p>Price: Rs{price}</p>
+          <CardContent className="space-y-2">
+            <p>Price: Rs {price}</p>
             <p>Stock Left: {stock} </p>
           </CardContent>
           <CardFooter className="flex flex-col gap-4 ">
@@ -148,8 +143,9 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
               )}
             />
 
-
-            <Button type="submit" disabled={stock === 0} >Add to Invoice</Button>
+            <Button type="submit" disabled={stock === 0}>
+              Add to Invoice
+            </Button>
           </CardFooter>
         </Card>
       </form>

@@ -15,7 +15,7 @@ const ProductPage = () => {
   return (
     <div className="mt-[60px]">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {dynamicTableData.map((data) => (
+        {dynamicTableData?.map((data) => (
           <ProductCard
             key={data.id}
             id={data.id}

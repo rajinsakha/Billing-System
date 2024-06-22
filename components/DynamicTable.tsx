@@ -15,7 +15,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setSingleData, setType } from "@/redux/features/tableReducer";
 import QuantityForm from "./forms/QuantityForm";
 import DeleteModal from "./modals/deleteModal";
-import { extractTableData } from "@/lib/table";
+import { extractTableData, generateHeight } from "@/lib/table";
 import { useRouter } from "next/navigation";
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
@@ -30,13 +30,15 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     }
   }
 
+  const height = generateHeight(type);
+
   return (
-    <ScrollArea className="h-[60vh]">
+    <ScrollArea className={height}>
       <Table className="">
         <TableHeader>
           <TableRow>
             {headers.map((head, index) => (
-              <TableHead key={index} className={`${head === "Quantity" && "flex justify-center items-center" }`}>{head}</TableHead>
+              <TableHead key={index} className={`${head === "Quantity" && "flex justify-center items-center"}`}>{head}</TableHead>
             ))}
           </TableRow>
         </TableHeader>

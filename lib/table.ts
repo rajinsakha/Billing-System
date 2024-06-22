@@ -28,9 +28,25 @@ export const extractTableData = (data: any[], type: string): any[] => {
                 id:item?.id,
                 name:item?.name,
                 total_subcategories:item?.total_subcategories
-            }  
+            };
+        case "Transaction":
+          return{
+            id:item?.id,
+            customer_name: item?.bill_for,
+            total_price:item?.total_price,
+            created_at:item?.created_at,
+            
+          }      
         default:
           return item;
       }
     });
   };
+
+  export const generateHeight = (type:string)=>{
+    if(type === "Invoice"){
+      return "h-[55vh]"
+    }else{
+      return "h-[65vh]"
+    }
+  }

@@ -53,7 +53,7 @@ const DeleteModal = ({isSeparate}: { isSeparate?: boolean }) => {
     <Dialog>
       <DialogTrigger
         className={`w-full flex items-center gap-2 py-3 px-4 hover:bg-secondary cursor-pointer ${
-         isSeparate && "bg-red-500 text-white hover:bg-red-600 w-[105px] rounded-lg"
+         isSeparate && "bg-red-500 text-white hover:!bg-red-700 w-[105px] rounded-lg"
         } `}
       >
         <Trash2 className="h-5 w-5" />
