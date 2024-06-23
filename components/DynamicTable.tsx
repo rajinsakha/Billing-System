@@ -23,22 +23,29 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
   const dispatch = useAppDispatch();
   const extractedData = extractTableData(data, type);
 
-  const handleClick = (id:number) =>{
-    // console.log(id);
-    if(type === "Category"){
+  const handleClick = (id: number) => {
+    if (type === "Category") {
       router.push(`/category/${id}/`);
     }
-  }
+  };
 
   const height = generateHeight(type);
 
+
   return (
-    <ScrollArea className={height}>
+    <ScrollArea className={`${height}`}>
       <Table className="">
         <TableHeader>
           <TableRow>
             {headers.map((head, index) => (
-              <TableHead key={index} className={`${head === "Quantity" && "flex justify-center items-center"}`}>{head}</TableHead>
+              <TableHead
+                key={index}
+                className={`${
+                  head === "Quantity" && "flex justify-center items-center"
+                }`}
+              >
+                {head}
+              </TableHead>
             ))}
           </TableRow>
         </TableHeader>
@@ -51,15 +58,22 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                     <TableCell>
                       <QuantityForm initialData={row} />
                     </TableCell>
+                  ) : typeof value === "object" &&
+                    value?.hasOwnProperty("label") &&
+                    value?.hasOwnProperty("value") ? (
+                    <TableCell>{value.label}</TableCell>
                   ) : (
-                    <TableCell key={colIndex} onClick={()=>handleClick(row?.id)}>
+                    <TableCell
+                      key={colIndex}
+                      onClick={() => handleClick(row?.id)}
+                    >
                       <div className="font-medium">{value}</div>
                     </TableCell>
                   )}
                 </React.Fragment>
               ))}
               <TableCell
-              className="w-[100px] text-right"
+                className="w-[100px] text-right"
                 onClick={() => {
                   dispatch(setSingleData(row));
                   dispatch(setType(type));

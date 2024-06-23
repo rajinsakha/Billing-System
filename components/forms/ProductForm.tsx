@@ -30,6 +30,7 @@ import { useToast } from "../ui/use-toast";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ISubCategoryDropdown } from "@/types/products";
 import { setRefetch } from "@/redux/features/tableReducer";
+import { useState } from "react";
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
 
@@ -37,16 +38,18 @@ const ProductForm = ({ initialData }: formProps) => {
   const { toast } = useToast();
   const dispatch = useAppDispatch();
   const title = initialData ? "Edit Product" : "New Product";
-  const { singleData, categoryDropdown, subCategoryDropdown, refetch } =
-    useAppSelector((state) => state.tableReducer);
+  const { singleData, categoryDropdown, subCategoryDropdown, refetch } = useAppSelector((state) => state.tableReducer);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+
 
   const defaultValues = initialData
     ? {
         name: initialData.name,
         quantity: initialData.stock,
         price: initialData.price,
-        category: initialData.category,
-        sub_category: initialData.sub_category,
+        category: initialData.category?.value.toString(),
+        sub_category: initialData.sub_category?.value.toString(),
       }
     : {
         name: "",
@@ -55,7 +58,6 @@ const ProductForm = ({ initialData }: formProps) => {
         category: "",
         sub_category: "",
       };
-
 
 
   const form = useForm<ProductFormValues>({
@@ -75,6 +77,7 @@ const ProductForm = ({ initialData }: formProps) => {
 
 
   const onSubmit = async (data: ProductFormValues) => {
+    setIsSubmitting(true);
     try {
       const transformedData = {
         name: data.name,
@@ -113,6 +116,8 @@ const ProductForm = ({ initialData }: formProps) => {
         title: "Error Occured",
         description: `Error Occured: ${error}`,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -179,11 +184,12 @@ const ProductForm = ({ initialData }: formProps) => {
                   <FormLabel>Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value?.toString()}
+                    defaultValue={field.value?.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a Category" />
+                        <SelectValue placeholder="Select a Category"  defaultValue={field.value?.toString()} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -207,11 +213,12 @@ const ProductForm = ({ initialData }: formProps) => {
                   <FormLabel>Sub Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value?.toString()}
+                    defaultValue={field.value?.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a subCategory" />
+                        <SelectValue placeholder="Select a subCategory" defaultValue={field.value?.toString()} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -232,7 +239,7 @@ const ProductForm = ({ initialData }: formProps) => {
             />
           </div>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isSubmitting}>Submit</Button>
         </form>
       </Form>
     </main>

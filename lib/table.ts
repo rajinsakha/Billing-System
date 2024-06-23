@@ -7,8 +7,8 @@ export const extractTableData = (data: any[], type: string): any[] => {
             name: item?.name,
             price: item?.price,
             stock: item?.in_stock,
-            category: item?.category?.label,
-            sub_category: item?.sub_category?.label,
+            category: item?.category,
+            sub_category: item?.sub_category,
             added_date: item?.added_date,
           };
         case "Invoice":

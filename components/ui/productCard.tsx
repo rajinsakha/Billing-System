@@ -26,6 +26,7 @@ import { addToInvoice, updateInvoice } from "@/api/invoices/invoice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { useToast } from "./use-toast";
+import { useState } from "react";
 
 // Define the type based on the schema
 export type SingleProductFormValues = z.infer<typeof genericSchema>;
@@ -33,6 +34,7 @@ export type SingleProductFormValues = z.infer<typeof genericSchema>;
 const ProductCard = ({ id, title, price, stock }: IProductCard) => {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { invoiceData, refetch } = useAppSelector(
     (state) => state.tableReducer
@@ -48,6 +50,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
   });
 
   const onSubmit = async (data: SingleProductFormValues) => {
+    setIsSubmitting(true);
     try {
       const productID = invoiceData.find((item) => item.product === id);
       if (productID) {
@@ -84,6 +87,8 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
         title: "Failed to Add Product",
         description: `Error Occured: ${error}`,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -93,7 +98,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
-        <Card className="flex flex-col items-center">
+        <Card className="flex flex-col items-center shadow-md rounded-md">
           <CardHeader>
             <CardTitle>{title}</CardTitle>
           </CardHeader>
@@ -143,7 +148,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
               )}
             />
 
-            <Button type="submit" disabled={stock === 0}>
+            <Button type="submit" disabled={isSubmitting || stock === 0}>
               Add to Invoice
             </Button>
           </CardFooter>

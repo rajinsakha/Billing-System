@@ -17,10 +17,10 @@ export const createTransactionBill = cache(async (data: any) => {
 //   return response;
 // });
 
-// export const deleteInvoice = cache(async (id: number) => {
-//     const response = await api.delete(`product/InvoiceBills/${id}/`);
-//     return response;
-//   });
+export const deleteTransaction = cache(async (id: number) => {
+    const response = await api.delete(`product/InvoiceBills/${id}/`);
+    return response;
+  });
 
 export const getAllTransactions = cache(async () => {
   const response = await api.get(`product/InvoiceBills/`);
