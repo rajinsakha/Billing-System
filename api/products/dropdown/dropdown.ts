@@ -8,7 +8,7 @@ export const addCategory = cache(async (data: CategoryFormValues) => {
 });
 
 export const updateCategory = cache(async (id:number, data: CategoryFormValues) => {
-  const response = await api.patch(`product/category/${id}`, data);
+  const response = await api.patch(`product/category/${id}/`, data);
   return response;
 });
 
@@ -23,7 +23,7 @@ export const getCategoryDropdown = cache(async () => {
 });
 
 export const deleteCategory = cache(async (id:number) => {
-    const response = await api.delete(`product/category/${id}`);
+    const response = await api.delete(`product/category/${id}/`);
     return response;
   });
 
