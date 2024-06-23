@@ -10,6 +10,7 @@ import {
 import { useAppSelector } from "@/redux/hooks";
 import ProductForm from "../forms/ProductForm";
 import CategoryForm from "../forms/CategoryForm";
+import SubCategoryForm from "../forms/SubCategoryForm";
 const EditModal = () => {
   const { type, singleData } = useAppSelector((state) => state.tableReducer);
 
@@ -22,6 +23,7 @@ const EditModal = () => {
       <DialogContent className="sm:max-w-[773px]    hide-scrollbar rounded-t-lg rounded-b-none">
         {type === "Product" && <ProductForm initialData={singleData} />}
         {type === "Category" && <CategoryForm initialData={singleData} />}
+        {type === "SubCategory" && <SubCategoryForm initialData={singleData} />}
       </DialogContent>
     </Dialog>
   );

@@ -30,15 +30,19 @@ import {
   addSubCategory,
   updateSubCategory,
 } from "@/api/products/dropdown/dropdown";
+import { useParams } from "next/navigation";
 
 export type SubCategoryFormValues = z.infer<typeof subCategoryFormSchema>;
 
 const SubCategoryForm = ({ initialData }: formProps) => {
+  const params = useParams();
+
   const dispatch = useAppDispatch();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const [isSubmitting, setIsSubmitting] = useState(false);
   const { categoryDropdown, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
+
 
   const { toast } = useToast();
 
@@ -48,7 +52,7 @@ const SubCategoryForm = ({ initialData }: formProps) => {
         name: initialData?.name,
       }
     : {
-        category: "",
+  
         name: "",
       };
 
@@ -72,7 +76,12 @@ const SubCategoryForm = ({ initialData }: formProps) => {
           });
         }
       } else {
-        const res = await addSubCategory(data);
+        const newData = {
+          ...data,
+          category: Number(params.id),
+          
+        }
+        const res = await addSubCategory(newData);
         if (res.status === 201) {
           document.getElementById("closeDialog")?.click();
           dispatch(setRefetch(!refetch));
@@ -105,34 +114,7 @@ const SubCategoryForm = ({ initialData }: formProps) => {
           className="space-y-6 w-full"
         >
           <div className="overflow-y-scroll hide-scrollbar space-y-6">
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a Category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {categoryDropdown.map((item, index) => (
-                        <SelectItem key={index} value={item.id.toString()}>
-                          {item.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+           
             <FormField
               control={form.control}
               name="name"

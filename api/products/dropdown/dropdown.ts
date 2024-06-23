@@ -33,14 +33,16 @@ export const addSubCategory = cache(async (data: any) => {
 });
 
 export const updateSubCategory = cache(async (id:number,data: any) => {
-    const response = await api.post(`product/sub-category/${id}`, data);
+    const response = await api.patch(`product/sub-category/${id}/`, data);
     return response;
   });
 
-export const getAllSubCategories = cache(async () => {
-    const response = await api.get(`product/allSubCategory/`);
+export const getAllSubCategories = cache(async (id:number) => {
+    const response = await api.get(`product/allSubCategory/${id}/`);
     return response;
   });
+
+
   
 export const getSubCategoryDropdown = cache(async () => {
   const response = await api.get(`product/sub-category/`);

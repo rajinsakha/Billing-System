@@ -31,7 +31,7 @@ const Category = () => {
   return (
     <div className="mt-[60px] space-y-8">
       <div className="flex gap-4 items-center justify-between">
-        <div className="flex gap-8">
+        <div className="flex gap-6">
         <Link href="/inventory" className="p-2 bg-secondary rounded-full"><ArrowLeft /></Link>
         <TitleText title="Category" />
         </div>

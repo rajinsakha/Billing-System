@@ -35,8 +35,12 @@ export const extractTableData = (data: any[], type: string): any[] => {
             customer_name: item?.bill_for,
             total_price:item?.total_price,
             created_at:item?.created_at,
-            
           }      
+          case "SubCategory":
+            return {
+              id:item?.id,
+              name:item?.name
+            }
         default:
           return item;
       }

@@ -29,6 +29,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     }
   };
 
+
   const height = generateHeight(type);
 
 
@@ -47,11 +48,12 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                 {head}
               </TableHead>
             ))}
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {extractedData?.map((row, rowIndex) => (
-            <TableRow key={rowIndex}>
+            <TableRow key={rowIndex} className={`${type === "Category" && "cursor-pointer"}`}>
               {Object.entries(row).map(([key, value]: any, colIndex) => (
                 <React.Fragment key={colIndex}>
                   {key === "quantity" ? (

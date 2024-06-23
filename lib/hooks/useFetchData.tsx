@@ -1,4 +1,4 @@
-
+"use client"
 import { useState, useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
@@ -9,12 +9,18 @@ import {  getAllProducts } from "@/api/products/product";
 import { getAllInvoices } from "@/api/invoices/invoice";
 import { getAllCategories, getAllSubCategories,  } from "@/api/products/dropdown/dropdown";
 import { getAllTransactions } from "@/api/invoices/transaction";
+import { useParams } from "next/navigation";
 
 const useFetchData = (type: string) => {
+  const params = useParams();
+ const id = Number(params.id);
   const dispatch = useAppDispatch();
-  const { refetch } = useAppSelector((state) => state.tableReducer);
+  const { refetch, singleData } = useAppSelector((state) => state.tableReducer);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  console.log(singleData);
+  
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -33,7 +39,7 @@ const useFetchData = (type: string) => {
       }
 
       if(type === "SubCategory"){
-        response = await getAllSubCategories();
+        response = await getAllSubCategories(id);
       }
 
       if(type === "Transaction"){
@@ -57,7 +63,7 @@ const useFetchData = (type: string) => {
     } finally {
       setLoading(false);
     }
-  }, [dispatch, type]);
+  }, [dispatch, id, type]);
 
   useEffect(() => {
     fetchData();

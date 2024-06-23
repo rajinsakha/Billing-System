@@ -18,8 +18,6 @@ const AddModal = ({ type }: AddModalProps) => {
   
   const [isHovered, setIsHovered] = useState(false);
  
-
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,7 +37,7 @@ const AddModal = ({ type }: AddModalProps) => {
       <DialogContent className="sm:max-w-[773px]  hide-scrollbar rounded-t-lg rounded-b-none modal-content">
         {type === "Product" && <ProductForm initialData={null} />}
         {type === "Category" && <CategoryForm initialData={null}/>}
-        {type === "Sub Category" && <SubCategoryForm initialData={null} />}
+        {type === "SubCategory" && <SubCategoryForm initialData={null} />}
       </DialogContent>
     </Dialog>
   );
