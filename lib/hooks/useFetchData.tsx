@@ -11,11 +11,16 @@ import { getAllCategories, getAllSubCategories,  } from "@/api/products/dropdown
 import { getAllTransactions } from "@/api/invoices/transaction";
 import { useParams } from "next/navigation";
 
-const useFetchData = (type: string) => {
+interface Criteria {
+  [key: string]: string;
+}
+
+const useFetchData = (type: string, searchQuery:string, criteria?:Criteria) => {
   const params = useParams();
  const id = Number(params.id);
   const dispatch = useAppDispatch();
   const { refetch, singleData } = useAppSelector((state) => state.tableReducer);
+  
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +32,7 @@ const useFetchData = (type: string) => {
     try {
       let response;
       if (type === "Product" || type === "Inventory") {
-        response = await getAllProducts();
+        response = await getAllProducts(searchQuery);
       }
 
       if (type === "Invoice") {

@@ -10,3 +10,13 @@ title:string;
 href:string;
 Icon:React.ElementType;
 }
+
+export interface IFilterDropdown<T> {
+    placeholder: string;
+    width: string;
+    options: T[];
+    handleChange?: any;
+    defaultValue?: string;
+ 
+  }
+  

@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import storage from "./storage";
 import tableReducer from "./features/tableReducer";
+import filterReducer from "./features/filterReducer";
 
 
 const persistConfig = {
@@ -14,7 +15,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   authReducer: authReducer,
-  tableReducer: tableReducer
+  tableReducer: tableReducer,
+  filterReducer: filterReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

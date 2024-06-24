@@ -3,8 +3,8 @@ import api from "../axiosInstance";
 
  const revalidate = 3600;
 
-export const getAllProducts = cache(async () => {
-  const response = await api.get(`product/products/`);
+export const getAllProducts = cache(async (query:string) => {
+  const response = await api.get(`product/products/?search_name=${query}`);
   return response;
 });
 

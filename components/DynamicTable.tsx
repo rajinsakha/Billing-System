@@ -34,7 +34,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
 
 
   return (
-    <ScrollArea className={`${height}`}>
+    <ScrollArea className={`min-h-[55vh] ${height}`}>
       <Table className="">
         <TableHeader>
           <TableRow>

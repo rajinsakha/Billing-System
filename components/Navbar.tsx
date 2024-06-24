@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Package2, Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import SearchBox from "./searchBox";
 
 const Navbar = () => {
   return (
@@ -21,12 +22,13 @@ const Navbar = () => {
     
 
       <div className="relative">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <SearchBox />
+        {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
           type="search"
           placeholder="Search products..."
           className="w-full sm:w-[300px] appearance-none bg-background pl-8 shadow-none"
-        />
+        /> */}
       </div>
 
       <div>

@@ -57,6 +57,7 @@ export const table = createSlice({
     setInvoiceData: (state, action) => {
       state.invoiceData = action.payload;
     },
+    
   },
 });
 
