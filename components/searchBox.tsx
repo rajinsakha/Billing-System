@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { X } from "lucide-react";
 import { useDebounce } from "@/lib/hooks/useDebounce";
@@ -7,6 +7,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setSearchQuery } from "@/redux/features/filterReducer";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { usePathname, useRouter } from "next/navigation";
 
 const SearchBox = () => {
   const [searchInput, setSearchInput] = useState<string>("");
@@ -16,13 +17,25 @@ const SearchBox = () => {
     setSearchInput(searchTerm);
   };
 
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
+
+  const resetSearch = useCallback(() => {
+    setSearchInput("");
+    dispatch(setSearchQuery(""));
+  }, [dispatch]);
 
   useEffect(() => {
     const search = debouncedValue.trim().split(" ").join("+");
 
     dispatch(setSearchQuery(search));
   }, [debouncedValue, dispatch]);
+
+  useEffect(() => {
+    resetSearch();
+  }, [pathname, resetSearch]);
+
+
 
   return (
     <form>
