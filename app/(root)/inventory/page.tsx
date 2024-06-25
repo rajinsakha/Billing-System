@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 const Inventory = () => {
   const dispatch = useAppDispatch();
   const { loading: dropdownLoading, error: dropdownError } = useFetchDropdown();
-  const {searchQuery} = useAppSelector((state)=>state.filterReducer)
-  const { loading, error } = useFetchData("Inventory",searchQuery);
-  const { dynamicTableData, refetch, categoryDropdown } = useAppSelector(
+  const {searchQuery, criteria} = useAppSelector((state)=>state.filterReducer)
+  const { loading, error } = useFetchData("Inventory",searchQuery, criteria);
+  const { dynamicTableData,  categoryDropdown } = useAppSelector(
     (state) => state.tableReducer
   );
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);

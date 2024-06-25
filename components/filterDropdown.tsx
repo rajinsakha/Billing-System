@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { IFilterDropdown } from "@/types/dashboard";
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 interface Option {
   id: number | string;
@@ -28,9 +29,10 @@ const FilterDropdown = ({
 
   return (
     <Select
+    key={key}
       defaultValue={defaultValue}
       onValueChange={(value) => handleChange(value)}
-      value={defaultValue}
+      value={value}
     >
       <SelectTrigger
         className={`${propsWidth} h-[34px] text-input text-sm border-b border-b-input hover:border-b-primary rounded-none px-0 focus:outline-none 
@@ -42,18 +44,18 @@ const FilterDropdown = ({
       <SelectContent
         className={`h-[100%] max-h-56  overflow-y-scroll scroll-container ${propsWidth}`}
       >
-        {/* {!isDashboard && (
           <Button
-            className="w-full "
+            className="w-full px-2"
+            variant="secondary"
             size="sm"
             onClick={(e) => {
-              e.stopPropagation();
-              handleChange("");
+              e.stopPropagation()
+              setValue(undefined)
+              setKey(+new Date())
             }}
           >
             Clear
           </Button>
-        )} */}
         {options.map((option, index) => (
           <SelectItem
             key={index}

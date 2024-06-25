@@ -32,7 +32,7 @@ const useFetchData = (type: string, searchQuery?:string, criteria?:Criteria) => 
     try {
       let response;
       if (type === "Product" || type === "Inventory") {
-        response = await getAllProducts(searchQuery||"");
+        response = await getAllProducts(searchQuery, criteria?.category);
       }
 
       if (type === "Invoice") {
@@ -68,7 +68,7 @@ const useFetchData = (type: string, searchQuery?:string, criteria?:Criteria) => 
     } finally {
       setLoading(false);
     }
-  }, [dispatch, id, type,searchQuery]);
+  }, [dispatch, id, type,searchQuery,criteria]);
 
   useEffect(() => {
     fetchData();

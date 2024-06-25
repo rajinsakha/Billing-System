@@ -1,11 +1,5 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { IProductCard } from "@/types/products";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -94,19 +88,19 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        noValidate
-      >
-        <Card className="flex flex-col items-center shadow-md rounded-md">
-          <CardHeader>
-            <CardTitle>{title}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <p>Price: Rs {price}</p>
-            <p>Stock Left: {stock} </p>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4 ">
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+        <div className="flex flex-col  shadow-md rounded-md h-[300px] justify-between py-4 px-6 border">
+          <div>
+            <h1 className="text-xl h-[50px]">
+               {title.length > 50 ? title.slice(0,50) + "..." : title }
+              </h1>
+          </div>
+          <div className="space-y-1">
+          <p>Stock Left: {stock} </p>
+            <p className="text-xl font-semibold text-orange-600">Rs {price}</p>
+           
+          </div>
+          <div className="flex flex-col gap-4 ">
             <FormField
               control={form.control}
               name="quantity"
@@ -151,8 +145,8 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
             <Button type="submit" disabled={isSubmitting || stock === 0}>
               Add to Invoice
             </Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       </form>
     </Form>
   );
