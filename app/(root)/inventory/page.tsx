@@ -4,6 +4,7 @@ import DynamicTable from "@/components/DynamicTable";
 import TablePagination from "@/components/TablePagination";
 import FilterDropdown from "@/components/filterDropdown";
 import AddModal from "@/components/modals/addModal";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
@@ -48,7 +49,9 @@ const Inventory = () => {
 
 
   return (
-    <div className="mt-[60px] space-y-6">
+    <ScrollArea className="mt-[60px]">
+      <div className="space-y-4">
+  
       <div className="flex gap-4 items-center justify-between">
         <TitleText title="Inventory" />
         <div className="flex gap-4">
@@ -62,11 +65,11 @@ const Inventory = () => {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className=" flex items-center gap-2 justify-end">
         <p>Filter By:</p>
         <FilterDropdown
           placeholder="Category"
-          width="w-[220px]"
+          width="w-[200px]"
           options={categoryDropdown}
           handleChange={handleCategoryChange}
         />
@@ -79,7 +82,9 @@ const Inventory = () => {
       />
 
       <TablePagination />
-    </div>
+            
+      </div>
+    </ScrollArea>
   );
 };
 

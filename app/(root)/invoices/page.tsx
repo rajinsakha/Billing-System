@@ -22,8 +22,13 @@ const Invoices = () => {
   );
   const [customer, setCustomer] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalPriceBeforeDiscount, setTotalPriceBeforeDiscount] =
+    useState<number>(0);
+  const [totalPriceAfterDiscount, setTotalPriceAfterDiscount] =
+    useState<number>(0);
+  const [finalPrice, setFinalPrice] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
+  const [voucher, setVoucher] = useState<number>(0);
 
   const tableData: TableDataItem = {
     headers: ["S.N.", "Name", "Quantity", "Total Price", "Added Date"],
@@ -31,8 +36,12 @@ const Invoices = () => {
   };
 
   useEffect(() => {
-    setTotalPrice(calculateTotalPrice(dynamicTableData, discount));
-  }, [dynamicTableData, discount]);
+    const { totalPriceBeforeDiscount, totalPriceAfterDiscount, finalPrice } =
+      calculateTotalPrice(dynamicTableData, discount, voucher);
+    setTotalPriceBeforeDiscount(totalPriceBeforeDiscount);
+    setTotalPriceAfterDiscount(totalPriceAfterDiscount);
+    setFinalPrice(finalPrice);
+  }, [dynamicTableData, discount, voucher]);
 
   const handleDiscountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.valueAsNumber;
@@ -40,6 +49,15 @@ const Invoices = () => {
       setDiscount(0);
     } else {
       setDiscount(value);
+    }
+  };
+
+  const handleVoucherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.valueAsNumber;
+    if (isNaN(value)) {
+      setVoucher(0);
+    } else {
+      setVoucher(value);
     }
   };
 
@@ -62,7 +80,7 @@ const Invoices = () => {
       const formData = {
         bill_for: customer,
         is_printed: true,
-        total_price: totalPrice,
+        total_price: finalPrice,
         Invoice_Item: Ids,
       };
 
@@ -100,6 +118,7 @@ const Invoices = () => {
               value={customer}
               onChange={(e) => setCustomer(e.target.value)}
               placeholder="Enter Customer Name"
+              className=""
             />
           </div>
 
@@ -108,17 +127,47 @@ const Invoices = () => {
             data={tableData.data}
             type="Invoice"
           />
-          <Input
-            type="number"
-            placeholder="Enter Discount Rate"
-            min={0}
-            max={100}
-            onChange={handleDiscountChange}
-          />
+
+
+          <div className="flex gap-4">
+          <div className="relative">
+            <Input
+              type="number"
+              placeholder="Enter Discount Rate"
+              min={0}
+              max={100}
+              onChange={handleDiscountChange}
+              className="w-[300px]"
+            />
+            <p className="absolute -top-2 left-4 z-10 bg-white text-xs">
+              Discount
+            </p>
+          </div>
+
+          <div className="relative">
+            <Input
+              type="number"
+              placeholder="Enter Discount Voucher Rate"
+              min={0}
+              max={100}
+              onChange={handleVoucherChange}
+              className="w-[300px]"
+            />
+            <p className="absolute -top-2 left-4 z-10 bg-white text-xs">
+              Voucher
+            </p>
+          </div>
+          </div>
+       
           <div className="flex items-center justify-between">
-            <div>
+            <div className="space-y-1">
+              <div className="flex gap-4">
               <p>Discount Percentage: {discount}%</p>
-              <p>Total Price: Rs {totalPrice}</p>
+              <p>Discount Voucher Rate: {voucher}%</p>
+              </div>
+            
+              <p>Total Price Before Discount: Rs {totalPriceBeforeDiscount}</p>
+              <p>Total Price After Discount: Rs {finalPrice}</p>
             </div>
 
             <Button onClick={handleSubmit} disabled={isSubmitting}>
