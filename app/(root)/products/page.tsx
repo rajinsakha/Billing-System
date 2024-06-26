@@ -1,18 +1,38 @@
 "use client";
 
+import { getAllInvoices } from "@/api/invoices/invoice";
 import TablePagination from "@/components/TablePagination";
 import ProductCard from "@/components/ui/productCard";
 import useFetchData from "@/lib/hooks/useFetchData";
+import { setInvoiceData } from "@/redux/features/tableReducer";
 
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useCallback, useEffect } from "react";
 
 const ProductPage = () => {
-
-  const {searchQuery, criteria} = useAppSelector((state)=>state.filterReducer)
+  const dispatch = useAppDispatch();
+  const { searchQuery, criteria } = useAppSelector(
+    (state) => state.filterReducer
+  );
   const { loading, error } = useFetchData("Product", searchQuery, criteria);
-  const { dynamicTableData,  } = useAppSelector(
+  const { dynamicTableData, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
+
+  const getInvoiceData = useCallback(async () => {
+    try {
+      const res = await getAllInvoices();
+      if (res.status === 200) {
+        dispatch(setInvoiceData(res.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    getInvoiceData();
+  }, [getInvoiceData, refetch]);
 
   return (
     <div className="mt-[60px] space-y-4">
@@ -28,7 +48,6 @@ const ProductPage = () => {
         ))}
       </div>
 
-      
       <TablePagination />
     </div>
   );

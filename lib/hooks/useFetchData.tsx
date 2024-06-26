@@ -24,7 +24,7 @@ const useFetchData = (type: string, searchQuery?:string, criteria?:Criteria) => 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log(singleData);
+console.log(singleData);
   
 
   const fetchData = useCallback(async () => {

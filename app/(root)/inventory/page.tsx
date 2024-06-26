@@ -68,7 +68,7 @@ const Inventory = () => {
       <div className=" flex items-center gap-2 justify-end">
         <p>Filter By:</p>
         <FilterDropdown
-          placeholder="Category"
+          placeholder="Select Category"
           width="w-[200px]"
           options={categoryDropdown}
           handleChange={handleCategoryChange}

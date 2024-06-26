@@ -27,7 +27,6 @@ const SingleInvoiceForm = ({stock, quantity}:{stock:number, quantity:number}) =>
     <div>
 
 
-
     </div>
   )
 }

@@ -21,7 +21,7 @@ export const extractTableData = (data: any[], type: string): any[] => {
               price: item?.product_info?.price,
             },
             total_price: item?.total_price,
-            added_date: item?.created_at,
+            added_date: item?.created_at?.slice(0,10),
           };
         case "Category":
             return {
@@ -34,7 +34,7 @@ export const extractTableData = (data: any[], type: string): any[] => {
             id:item?.id,
             customer_name: item?.bill_for,
             total_price:item?.total_price,
-            created_at:item?.created_at,
+            created_at:item?.created_at?.slice(0,10),
           }      
           case "SubCategory":
             return {

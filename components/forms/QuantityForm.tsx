@@ -57,9 +57,11 @@ const QuantityForm = ({ initialData }: formProps) => {
         dispatch(setRefetch(!refetch));
       }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
+
+  const stock = initialData?.quantity?.stock + initialData?.quantity?.qty || 0;
 
   return (
     <Form {...form}>
@@ -94,10 +96,9 @@ const QuantityForm = ({ initialData }: formProps) => {
                   <button
                     type="submit"
                     onClick={() =>
-                      field.onChange(
-                        Math.min(field.value + 1, initialData?.quantity.stock)
-                      )
+                      field.onChange(Math.min(field.value + 1, stock))
                     }
+                    disabled={stock === 0}
                     className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none"
                   >
                     <Plus className="w-3 h-3 text-gray-900" />

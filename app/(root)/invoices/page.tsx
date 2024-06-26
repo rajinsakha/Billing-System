@@ -2,6 +2,7 @@
 import { createTransactionBill } from "@/api/invoices/transaction";
 import DynamicTable from "@/components/DynamicTable";
 import { Button } from "@/components/ui/button";
+import CustomInput from "@/components/ui/custom-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
@@ -130,33 +131,9 @@ const Invoices = () => {
 
 
           <div className="flex gap-4">
-          <div className="relative">
-            <Input
-              type="number"
-              placeholder="Enter Discount Rate"
-              min={0}
-              max={100}
-              onChange={handleDiscountChange}
-              className="w-[300px]"
-            />
-            <p className="absolute -top-2 left-4 z-10 bg-white text-xs">
-              Discount
-            </p>
-          </div>
-
-          <div className="relative">
-            <Input
-              type="number"
-              placeholder="Enter Discount Voucher Rate"
-              min={0}
-              max={100}
-              onChange={handleVoucherChange}
-              className="w-[300px]"
-            />
-            <p className="absolute -top-2 left-4 z-10 bg-white text-xs">
-              Voucher
-            </p>
-          </div>
+            <CustomInput label="Discount" placeholder="Enter Discount (in %)" handleChange={handleDiscountChange} />
+            <CustomInput label="Voucher" placeholder="Enter Voucher (in %)" handleChange={handleVoucherChange} />
+      
           </div>
        
           <div className="flex items-center justify-between">

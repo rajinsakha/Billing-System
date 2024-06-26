@@ -10,7 +10,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+
 } from "../ui/form";
 import { Button } from "./button";
 import { genericSchema, singleProductFormSchema } from "@/schemas/formSchema";
@@ -20,7 +20,7 @@ import { addToInvoice, updateInvoice } from "@/api/invoices/invoice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { useToast } from "./use-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Define the type based on the schema
 export type SingleProductFormValues = z.infer<typeof genericSchema>;
@@ -42,6 +42,17 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
       quantity: 1,
     },
   });
+
+  useEffect(() => {
+    if (form.formState.errors.quantity) {
+      toast({
+        title: "Invalid Quantity",
+        description: form.formState.errors.quantity.message,
+        variant: "destructive",
+      });
+    }
+  }, [form.formState.errors, toast]);
+
 
   const onSubmit = async (data: SingleProductFormValues) => {
     setIsSubmitting(true);
@@ -91,14 +102,15 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <div className="flex flex-col  shadow-md rounded-md h-[300px] justify-between py-4 px-6 border">
           <div>
-            <h1 className="text-xl h-[50px]">
-               {title?.length > 50 ? title?.slice(0,50) + "..." : title }
-              </h1>
+            <h1 className="text-lg h-[45px]">
+              {title?.length > 50 ? title?.slice(0, 50) + "..." : title}
+            </h1>
           </div>
           <div className="space-y-1">
-          <p>Stock Left: {stock} </p>
-            <p className="text-xl font-semibold text-orange-600">Rs {price}</p>
-           
+            <p className="text-[13.4px]">
+              <span className="font-semibold text-sm">{stock} </span> Stocks
+              Remaining{" "}
+            </p>
           </div>
           <div className="flex flex-col gap-4 ">
             <FormField
@@ -114,7 +126,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
                         onClick={() =>
                           field.onChange(Math.max(field.value - 1, 1))
                         }
-                        className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-1 focus:ring-2 focus:outline-none"
+                        className="bg-gray-100 hover:bg-gray-200 border border-gray-300  p-3 h-11 focus:ring-gray-1 focus:ring-2 focus:outline-none"
                       >
                         <Minus className="w-3 h-3 text-gray-900" />
                       </button>
@@ -131,17 +143,18 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
                         onClick={() =>
                           field.onChange(Math.min(field.value + 1, stock))
                         }
-                        className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none"
+                        className="bg-gray-100  hover:bg-gray-200 border border-gray-300  p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none"
                       >
                         <Plus className="w-3 h-3 text-gray-900" />
                       </button>
                     </div>
                   </FormControl>
-                  <FormMessage />
+               
                 </FormItem>
               )}
             />
 
+            <p className="text-xl font-semibold text-orange-600">Rs {price}</p>
             <Button type="submit" disabled={isSubmitting || stock === 0}>
               Add to Invoice
             </Button>

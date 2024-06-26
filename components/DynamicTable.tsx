@@ -15,7 +15,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setSingleData, setType } from "@/redux/features/tableReducer";
 import QuantityForm from "./forms/QuantityForm";
 import DeleteModal from "./modals/deleteModal";
-import { extractTableData, generateHeight } from "@/lib/table";
+import { extractTableData, generateHeight } from "@/lib/tableFunction";
 import { useRouter } from "next/navigation";
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
@@ -29,7 +29,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     }
   };
 
-
+console.log(type);
   const height = generateHeight(type);
 
 

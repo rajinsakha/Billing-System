@@ -33,8 +33,7 @@ const FilterDropdown = ({
       value={value}
     >
       <SelectTrigger
-        className={`${propsWidth} h-[34px]  text-sm  px-2 focus:outline-none 
-"bg-white"
+        className={`${propsWidth} h-[34px]  text-sm  px-2 focus:outline-none bg-white
         `}
       >
         <SelectValue defaultValue={defaultValue} placeholder={placeholder} />
@@ -43,8 +42,7 @@ const FilterDropdown = ({
         className={`h-full max-h-56  scroll-container ${propsWidth}`}
       >
         <Button
-          className="w-full "
-          variant="secondary"
+          className="w-full bg-red-500 hover:bg-red-700 mb-1"
           size="sm"
           onClick={(e) => {
             e.stopPropagation();
