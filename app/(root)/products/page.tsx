@@ -2,6 +2,7 @@
 
 import { getAllInvoices } from "@/api/invoices/invoice";
 import TablePagination from "@/components/TablePagination";
+import Loader from "@/components/ui/loader";
 import ProductCard from "@/components/ui/productCard";
 import useFetchData from "@/lib/hooks/useFetchData";
 import { setInvoiceData } from "@/redux/features/tableReducer";
@@ -35,21 +36,27 @@ const ProductPage = () => {
   }, [getInvoiceData, refetch]);
 
   return (
-    <div className="mt-[60px] space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {dynamicTableData?.map((data) => (
-          <ProductCard
-            key={data.id}
-            id={data.id}
-            title={data.name}
-            price={data.price}
-            stock={data.in_stock}
-          />
-        ))}
-      </div>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="mt-[60px] space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {dynamicTableData?.map((data) => (
+              <ProductCard
+                key={data.id}
+                id={data.id}
+                title={data.name}
+                price={data.price}
+                stock={data.in_stock}
+              />
+            ))}
+          </div>
 
-      <TablePagination />
-    </div>
+          <TablePagination />
+        </div>
+      )}
+    </>
   );
 };
 
