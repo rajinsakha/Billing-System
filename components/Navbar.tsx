@@ -16,19 +16,13 @@ const Navbar = () => {
           <Package2 className="h-6 w-6" />
           <span className="">Hardware Shop</span>
         </Link>
-    
+
       </div>
 
     
 
       <div className="relative">
         <SearchBox />
-        {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input
-          type="search"
-          placeholder="Search products..."
-          className="w-full sm:w-[300px] appearance-none bg-background pl-8 shadow-none"
-        /> */}
       </div>
 
       <div>

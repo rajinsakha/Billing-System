@@ -1,13 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { InvoiceData } from "@/types/products";
+import { createSlice,} from "@reduxjs/toolkit";
 
 type HomeState = {
   token: string;
   category: string;
+  invoiceData: InvoiceData;
 };
 
 const initialState = {
   token: "",
-  category: ''
+  category: '',
+  invoiceData:{}
 } as HomeState;
 
 export const auth = createSlice({
@@ -19,9 +22,12 @@ export const auth = createSlice({
     },
     setCategory:(state, action) => {
       state.category = action.payload;
+    },
+    setInvoiceData:(state, action) =>{
+      state.invoiceData = action.payload;
     }
   },
 });
 
-export const { setToken, setCategory } = auth.actions;
+export const { setToken, setCategory, setInvoiceData } = auth.actions;
 export default auth.reducer;

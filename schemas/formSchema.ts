@@ -93,3 +93,14 @@ export const singleProductFormSchema = (stock:number)=>
     }),
 
   })
+
+  export const invoiceFormSchema = z.object({
+    customer_name: z.string().min(3,{
+      message:"Customer name must be at least 3 characters."
+    }),
+    address: z.string().min(3,{
+      message:"Address must be at least 3 characters."
+    })
+  })
+
+

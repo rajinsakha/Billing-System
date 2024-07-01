@@ -48,7 +48,7 @@ console.log(singleData);
       }
 
       if(type === "Transaction"){
-        response = await getAllTransactions();
+        response = await getAllTransactions(searchQuery);
       }
 
       if (response?.status === 200) {

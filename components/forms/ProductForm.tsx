@@ -74,8 +74,6 @@ const ProductForm = ({ initialData }: formProps) => {
       (item) => item.category === Number(selectedCategory)
     );
 
-
-
   const onSubmit = async (data: ProductFormValues) => {
     setIsSubmitting(true);
     try {

@@ -38,15 +38,17 @@ type SingleQuantityValues = z.infer<typeof genericQuantity>;
 const QuantityForm = ({ initialData }: formProps) => {
   const dispatch = useAppDispatch();
   const { refetch } = useAppSelector((state) => state.tableReducer);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const form = useForm<SingleQuantityValues>({
-    resolver: zodResolver(quantityFormSchema(initialData?.quantity?.stock)),
+    resolver: zodResolver(quantityFormSchema(initialData?.quantity?.stock + initialData?.quantity?.qty)),
     defaultValues: {
       quantity: initialData?.quantity?.qty,
     },
   });
 
   const onSubmit = async (data: SingleQuantityValues) => {
+    setIsSubmitting(true);
     try {
       let newData = {
         quantity: data.quantity,
@@ -58,11 +60,13 @@ const QuantityForm = ({ initialData }: formProps) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const stock = initialData?.quantity?.stock + initialData?.quantity?.qty || 0;
 
+  const stock = initialData?.quantity?.stock + initialData?.quantity?.qty || 0;
   return (
     <Form {...form}>
       <form
@@ -81,6 +85,7 @@ const QuantityForm = ({ initialData }: formProps) => {
                     type="submit"
                     // type="button"
                     onClick={() => field.onChange(Math.max(field.value - 1, 1))}
+                    disabled={field.value === 1}
                     className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-1 focus:ring-2 focus:outline-none"
                   >
                     <Minus className="w-3 h-3 text-gray-900" />
@@ -98,7 +103,7 @@ const QuantityForm = ({ initialData }: formProps) => {
                     onClick={() =>
                       field.onChange(Math.min(field.value + 1, stock))
                     }
-                    disabled={stock === 0}
+                    disabled={initialData?.quantity?.stock === 0}
                     className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none"
                   >
                     <Plus className="w-3 h-3 text-gray-900" />

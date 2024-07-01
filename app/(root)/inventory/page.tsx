@@ -49,7 +49,8 @@ const Inventory = () => {
 
 
   return (
-    <ScrollArea className="mt-[60px]">
+    <ScrollArea className="">
+      
       <div className="space-y-4">
   
       <div className="flex gap-4 items-center justify-between">

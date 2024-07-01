@@ -36,5 +36,11 @@ export interface ISubCategoryDropdown{
 }
 
 
+export interface InvoiceData{
+  bill_for: string,
+  is_printed: boolean,
+  total_price: number,
+  Invoice_Item: number[],
+}
 
 
