@@ -36,22 +36,27 @@ const ProductPage = () => {
   }, [getInvoiceData, refetch]);
 
   return (
-    
-        <div className="mt-[60px] space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {dynamicTableData?.map((data) => (
-              <ProductCard
-                key={data.id}
-                id={data.id}
-                title={data.name}
-                price={data.price}
-                stock={data.in_stock}
-              />
-            ))}
-          </div>
-
-          <TablePagination />
+    <div className="mt-[60px] space-y-4">
+      {dynamicTableData.length === 0 ? (
+        <div className="flex items-center justify-center text-xl h-[75vh]">
+          No Products Available
         </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {dynamicTableData?.map((data) => (
+            <ProductCard
+              key={data.id}
+              id={data.id}
+              title={data.name}
+              price={data.price}
+              stock={data.in_stock}
+            />
+          ))}
+        </div>
+      )}
+
+      {dynamicTableData.length !== 0 && <TablePagination />}
+    </div>
   );
 };
 

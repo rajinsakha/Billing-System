@@ -3,6 +3,7 @@ import { createTransactionBill } from "@/api/invoices/transaction";
 import { BillPDF } from "@/components/BillPDF";
 import DynamicTable from "@/components/DynamicTable";
 import BillModal from "@/components/modals/billModal";
+import CustomModal from "@/components/modals/customModal";
 import { Button } from "@/components/ui/button";
 import CustomInput from "@/components/ui/custom-input";
 import { Input } from "@/components/ui/input";
@@ -29,6 +30,7 @@ const Invoices = () => {
   const [panNo, setPanNo] = useState<number | null>(null);
   const [contactNo, setContactNo] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalPriceBeforeDiscount, setTotalPriceBeforeDiscount] =
     useState<number>(0);
   const [finalPrice, setFinalPrice] = useState<number>(0);
@@ -151,122 +153,168 @@ const Invoices = () => {
   };
 
   const handlePDFClick = () => {
+    if (!validateFields()) {
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        description: "Please fill out all required fields.",
+      });
+      setIsModalOpen(false);
+      return;
+    }
+
+    if (Ids.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        description: "Please add Products",
+      });
+      setIsModalOpen(false);
+      return;
+    }
+
     const formData = {
       bill_for: customer,
       is_printed: true,
       total_price: finalPrice,
+      address: address,
       Invoice_Item: Ids,
     };
-
     dispatch(setInvoiceData(formData));
+    setIsModalOpen(true);
+  };
+
+  const resetFormFields = () => {
+    setCustomer("");
+    setAddress("");
+    setPanNo(null);
+    setContactNo(null);
+    setDiscount(0);
+    setVoucher(0);
+    setRemark("");
+    setErrors({
+      customer: "",
+      address: "",
+      panNo: "",
+      contactNo: "",
+    });
   };
 
   return (
-    <div className="mt-[60px] space-y-4">
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {!loading && !error && (
-        <>
-          <div className="grid grid-cols-2 justify-end gap-2">
-            <div className="flex items-center gap-2">
-              <Label className="w-[120px]">Customer Name:</Label>
-              <Input
-                type="text"
-                value={customer}
-                onChange={(e) => setCustomer(e.target.value)}
-                placeholder="Enter Customer Name"
-                className="w-[220px]"
-              />
-              {errors.customer && (
-                <ValidationMessage message={errors.customer} />
-              )}
+    <>
+      <div className="mt-[60px] space-y-4">
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {!loading && !error && (
+          <>
+            <div className="grid grid-cols-2 justify-end gap-2">
+              <div className="flex items-center gap-2">
+                <Label className="w-[120px]">Customer Name:</Label>
+                <Input
+                  type="text"
+                  value={customer}
+                  onChange={(e) => setCustomer(e.target.value)}
+                  placeholder="Enter Customer Name"
+                  className="w-[220px]"
+                />
+                {errors.customer && (
+                  <ValidationMessage message={errors.customer} />
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <Label className="w-[100px]">Address: </Label>
+                <Input
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter Address"
+                  className="w-[220px]"
+                />
+                {errors.address && (
+                  <ValidationMessage message={errors.address} />
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <Label className="w-[120px]">PAN No: </Label>
+                <Input
+                  type="number"
+                  value={panNo === null ? "" : panNo}
+                  onChange={(e) =>
+                    setPanNo(
+                      e.target.value === "" ? null : Number(e.target.value)
+                    )
+                  }
+                  placeholder="Enter PAN Number"
+                  className="w-[220px]"
+                />
+                {errors.panNo && <ValidationMessage message={errors.panNo} />}
+              </div>
+              <div className="flex items-center gap-2">
+                <Label className="w-[100px]">Contact No: </Label>
+                <Input
+                  type="number"
+                  value={contactNo === null ? "" : contactNo}
+                  onChange={(e) =>
+                    setContactNo(
+                      e.target.value === "" ? null : Number(e.target.value)
+                    )
+                  }
+                  placeholder="Enter Contact Number"
+                  className="w-[220px]"
+                />
+                {errors.contactNo && (
+                  <ValidationMessage message={errors.contactNo} />
+                )}
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Label className="w-[100px]">Address: </Label>
-              <Input
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Enter Address"
-                className="w-[220px]"
-              />
-              {errors.address && <ValidationMessage message={errors.address} />}
-            </div>
-            <div className="flex items-center gap-2">
-              <Label className="w-[120px]">PAN No: </Label>
-              <Input
-                type="number"
-                value={panNo === null ? "" : panNo}
-                onChange={(e) =>
-                  setPanNo(
-                    e.target.value === "" ? null : Number(e.target.value)
-                  )
-                }
-                placeholder="Enter PAN Number"
-                 className="w-[220px]"
-              />
-              {errors.panNo && <ValidationMessage message={errors.panNo} />}
-            </div>
-            <div className="flex items-center gap-2">
-              <Label className="w-[100px]">Contact No: </Label>
-              <Input
-                type="number"
-                value={panNo === null ? "" : panNo}
-                onChange={(e) =>
-                  setPanNo(
-                    e.target.value === "" ? null : Number(e.target.value)
-                  )
-                }
-                placeholder="Enter Contact Number"
-                 className="w-[220px]"
-              />
-              {errors.contactNo && (
-                <ValidationMessage message={errors.contactNo} />
-              )}
-            </div>
-          </div>
 
-          <DynamicTable
-            headers={tableData.headers}
-            data={tableData.data}
-            type="Invoice"
-          />
-
-          <div className="flex gap-4">
-            <CustomInput
-              label="Discount"
-              placeholder="Enter Discount (in %)"
-              handleChange={handleDiscountChange}
+            <DynamicTable
+              headers={tableData.headers}
+              data={tableData.data}
+              type="Invoice"
             />
-            <CustomInput
-              label="Voucher"
-              placeholder="Enter Voucher (in %)"
-              handleChange={handleVoucherChange}
-            />
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
+            <div className="flex justify-between">
               <div className="flex gap-4">
-                <p>Discount Percentage: {discount}%</p>
-                <p>Discount Voucher Rate: {voucher}%</p>
+                <CustomInput
+                  label="Discount"
+                  placeholder="Enter Discount (in %)"
+                  handleChange={handleDiscountChange}
+                />
+                <CustomInput
+                  label="Voucher"
+                  placeholder="Enter Voucher (in %)"
+                  handleChange={handleVoucherChange}
+                />
               </div>
 
-              <p>Total Price Before Discount: Rs {totalPriceBeforeDiscount}</p>
-              <p>Total Price After Discount: Rs {finalPrice}</p>
+              <Button onClick={handlePDFClick}>Generate Bill</Button>
             </div>
 
-            <Button onClick={handleSubmit} disabled={isSubmitting}>
-              Generate Bill
-            </Button>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <div className="flex gap-4">
+                  <p>Discount Percentage: {discount}%</p>
+                  <p>Discount Voucher Rate: {voucher}%</p>
+                </div>
 
-            <div onClick={handlePDFClick}>
-              <BillModal />
+                <p>
+                  Total Price Before Discount: Rs {totalPriceBeforeDiscount}
+                </p>
+                <p>Total Price After Discount: Rs {finalPrice}</p>
+              </div>
             </div>
-          </div>
-        </>
+          </>
+        )}
+      </div>
+      {isModalOpen && (
+        <CustomModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          resetFormFields={resetFormFields}
+        />
       )}
-    </div>
+    </>
   );
 };
 
