@@ -22,7 +22,7 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const { invoiceData } = useAppSelector((state) => state.authReducer);
-  const { refetch } = useAppSelector((state) => state.tableReducer);
+  const { refetch, dynamicTableData } = useAppSelector((state) => state.tableReducer);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -60,20 +60,20 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
 
   return (
     <div className="z" id="billModal">
-      <div ref={modalRef} className="sm:w-[773px] h-[95vh] bg-white p-8 relative space-y-4">
-        <PDFViewer className="w-full h-[80vh]">
-          <BillPDF invoiceData={invoiceData} />
+      <div ref={modalRef} className="sm:w-[773px] h-[90vh] bg-background px-6 py-8 relative space-y-4 shadow-lg sm:rounded-lg">
+        <PDFViewer className="w-full h-[75vh]">
+          <BillPDF invoiceData={invoiceData} productData={dynamicTableData} />
         </PDFViewer>
         <div className="flex gap-4">
           <DownloadButton invoiceData={invoiceData} />
           <Button disabled={isSubmitting} onClick={handleSubmit}>Generate Bill</Button>
         </div>
-        <Button
-          className="absolute top-0 right-1"
+        <button
+          className="absolute -top-3 right-0 text-black rounded-full p-1 hover:bg-slate-200"
           onClick={() => setIsModalOpen(false)}
         >
-          <X className="h-4 w-4" />
-        </Button>
+          <X className="h-6 w-6" />
+        </button>
       </div>
     </div>
   );

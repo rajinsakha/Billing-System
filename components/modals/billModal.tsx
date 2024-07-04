@@ -28,7 +28,7 @@ const BillModal = ({
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const { invoiceData } = useAppSelector((state) => state.authReducer);
-  const { refetch } = useAppSelector((state) => state.tableReducer);
+  const { refetch, dynamicTableData } = useAppSelector((state) => state.tableReducer);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: any) => {
@@ -57,7 +57,6 @@ const BillModal = ({
     }
   };
 
-
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>
@@ -65,7 +64,7 @@ const BillModal = ({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[773px] h-[95vh] hide-scrollbar rounded-t-lg rounded-b-none modal-content">
         <PDFViewer className="w-full h-[80vh]">
-          <BillPDF invoiceData={invoiceData} />
+          <BillPDF invoiceData={invoiceData} productData={dynamicTableData}  />
         </PDFViewer>
         <div className="flex gap-4">
           <DownloadButton invoiceData={invoiceData} />
