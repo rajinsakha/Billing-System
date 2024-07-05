@@ -183,7 +183,8 @@ const Invoices = () => {
       Invoice_Item: Ids,
       pan_number: panNo,
       contact_number:contactNo,
-      discount:  finalDiscount
+      discount:  finalDiscount,
+      price_before_discount: totalPriceBeforeDiscount
     };
     dispatch(setInvoiceData(formData));
     setIsModalOpen(true);

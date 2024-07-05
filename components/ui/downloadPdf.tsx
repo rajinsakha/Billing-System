@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 import { pdf } from '@react-pdf/renderer';
 import { BillPDF, BillPDFProps } from '../BillPDF';
 import { Button } from './button';
-import { InvoiceData } from '@/types/products';
+
 
 const DownloadButton = ({invoiceData, productData}: BillPDFProps) => {
   const downloadPdf = async () => {

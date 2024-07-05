@@ -45,6 +45,7 @@ export interface InvoiceData{
   total_price: number,
   Invoice_Item: number[],
   discount: number;
+  price_before_discount:number;
 }
 
 

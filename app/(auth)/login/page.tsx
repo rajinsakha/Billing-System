@@ -1,18 +1,18 @@
 import AuthenticationForm from '@/components/forms/AuthenticationForm'
 import Image from 'next/image'
 import React from 'react'
+import Hardware from '../../../public/Hardware.jpeg'
 
 const LoginPage = () => {
   return (
     <div className="w-full lg:grid lg:grid-cols-2 min-h-screen">
      <AuthenticationForm />
-      <div className="hidden bg-muted lg:block">
+      <div className="hidden bg-muted lg:block relative">
         <Image
-          src="/placeholder.svg"
+          src={Hardware}
           alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          fill
+          className="h-full w-full object-cover"
         />
       </div>
     </div>
