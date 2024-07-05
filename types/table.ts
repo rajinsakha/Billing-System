@@ -16,3 +16,18 @@ export interface TableProps {
   data: IProduct[] | any[];
   type: string;
 }
+
+export interface ProductData {
+  id: number;
+  product_info: {
+    value: number;
+    label: string;
+    price: number;
+    in_stock: number;
+  }
+  quantity: number;
+  total_price: number;
+  created_at: string;
+  discount: null | number | string;
+  product: number;
+}

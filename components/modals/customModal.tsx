@@ -12,6 +12,7 @@ import { useToast } from "../ui/use-toast";
 
 import { X } from "lucide-react";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
+import { ProductData } from "@/types/table";
 interface BillModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
@@ -30,6 +31,8 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
   useOutsideClick(modalRef, () => {
     setIsModalOpen(false);
   });
+
+  console.log(dynamicTableData);
 
 
   const handleSubmit = async (e: any) => {
@@ -62,7 +65,7 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
     <div className="z" id="billModal">
       <div ref={modalRef} className="sm:w-[773px] h-[90vh] bg-background px-6 py-8 relative space-y-4 shadow-lg sm:rounded-lg">
         <PDFViewer className="w-full h-[75vh]">
-          <BillPDF invoiceData={invoiceData} productData={dynamicTableData} />
+          <BillPDF invoiceData={invoiceData} productData={dynamicTableData as ProductData[]} />
         </PDFViewer>
         <div className="flex gap-4">
           <DownloadButton invoiceData={invoiceData} />

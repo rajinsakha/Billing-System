@@ -37,10 +37,14 @@ export interface ISubCategoryDropdown{
 
 
 export interface InvoiceData{
+  address:string;
+  pan_number: string;
+  contact_number: number;
   bill_for: string,
   is_printed: boolean,
   total_price: number,
   Invoice_Item: number[],
+  discount: number;
 }
 
 

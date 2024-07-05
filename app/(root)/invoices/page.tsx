@@ -33,6 +33,7 @@ const Invoices = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalPriceBeforeDiscount, setTotalPriceBeforeDiscount] =
     useState<number>(0);
+  const [finalDiscount, setFinalDiscount] = useState<number>(0);
   const [finalPrice, setFinalPrice] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
   const [voucher, setVoucher] = useState<number>(0);
@@ -50,13 +51,14 @@ const Invoices = () => {
   };
 
   useEffect(() => {
-    const { totalPriceBeforeDiscount, finalPrice } = calculateTotalPrice(
+    const { totalPriceBeforeDiscount, finalPrice, finalDiscount } = calculateTotalPrice(
       dynamicTableData,
       discount,
       voucher
     );
     setTotalPriceBeforeDiscount(totalPriceBeforeDiscount);
     setFinalPrice(finalPrice);
+    setFinalDiscount(finalDiscount);
   }, [dynamicTableData, discount, voucher]);
 
   const handleDiscountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -179,6 +181,9 @@ const Invoices = () => {
       total_price: finalPrice,
       address: address,
       Invoice_Item: Ids,
+      pan_number: panNo,
+      contact_number:contactNo,
+      discount:  finalDiscount
     };
     dispatch(setInvoiceData(formData));
     setIsModalOpen(true);

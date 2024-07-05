@@ -3,14 +3,14 @@ import {
   IProduct,
   ISubCategoryDropdown,
 } from "@/types/products";
-import { IDynamicData } from "@/types/table";
+import { IDynamicData, ProductData } from "@/types/table";
 import { createSlice } from "@reduxjs/toolkit";
 
 type HomeState = {
   type: string;
   refetch: boolean;
   dynamicData: IDynamicData;
-  dynamicTableData: IProduct[] | any[];
+  dynamicTableData: IProduct[] | any[] | ProductData[];
   singleData: IProduct | any;
   categoryDropdown: ICategoryDropdown[];
   subCategoryDropdown: ISubCategoryDropdown[];
