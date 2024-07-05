@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface BillPDFProps {
+export interface BillPDFProps {
   invoiceData: InvoiceData;
   productData: ProductData[];
 }

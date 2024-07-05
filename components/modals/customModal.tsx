@@ -68,7 +68,7 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
           <BillPDF invoiceData={invoiceData} productData={dynamicTableData as ProductData[]} />
         </PDFViewer>
         <div className="flex gap-4">
-          <DownloadButton invoiceData={invoiceData} />
+          <DownloadButton invoiceData={invoiceData} productData={dynamicTableData as ProductData[]} />
           <Button disabled={isSubmitting} onClick={handleSubmit}>Generate Bill</Button>
         </div>
         <button
