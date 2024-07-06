@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   header: {
-    borderBottom: '2px solid #000',
+    borderBottom: '1px solid #000',
   },
   bold: {
     fontWeight: 'bold',

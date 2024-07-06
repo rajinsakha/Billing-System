@@ -15,7 +15,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setSingleData, setType } from "@/redux/features/tableReducer";
 import QuantityForm from "./forms/QuantityForm";
 import DeleteModal from "./modals/deleteModal";
-import { extractTableData, generateHeight } from "@/lib/tableFunction";
+import { extractTableData } from "@/lib/tableFunction";
 import { useRouter } from "next/navigation";
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
@@ -29,12 +29,10 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     }
   };
 
-console.log(type);
-  const height = generateHeight(type);
-
-
   return (
-    <ScrollArea className={`${height}` }>
+    <ScrollArea
+      className={`${type === "Invoice" ? "h-[50vh]" : "h-[65vh]"} w-full`}
+    >
       <Table className="max-lg:overflow-x-scroll relative">
         <TableHeader className="sticky top-0 z-[10] mb-10 bg-white">
           <TableRow>
@@ -53,7 +51,10 @@ console.log(type);
         </TableHeader>
         <TableBody className="w-full !overflow-scroll">
           {extractedData?.map((row, rowIndex) => (
-            <TableRow key={rowIndex} className={`${type === "Category" && "cursor-pointer"}`}>
+            <TableRow
+              key={rowIndex}
+              className={`${type === "Category" && "cursor-pointer"}`}
+            >
               {Object.entries(row).map(([key, value]: any, colIndex) => (
                 <React.Fragment key={colIndex}>
                   {key === "quantity" ? (
@@ -64,10 +65,8 @@ console.log(type);
                     value?.hasOwnProperty("label") &&
                     value?.hasOwnProperty("value") ? (
                     <TableCell>{value.label}</TableCell>
-                  ) :  type === "Invoice" && key === "id" ? (
-                    <TableCell>
-                      {rowIndex+1}
-                    </TableCell>
+                  ) : type === "Invoice" && key === "id" ? (
+                    <TableCell>{rowIndex + 1}</TableCell>
                   ) : (
                     <TableCell
                       key={colIndex}
