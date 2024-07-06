@@ -8,6 +8,7 @@ import useFetchData from "@/lib/hooks/useFetchData";
 import { setInvoiceData } from "@/redux/features/tableReducer";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { Dice1 } from "lucide-react";
 import { useCallback, useEffect } from "react";
 
 const ProductPage = () => {
@@ -36,13 +37,13 @@ const ProductPage = () => {
   }, [getInvoiceData, refetch]);
 
   return (
-    <div className="mt-[60px] space-y-4">
+    <div className="mt-[60px] space-y-4 flex flex-col min-h-[85vh]">
       {dynamicTableData.length === 0 ? (
         <div className="flex items-center justify-center text-xl h-[75vh]">
           No Products Available
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {dynamicTableData?.map((data) => (
             <ProductCard
               key={data.id}
@@ -55,7 +56,11 @@ const ProductPage = () => {
         </div>
       )}
 
-      {dynamicTableData.length !== 0 && <TablePagination />}
+      {dynamicTableData.length !== 0 && <div className="mt-auto">
+        <TablePagination />
+      </div>
+      
+       }
     </div>
   );
 };

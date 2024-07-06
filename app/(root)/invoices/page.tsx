@@ -213,9 +213,9 @@ const Invoices = () => {
         {error && <p>{error}</p>}
         {!loading && !error && (
           <>
-            <div className="grid grid-cols-2 justify-end gap-2">
+            <div className="grid max-sm:grid-cols-1 grid-cols-2 justify-end gap-2">
               <div className="flex items-center gap-2">
-                <Label className="w-[120px]">Customer Name:</Label>
+                <Label className=" w-[120px]">Customer Name:</Label>
                 <Input
                   type="text"
                   value={customer}
@@ -228,7 +228,7 @@ const Invoices = () => {
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <Label className="w-[100px]">Address: </Label>
+                <Label className="max-sm:w-[120px] w-[100px]">Address: </Label>
                 <Input
                   type="text"
                   value={address}
@@ -256,7 +256,7 @@ const Invoices = () => {
                 {errors.panNo && <ValidationMessage message={errors.panNo} />}
               </div>
               <div className="flex items-center gap-2">
-                <Label className="w-[100px]">Contact No: </Label>
+                <Label className="max-sm:w-[120px] w-[100px]">Contact No: </Label>
                 <Input
                   type="number"
                   value={contactNo === null ? "" : contactNo}
@@ -280,8 +280,8 @@ const Invoices = () => {
               type="Invoice"
             />
 
-            <div className="flex justify-between">
-              <div className="flex gap-4">
+            <div className="flex justify-between max-sm:flex-col gap-5">
+              <div className="flex max-sm:flex-col gap-4">
                 <CustomInput
                   label="Discount"
                   placeholder="Enter Discount (in %)"
@@ -294,7 +294,7 @@ const Invoices = () => {
                 />
               </div>
 
-              <Button onClick={handlePDFClick}>Generate Bill</Button>
+              <Button onClick={handlePDFClick} className="max-sm:w-[120px]">Generate Bill</Button>
             </div>
 
             <div className="flex items-center justify-between">
