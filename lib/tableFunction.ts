@@ -49,7 +49,7 @@ export const extractTableData = (data: any[], type: string): any[] => {
 
   export const generateHeight = (type:string)=>{
     if(type === "Invoice"){
-      return "h-[55vh]"
+      return "h-[50vh]"
     }else{
       return "h-[65vh]"
     }

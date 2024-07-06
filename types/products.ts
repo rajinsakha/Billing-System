@@ -46,6 +46,8 @@ export interface InvoiceData{
   Invoice_Item: number[],
   discount: number;
   price_before_discount:number;
+  payment:string;
+  remarks?:string;
 }
 
 

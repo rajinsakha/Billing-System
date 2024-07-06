@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import CustomInput from "@/components/ui/custom-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import ValidationMessage from "@/components/ui/validation-message";
 import { calculateTotalPrice } from "@/lib/calculation";
@@ -26,8 +27,9 @@ const Invoices = () => {
     (state) => state.tableReducer
   );
   const [customer, setCustomer] = useState<string>("");
+  const [remarks, setRemarks] = useState<string>("");
   const [address, setAddress] = useState<string>("");
-  const [panNo, setPanNo] = useState<number | null>(null);
+  const [paymentMode, setPaymentMode] = useState<string | undefined>(undefined);
   const [contactNo, setContactNo] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +39,6 @@ const Invoices = () => {
   const [finalPrice, setFinalPrice] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
   const [voucher, setVoucher] = useState<number>(0);
-  const [remark, setRemark] = useState<string>("");
   const [errors, setErrors] = useState({
     customer: "",
     address: "",
@@ -51,15 +52,17 @@ const Invoices = () => {
   };
 
   useEffect(() => {
-    const { totalPriceBeforeDiscount, finalPrice, finalDiscount } = calculateTotalPrice(
-      dynamicTableData,
-      discount,
-      voucher
-    );
+    const { totalPriceBeforeDiscount, finalPrice, finalDiscount } =
+      calculateTotalPrice(dynamicTableData, discount, voucher);
     setTotalPriceBeforeDiscount(totalPriceBeforeDiscount);
     setFinalPrice(finalPrice);
     setFinalDiscount(finalDiscount);
   }, [dynamicTableData, discount, voucher]);
+
+
+  const handleSelectChange = (value:string) => {
+    setPaymentMode(value);
+  };
 
   const handleDiscountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.valueAsNumber;
@@ -96,8 +99,8 @@ const Invoices = () => {
       newErrors.address = "Address field is required";
       isValid = false;
     }
-    if (panNo === null) {
-      newErrors.panNo = "PAN Number is required";
+    if (paymentMode === undefined) {
+      newErrors.panNo = "Mode of Payment is required";
       isValid = false;
     }
     if (contactNo === null) {
@@ -181,10 +184,11 @@ const Invoices = () => {
       total_price: finalPrice,
       address: address,
       Invoice_Item: Ids,
-      pan_number: panNo,
-      contact_number:contactNo,
-      discount:  finalDiscount,
-      price_before_discount: totalPriceBeforeDiscount
+     payment: paymentMode,
+      contact_number: contactNo,
+      discount: finalDiscount,
+      price_before_discount: totalPriceBeforeDiscount,
+      remarks: remarks
     };
     dispatch(setInvoiceData(formData));
     setIsModalOpen(true);
@@ -193,11 +197,13 @@ const Invoices = () => {
   const resetFormFields = () => {
     setCustomer("");
     setAddress("");
-    setPanNo(null);
+    // setPanNo(null);
+    setRemarks("");
+    setPaymentMode(undefined);
     setContactNo(null);
     setDiscount(0);
     setVoucher(0);
-    setRemark("");
+    setRemarks("");
     setErrors({
       customer: "",
       address: "",
@@ -213,7 +219,7 @@ const Invoices = () => {
         {error && <p>{error}</p>}
         {!loading && !error && (
           <>
-            <div className="grid max-sm:grid-cols-1 grid-cols-2 justify-end gap-2">
+            <div className="grid max-sm:grid-cols-1 grid-cols-2 justify-end gap-2 px-2">
               <div className="flex items-center gap-2">
                 <Label className=" w-[120px]">Customer Name:</Label>
                 <Input
@@ -240,7 +246,7 @@ const Invoices = () => {
                   <ValidationMessage message={errors.address} />
                 )}
               </div>
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 <Label className="w-[120px]">PAN No: </Label>
                 <Input
                   type="number"
@@ -254,9 +260,9 @@ const Invoices = () => {
                   className="w-[220px]"
                 />
                 {errors.panNo && <ValidationMessage message={errors.panNo} />}
-              </div>
+              </div> */}
               <div className="flex items-center gap-2">
-                <Label className="max-sm:w-[120px] w-[100px]">Contact No: </Label>
+                <Label className="w-[120px]">Contact No: </Label>
                 <Input
                   type="number"
                   value={contactNo === null ? "" : contactNo}
@@ -272,6 +278,22 @@ const Invoices = () => {
                   <ValidationMessage message={errors.contactNo} />
                 )}
               </div>
+
+              <div className="flex items-center gap-2">
+                <Label className="max-sm:w-[120px] w-[100px]">
+                  Mode of Payment:{" "}
+                </Label>
+                <Select value={paymentMode} onValueChange={handleSelectChange} >
+                  <SelectTrigger className="w-[220px]">
+                    <SelectValue placeholder="Select Mode of Payment" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cash">Cash</SelectItem>
+                    <SelectItem value="credit">Credit</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.panNo && <ValidationMessage message={errors.panNo} />}
+              </div>
             </div>
 
             <DynamicTable
@@ -280,8 +302,8 @@ const Invoices = () => {
               type="Invoice"
             />
 
-            <div className="flex justify-between max-sm:flex-col gap-5">
-              <div className="flex max-sm:flex-col gap-4">
+            <div className="flex justify-between max-sm:flex-col gap-5 !mt-4 px-2">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <CustomInput
                   label="Discount"
                   placeholder="Enter Discount (in %)"
@@ -292,23 +314,27 @@ const Invoices = () => {
                   placeholder="Enter Voucher (in %)"
                   handleChange={handleVoucherChange}
                 />
-              </div>
-
-              <Button onClick={handlePDFClick} className="max-sm:w-[120px]">Generate Bill</Button>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <div className="flex gap-4">
-                  <p>Discount Percentage: {discount}%</p>
-                  <p>Discount Voucher Rate: {voucher}%</p>
+                <div className="flex items-center gap-2">
+                  <Label className="">Remarks: </Label>
+                  <Input
+                    type="text"
+                    value={remarks}
+                    onChange={(e) => setRemarks(e.target.value)}
+                    placeholder="Enter Remarks"
+                    className="w-[220px]"
+                  />
                 </div>
-
-                <p>
-                  Total Price Before Discount: Rs {totalPriceBeforeDiscount}
-                </p>
-                <p>Total Price After Discount: Rs {finalPrice}</p>
               </div>
+
+              <div className="space-y-1">
+                <p>Sub Total: Rs {totalPriceBeforeDiscount}</p>
+                <p>Discount: Rs {finalDiscount}</p>
+                <p>Grand Total: {finalPrice}</p>
+              </div>
+
+              <Button onClick={handlePDFClick} className="max-sm:w-[120px]">
+                Generate Bill
+              </Button>
             </div>
           </>
         )}

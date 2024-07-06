@@ -64,15 +64,13 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.detailsText}>
               Contact No: {invoiceData.contact_number}
             </Text>
-            <Text style={styles.detailsText}>MODE OF PAYMENT: CASH</Text>
+            <Text style={styles.detailsText}>MODE OF PAYMENT: {invoiceData.payment.toUpperCase()}</Text>
           </View>
         </View>
 
         <View style={styles.mainContent}>
-        <InvoiceTable data={productData} />
+          <InvoiceTable data={productData} />
         </View>
-
-      
 
         <View style={styles.calculation}>
           <View style={styles.calculationSection}>
@@ -80,7 +78,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               In Words: {toWords.convert(invoiceData.total_price)}
             </Text>
             <Text style={styles.calculationText}>
-              Discount: {invoiceData.discount}{" "}
+              Remarks: {invoiceData.discount}{" "}
             </Text>
           </View>
           <View style={styles.calculationSection}>
@@ -88,14 +86,13 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               Total: {invoiceData.price_before_discount}
             </Text>
             <Text style={styles.calculationText}>
-              Discount: {invoiceData.discount}{" "}
+              Discount: {invoiceData.discount}
             </Text>
             <Text style={styles.calculationText}>
               Grand Total: {invoiceData.total_price}
             </Text>
           </View>
         </View>
-
 
         <View style={styles.signatureSection}>
           <View style={styles.signatureBox}>
@@ -109,13 +106,13 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
           </View>
         </View>
 
-        <View style={styles.footer}> 
+        <View style={styles.footer}>
           <Text style={styles.signatureText}>SB-2523/80-81</Text>
           <Text style={styles.signatureText}>Thank You For Your Business</Text>
-          <Text style={styles.signatureText}>Print Date & Time: {generateDateTime()} </Text>
+          <Text style={styles.signatureText}>
+            Print Date & Time: {generateDateTime()}{" "}
+          </Text>
         </View>
-
-
       </Page>
     </Document>
   );

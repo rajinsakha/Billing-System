@@ -34,9 +34,9 @@ console.log(type);
 
 
   return (
-    <ScrollArea className={`min-h-[55vh] ${height}`}>
-      <Table className="">
-        <TableHeader>
+    <ScrollArea className={`${height}` }>
+      <Table className="max-lg:overflow-x-scroll relative">
+        <TableHeader className="sticky top-0 z-[10] mb-10 bg-white">
           <TableRow>
             {headers.map((head, index) => (
               <TableHead
@@ -51,7 +51,7 @@ console.log(type);
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="w-full !overflow-scroll">
           {extractedData?.map((row, rowIndex) => (
             <TableRow key={rowIndex} className={`${type === "Category" && "cursor-pointer"}`}>
               {Object.entries(row).map(([key, value]: any, colIndex) => (
@@ -64,6 +64,10 @@ console.log(type);
                     value?.hasOwnProperty("label") &&
                     value?.hasOwnProperty("value") ? (
                     <TableCell>{value.label}</TableCell>
+                  ) :  type === "Invoice" && key === "id" ? (
+                    <TableCell>
+                      {rowIndex+1}
+                    </TableCell>
                   ) : (
                     <TableCell
                       key={colIndex}

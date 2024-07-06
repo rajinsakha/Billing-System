@@ -51,6 +51,12 @@ export const styles = StyleSheet.create({
       display:"flex",
       flexDirection:"column",
     },
+    calculationTitle:{
+      width:'30%',
+    },
+    calculationDesc:{
+      width:'70%'
+    },
     calculationRow: {
       display: "flex",
       flexDirection: "row",
@@ -59,6 +65,7 @@ export const styles = StyleSheet.create({
     },
     calculationText: {
       fontSize: 10,
+      
     },
     signatureSection: {
      marginTop: "auto",
