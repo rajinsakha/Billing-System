@@ -55,42 +55,42 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.detailsText}>Invoice Date: July 7, 2024</Text>
           </View>
           <View style={styles.detailsRow}>
-            <Text style={styles.detailsText}>
-              PAN No: {invoiceData.pan_number}
+          <Text style={styles.detailsText}>
+              Contact No: {invoiceData.contact_number}
             </Text>
             <Text style={styles.detailsText}>Invoice Miti: Ashar 19, 2081</Text>
           </View>
           <View style={styles.detailsRow}>
+         
             <Text style={styles.detailsText}>
-              Contact No: {invoiceData.contact_number}
+              MODE OF PAYMENT: {invoiceData.payment.toUpperCase()}
             </Text>
-            <Text style={styles.detailsText}>MODE OF PAYMENT: {invoiceData.payment.toUpperCase()}</Text>
           </View>
         </View>
 
         <View style={styles.mainContent}>
           <InvoiceTable data={productData} />
-        </View>
-
-        <View style={styles.calculation}>
-          <View style={styles.calculationSection}>
-            <Text style={styles.calculationText}>
-              In Words: {toWords.convert(invoiceData.total_price)}
-            </Text>
-            <Text style={styles.calculationText}>
-              Remarks: {invoiceData.discount}{" "}
-            </Text>
-          </View>
-          <View style={styles.calculationSection}>
-            <Text style={styles.calculationText}>
-              Total: {invoiceData.price_before_discount}
-            </Text>
-            <Text style={styles.calculationText}>
-              Discount: {invoiceData.discount}
-            </Text>
-            <Text style={styles.calculationText}>
-              Grand Total: {invoiceData.total_price}
-            </Text>
+          <View style={styles.calculation}>
+            <View style={styles.calculationSection}>
+              <Text style={styles.calculationText}>
+                In Words: <Text style={{width:'300px'}}>{toWords.convert(invoiceData.total_price)}
+                  </Text>
+              </Text>
+              <Text style={styles.calculationText}>
+                Remarks: {invoiceData.remarks}
+              </Text>
+            </View>
+            <View style={styles.calculationSection}>
+              <Text style={styles.calculationText}>
+                Total: Rs {invoiceData.price_before_discount}
+              </Text>
+              <Text style={[styles.calculationText, styles.discount]}>
+                Discount: Rs {invoiceData.discount}
+              </Text>
+              <Text style={styles.grandTotalText}>
+                Grand Total: Rs {invoiceData.total_price}
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -109,8 +109,11 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
         <View style={styles.footer}>
           <Text style={styles.signatureText}>SB-2523/80-81</Text>
           <Text style={styles.signatureText}>Thank You For Your Business</Text>
+        </View>
+
+        <View style={styles.print}>
           <Text style={styles.signatureText}>
-            Print Date & Time: {generateDateTime()}{" "}
+            Print Date & Time: {generateDateTime()}
           </Text>
         </View>
       </Page>
