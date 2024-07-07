@@ -8,12 +8,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { setPageNumber } from "@/redux/features/authReducer";
 import {
   setDynamicData,
   setDynamicTableData,
 } from "@/redux/features/tableReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
+
 
 const TablePagination = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +24,8 @@ const TablePagination = () => {
 
   useEffect(() => {
     setCurrentPage(dynamicData.current_page);
-  }, [dynamicData]);
+    dispatch(setPageNumber(currentPage));
+  }, [dynamicData, dispatch, currentPage]);
 
   console.log(dynamicData);
 

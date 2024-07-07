@@ -36,25 +36,30 @@ export const styles = StyleSheet.create({
   detailsText: {
     fontSize: 10,
   },
-  mainContent: {
-    flexGrow: 1,
-  },
   calculation: {
     marginTop: 10,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: 5,
+    gap: 50,
     marginBottom: 50,
   },
-  calculationSection: {
+  calculationCol1: {
     display: "flex",
+    flex: '1',
+    flexDirection: "column",
+    gap: 5,
+    marginBottom: 5,
+  },
+  calculationCol2:{
+    display: "flex",
+    maxWidth: '150px',
     flexDirection: "column",
     gap: 4,
     marginBottom: 5,
   },
-  discount:{
-    marginBottom: 4
+  discount: {
+    marginBottom: 4,
   },
   calculationTitle: {
     width: "30%",
@@ -71,6 +76,10 @@ export const styles = StyleSheet.create({
   calculationText: {
     fontSize: 11,
   },
+  inWordsText: {
+    width: "100%", // Ensure it wraps within the available space
+    fontSize: 11, // Adjust font size if needed
+  },
   grandTotalText: {
     borderTop: "1px solid black",
     paddingTop: 4,
@@ -78,7 +87,6 @@ export const styles = StyleSheet.create({
     fontWeight: "semibold",
   },
   signatureSection: {
-    marginTop: "auto",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -98,7 +106,8 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    alignItems: "center",
   },
   print: {
     display: "flex",

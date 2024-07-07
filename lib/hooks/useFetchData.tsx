@@ -15,7 +15,7 @@ interface Criteria {
   [key: string]: string;
 }
 
-const useFetchData = (type: string, searchQuery?:string, criteria?:Criteria) => {
+const useFetchData = (type: string, searchQuery?:string, criteria?:Criteria,pageNo?:number) => {
   const params = useParams();
  const id = Number(params.id);
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ console.log(singleData);
     try {
       let response;
       if (type === "Product" || type === "Inventory") {
-        response = await getAllProducts(searchQuery, criteria?.category);
+        response = await getAllProducts(searchQuery, criteria?.category, pageNo);
       }
 
       if (type === "Invoice") {
@@ -68,7 +68,7 @@ console.log(singleData);
     } finally {
       setLoading(false);
     }
-  }, [dispatch, id, type,searchQuery,criteria]);
+  }, [dispatch, id, type,searchQuery,criteria, pageNo]);
 
   useEffect(() => {
     fetchData();

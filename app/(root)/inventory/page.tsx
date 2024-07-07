@@ -52,7 +52,7 @@ const Inventory = () => {
   return (
     <ScrollArea className="mt-[60px]">
       <div className="space-y-4">
-        <div className="flex gap-4 items-center justify-between">
+        <div className="flex gap-4 items-center justify-between max-sm:flex-col">
           <TitleText title="Inventory" />
           <div className="flex gap-4">
             <Link

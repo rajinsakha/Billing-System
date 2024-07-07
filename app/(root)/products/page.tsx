@@ -1,25 +1,37 @@
 "use client";
 
 import { getAllInvoices } from "@/api/invoices/invoice";
+import FilterDropdown from "@/components/filterDropdown";
 import TablePagination from "@/components/TablePagination";
 import Loader from "@/components/ui/loader";
 import ProductCard from "@/components/ui/productCard";
+import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
+import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
+import { setCriteria } from "@/redux/features/filterReducer";
 import { setInvoiceData } from "@/redux/features/tableReducer";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Dice1 } from "lucide-react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const ProductPage = () => {
   const dispatch = useAppDispatch();
   const { searchQuery, criteria } = useAppSelector(
     (state) => state.filterReducer
   );
-  const { loading, error } = useFetchData("Product", searchQuery, criteria);
-  const { dynamicTableData, refetch } = useAppSelector(
+  const { pageNo } = useAppSelector((state) => state.authReducer);
+  const { loading, error } = useFetchData(
+    "Product",
+    searchQuery,
+    criteria,
+    pageNo
+  );
+  const { dynamicTableData, refetch, categoryDropdown } = useAppSelector(
     (state) => state.tableReducer
   );
+  useFetchDropdown();
+  const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
 
   const getInvoiceData = useCallback(async () => {
     try {
@@ -36,8 +48,31 @@ const ProductPage = () => {
     getInvoiceData();
   }, [getInvoiceData, refetch]);
 
+  const handleCategoryChange = (value: string) => {
+    const categoryId = Number(value);
+    setSelectedCategory(categoryId);
+    dispatch(
+      setCriteria({
+        category: categoryId,
+      })
+    );
+  };
+
   return (
-    <div className="mt-[60px] space-y-4 flex flex-col min-h-[85vh]">
+    <main className="mt-[60px] space-y-4 flex flex-col min-h-[85vh]">
+      <div className="flex gap-4 items-center justify-between max-sm:flex-col">
+      <TitleText title="Products" />
+      <div className="flex items-center gap-2 justify-end">
+        <p>Filter By:</p>
+        <FilterDropdown
+          placeholder="Select Category"
+          width="w-[200px]"
+          options={categoryDropdown}
+          handleChange={handleCategoryChange}
+        />
+      </div>
+      </div>
+  
       {dynamicTableData.length === 0 ? (
         <div className="flex items-center justify-center text-xl h-[75vh]">
           No Products Available
@@ -56,12 +91,12 @@ const ProductPage = () => {
         </div>
       )}
 
-      {dynamicTableData.length !== 0 && <div className="mt-auto">
-        <TablePagination />
-      </div>
-      
-       }
-    </div>
+      {dynamicTableData.length !== 0 && (
+        <div className="mt-auto">
+          <TablePagination />
+        </div>
+      )}
+    </main>
   );
 };
 

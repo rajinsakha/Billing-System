@@ -31,11 +31,11 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
 
   return (
     <ScrollArea
-      className={`${type === "Invoice" ? "h-[50vh]" : "h-[65vh]"} w-full`}
+      className={`${type === "Invoice" ? "h-[52vh]" : "h-[65vh]"} w-full`}
     >
       <Table className="max-lg:overflow-x-scroll relative">
         <TableHeader className="sticky top-0 z-[10] mb-10 bg-white">
-          <TableRow>
+          <TableRow className="bg-[#F2F2F2]">
             {headers.map((head, index) => (
               <TableHead
                 key={index}
@@ -53,7 +53,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
           {extractedData?.map((row, rowIndex) => (
             <TableRow
               key={rowIndex}
-              className={`${type === "Category" && "cursor-pointer"}`}
+              className={`${type === "Category" && "cursor-pointer"} text-[#484848]`}
             >
               {Object.entries(row).map(([key, value]: any, colIndex) => (
                 <React.Fragment key={colIndex}>

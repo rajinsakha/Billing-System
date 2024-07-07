@@ -5,12 +5,14 @@ type HomeState = {
   token: string;
   category: string;
   invoiceData: InvoiceData;
+ pageNo: number;
 };
 
 const initialState = {
   token: "",
   category: '',
-  invoiceData:{}
+  invoiceData:{},
+  pageNo: 1,
 } as HomeState;
 
 export const auth = createSlice({
@@ -25,9 +27,12 @@ export const auth = createSlice({
     },
     setInvoiceData:(state, action) =>{
       state.invoiceData = action.payload;
+    },
+    setPageNumber:(state, action) => {
+      state.pageNo = action.payload;
     }
   },
 });
 
-export const { setToken, setCategory, setInvoiceData } = auth.actions;
+export const { setToken, setCategory, setInvoiceData, setPageNumber } = auth.actions;
 export default auth.reducer;

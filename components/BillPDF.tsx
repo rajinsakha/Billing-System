@@ -68,19 +68,19 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
           </View>
         </View>
 
-        <View style={styles.mainContent}>
+        {/* <View style={styles.mainContent}> */}
           <InvoiceTable data={productData} />
           <View style={styles.calculation}>
-            <View style={styles.calculationSection}>
+            <View style={styles.calculationCol1}>
               <Text style={styles.calculationText}>
-                In Words: <Text style={{width:'300px'}}>{toWords.convert(invoiceData.total_price)}
+                In Words: <Text style={styles.inWordsText}>{toWords.convert(invoiceData.total_price)}
                   </Text>
               </Text>
               <Text style={styles.calculationText}>
                 Remarks: {invoiceData.remarks}
               </Text>
             </View>
-            <View style={styles.calculationSection}>
+            <View style={styles.calculationCol2}>
               <Text style={styles.calculationText}>
                 Total: Rs {invoiceData.price_before_discount}
               </Text>
@@ -92,7 +92,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               </Text>
             </View>
           </View>
-        </View>
+        {/* </View> */}
 
         <View style={styles.signatureSection}>
           <View style={styles.signatureBox}>
@@ -101,13 +101,10 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
           <View style={styles.signatureBox}>
             <Text style={styles.signatureText}>Receiver&apos;s Signature</Text>
           </View>
-          <View style={styles.signatureBox}>
-            <Text style={styles.signatureText}>Authorized Signatory</Text>
-          </View>
+        
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.signatureText}>SB-2523/80-81</Text>
           <Text style={styles.signatureText}>Thank You For Your Business</Text>
         </View>
 

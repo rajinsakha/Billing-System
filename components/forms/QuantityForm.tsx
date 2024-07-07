@@ -86,7 +86,7 @@ const QuantityForm = ({ initialData }: formProps) => {
                     // type="button"
                     onClick={() => field.onChange(Math.max(field.value - 1, 1))}
                     disabled={field.value === 1}
-                    className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-1 focus:ring-2 focus:outline-none"
+                    className="bg-gray-100 hover:bg-gray-200 border border-gray-300  p-3 h-10 focus:ring-gray-1 focus:ring-2 focus:outline-none"
                   >
                     <Minus className="w-3 h-3 text-gray-900" />
                   </button>
@@ -94,7 +94,7 @@ const QuantityForm = ({ initialData }: formProps) => {
                     type="number"
                     {...field}
                     onChange={(e) => field.onChange(Number(e.target.value))}
-                    className="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm  block w-full py-2.5"
+                    className="bg-gray-50 border-x-0 border-gray-300 h-10 text-center text-gray-900 text-sm  block w-full py-2.5"
                     placeholder="1"
                     required
                   />
@@ -104,7 +104,7 @@ const QuantityForm = ({ initialData }: formProps) => {
                       field.onChange(Math.min(field.value + 1, stock))
                     }
                     disabled={initialData?.quantity?.stock === 0}
-                    className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none"
+                    className="bg-gray-100  hover:bg-gray-200 border border-gray-300  p-3 h-10 focus:ring-gray-100  focus:ring-2 focus:outline-none"
                   >
                     <Plus className="w-3 h-3 text-gray-900" />
                   </button>

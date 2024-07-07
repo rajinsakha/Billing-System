@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import MobileNav from "./MobileNav";
 import Link from "next/link";
@@ -5,8 +6,13 @@ import { Package2, Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import SearchBox from "./searchBox";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+
+  const pathname = usePathname();
+  console.log(pathname);
+
   return (
     <div className="flex h-14 items-center justify-between  bg-muted fixed top-0 z-50 w-full py-4 px-4 lg:h-[60px] lg:px-6 overflow-hidden">
       <MobileNav />
@@ -22,7 +28,7 @@ const Navbar = () => {
     
 
       <div className="relative">
-        <SearchBox />
+        {pathname !== '/invoices' && <SearchBox />}
       </div>
 
       <div>

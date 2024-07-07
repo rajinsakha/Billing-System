@@ -234,7 +234,7 @@ const Invoices = () => {
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <Label className="max-sm:w-[120px] w-[100px]">Address: </Label>
+                <Label className="max-sm:w-[120px] lg:w-[130px] w-[100px]">Address: </Label>
                 <Input
                   type="text"
                   value={address}
@@ -280,7 +280,7 @@ const Invoices = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <Label className="max-sm:w-[120px] w-[100px]">
+                <Label className="lg:w-[130px] w-[100px]">
                   Mode of Payment:{" "}
                 </Label>
                 <Select value={paymentMode} onValueChange={handleSelectChange} >
@@ -329,7 +329,7 @@ const Invoices = () => {
               <div className="space-y-1">
                 <p>Sub Total: Rs {totalPriceBeforeDiscount}</p>
                 <p>Discount: Rs {finalDiscount}</p>
-                <p>Grand Total: {finalPrice}</p>
+                <p className="pt-2 border-solid border-t border-gray-600">Grand Total: Rs {finalPrice}</p>
               </div>
 
               <Button onClick={handlePDFClick} className="max-sm:w-[120px]">

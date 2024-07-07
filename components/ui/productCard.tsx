@@ -4,14 +4,7 @@ import { IProductCard } from "@/types/products";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Button } from "./button";
 import { genericSchema, singleProductFormSchema } from "@/schemas/formSchema";
 
@@ -53,7 +46,6 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
     }
   }, [form.formState.errors, toast]);
 
-
   const onSubmit = async (data: SingleProductFormValues) => {
     setIsSubmitting(true);
     try {
@@ -66,7 +58,12 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
         };
         const res = await updateInvoice(productID.id, newData);
         if (res.status === 200) {
-          console.log(res.data);
+          dispatch(setRefetch(!refetch));
+          toast({
+            variant: "default",
+            title: "Product Updated Successfully",
+            description: `${data.name} has been updated`,
+          });
         }
       } else {
         let newData = {
@@ -123,6 +120,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
                     <div className="relative flex items-center w-[8rem] justify-center">
                       <button
                         type="button"
+                        disabled={stock === 0}
                         onClick={() =>
                           field.onChange(Math.max(field.value - 1, 1))
                         }
@@ -140,6 +138,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
                       />
                       <button
                         type="button"
+                        disabled={stock === 0}
                         onClick={() =>
                           field.onChange(Math.min(field.value + 1, stock))
                         }
@@ -149,7 +148,6 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
                       </button>
                     </div>
                   </FormControl>
-               
                 </FormItem>
               )}
             />

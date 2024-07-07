@@ -2,13 +2,14 @@
 
 import DynamicTable from "@/components/DynamicTable";
 import TablePagination from "@/components/TablePagination";
-import AddModal from "@/components/modals/addModal";
+
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
-import Link from "next/link";
+
+import { useState } from "react";
 
 const Transaction = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,8 @@ const Transaction = () => {
   const { dynamicTableData, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
+  const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
+
 
   const tableData: TableDataItem = {
     headers: [
@@ -28,10 +31,29 @@ const Transaction = () => {
     data: dynamicTableData,
   };
 
+  // const handleCategoryChange = (value: string) => {
+  //   const categoryId = Number(value);
+  //   setSelectedCategory(categoryId);
+  //   dispatch(
+  //     setCriteria({
+  //       category: categoryId,
+  //     })
+  //   );
+  // };
+
   return (
     <div className="mt-[60px] space-y-4">
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center justify-between max-sm:flex-col">
      <TitleText title="Transaction" />
+     <div className=" flex items-center gap-2 justify-end">
+        <p>Filter By:</p>
+        {/* <FilterDropdown
+          placeholder="Select Category"
+          width="w-[200px]"
+          options={categoryDropdown}
+          handleChange={handleCategoryChange}
+        /> */}
+      </div>
       </div>
 
       <DynamicTable
