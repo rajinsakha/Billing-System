@@ -1,4 +1,6 @@
-export const extractTableData = (data: any[], type: string): any[] => {
+import { IResult } from "@/types/table";
+
+export const extractTableData = (data: any[] | IResult , type: string): any[] => {
     return data?.map((item) => {
       switch (type) {
         case "Product":
@@ -34,7 +36,11 @@ export const extractTableData = (data: any[], type: string): any[] => {
             id:item?.id,
             customer_name: item?.bill_for,
             total_price:item?.total_price,
+            mode_of_payment: item?.mode_of_payment || "-",
+            paid_amt: item?.paid_amt || "-",
+            credit_amt:item?.credit_amt || "-",
             created_at:item?.created_at?.slice(0,10),
+          
           }      
           case "SubCategory":
             return {
@@ -46,4 +52,10 @@ export const extractTableData = (data: any[], type: string): any[] => {
       }
     });
   };
+
+  export function capitalizeFirstLetter(str:string) {
+    return str.split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
+  }
 

@@ -17,14 +17,16 @@ import QuantityForm from "./forms/QuantityForm";
 import DeleteModal from "./modals/deleteModal";
 import { extractTableData } from "@/lib/tableFunction";
 import { useRouter } from "next/navigation";
+import { setCategory } from "@/redux/features/authReducer";
 
 const DynamicTable = ({ headers, data, type }: TableProps) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const extractedData = extractTableData(data, type);
 
-  const handleClick = (id: number) => {
+  const handleClick = (id: number, name?:string) => {
     if (type === "Category") {
+      dispatch(setCategory(name))
       router.push(`/category/${id}/`);
     }
   };
@@ -70,7 +72,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                   ) : (
                     <TableCell
                       key={colIndex}
-                      onClick={() => handleClick(row?.id)}
+                      onClick={() => handleClick(row?.id,row?.name)}
                     >
                       <div className="font-medium">{value}</div>
                     </TableCell>

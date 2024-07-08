@@ -19,11 +19,17 @@ interface BillModalProps {
   resetFormFields: () => void;
 }
 
-const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModalProps) => {
+const InvoiceModal = ({
+  isModalOpen,
+  setIsModalOpen,
+  resetFormFields,
+}: BillModalProps) => {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const { invoiceData } = useAppSelector((state) => state.authReducer);
-  const { refetch, dynamicTableData } = useAppSelector((state) => state.tableReducer);
+  const { refetch, dynamicTableData } = useAppSelector(
+    (state) => state.tableReducer
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -34,12 +40,34 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
 
   console.log(dynamicTableData);
 
-
+  console.log(invoiceData);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const res = await createTransactionBill(invoiceData);
+      console.log(invoiceData);
+      const newData = {
+        bill_for: invoiceData.bill_for,
+
+        is_printed: invoiceData.is_printed,
+
+        total_price: invoiceData.total_price,
+
+        address: invoiceData.address,
+
+        mode_of_payment: invoiceData.payment,
+
+        Invoice_Item: invoiceData.Invoice_Item,
+
+        paid_amt: invoiceData.paid_amt,
+
+        credit_amt: invoiceData.credit_amt,
+
+        contact_no: invoiceData.contact_no,
+
+        remark: invoiceData.remarks,
+      };
+      const res = await createTransactionBill(newData);
       if (res.status === 201) {
         dispatch(setRefetch(!refetch));
         toast({
@@ -63,13 +91,24 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
 
   return (
     <div className="z" id="billModal">
-      <div ref={modalRef} className="sm:w-[773px] h-[90vh] bg-background px-6 py-8 relative space-y-4 shadow-lg sm:rounded-lg">
+      <div
+        ref={modalRef}
+        className="sm:w-[773px] h-[90vh] bg-background px-6 py-8 relative space-y-4 shadow-lg sm:rounded-lg"
+      >
         <PDFViewer className="w-full h-[75vh]">
-          <BillPDF invoiceData={invoiceData} productData={dynamicTableData as ProductData[]} />
+          <BillPDF
+            invoiceData={invoiceData}
+            productData={dynamicTableData as ProductData[]}
+          />
         </PDFViewer>
         <div className="flex gap-4">
-          <DownloadButton invoiceData={invoiceData} productData={dynamicTableData as ProductData[]} />
-          <Button disabled={isSubmitting} onClick={handleSubmit}>Generate Bill</Button>
+          <DownloadButton
+            invoiceData={invoiceData}
+            productData={dynamicTableData as ProductData[]}
+          />
+          <Button disabled={isSubmitting} onClick={handleSubmit}>
+            Generate Bill
+          </Button>
         </div>
         <button
           className="absolute -top-3 right-0 text-black rounded-full p-1 hover:bg-slate-200"
@@ -82,4 +121,4 @@ const CustomModal = ({ isModalOpen, setIsModalOpen, resetFormFields }: BillModal
   );
 };
 
-export default CustomModal;
+export default InvoiceModal;

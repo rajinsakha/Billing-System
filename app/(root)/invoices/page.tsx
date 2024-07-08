@@ -2,13 +2,19 @@
 import { createTransactionBill } from "@/api/invoices/transaction";
 
 import DynamicTable from "@/components/DynamicTable";
+import InvoiceModal from "@/components/modals/invoiceModal";
 
-import CustomModal from "@/components/modals/customModal";
 import { Button } from "@/components/ui/button";
 import CustomInput from "@/components/ui/custom-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import ValidationMessage from "@/components/ui/validation-message";
 import { calculateTotalPrice } from "@/lib/calculation";
@@ -37,6 +43,7 @@ const Invoices = () => {
     useState<number>(0);
   const [finalDiscount, setFinalDiscount] = useState<number>(0);
   const [finalPrice, setFinalPrice] = useState<number>(0);
+  const [paidAmount, setPaidAmount] = useState<number | null>(null);
   const [discount, setDiscount] = useState<number>(0);
   const [voucher, setVoucher] = useState<number>(0);
   const [errors, setErrors] = useState({
@@ -59,8 +66,7 @@ const Invoices = () => {
     setFinalDiscount(finalDiscount);
   }, [dynamicTableData, discount, voucher]);
 
-
-  const handleSelectChange = (value:string) => {
+  const handleSelectChange = (value: string) => {
     setPaymentMode(value);
   };
 
@@ -107,55 +113,15 @@ const Invoices = () => {
       newErrors.contactNo = "Contact Number is required";
       isValid = false;
     }
+    // if(paidAmount && paidAmount === null){
+    //   newErrors.contactNo = "Paid Amount is required";
+    // }
 
     setErrors(newErrors);
     return isValid;
   };
 
   const Ids = dynamicTableData?.map((item) => item.id);
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    if (!validateFields()) {
-      toast({
-        variant: "destructive",
-        title: "Validation Error",
-        description: "Please fill out all required fields.",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const formData = {
-        bill_for: customer,
-        is_printed: true,
-        total_price: finalPrice,
-        address: address,
-        Invoice_Item: Ids,
-      };
-
-      const res = await createTransactionBill(formData);
-      if (res.status === 201) {
-        setCustomer("");
-        dispatch(setRefetch(!refetch));
-        toast({
-          variant: "default",
-          title: "Bill Created",
-          description: `Bill has been successfully created`,
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error Occured",
-        description: `Error Occured: ${error}`,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const handlePDFClick = () => {
     if (!validateFields()) {
@@ -178,17 +144,21 @@ const Invoices = () => {
       return;
     }
 
+    
+
     const formData = {
       bill_for: customer,
       is_printed: true,
       total_price: finalPrice,
       address: address,
       Invoice_Item: Ids,
-     payment: paymentMode,
-      contact_number: contactNo,
+      payment: paymentMode,
+      contact_no: contactNo,
       discount: finalDiscount,
       price_before_discount: totalPriceBeforeDiscount,
-      remarks: remarks
+      remarks: remarks,
+      paid_amt: paymentMode === "cash" ? finalPrice :   paidAmount,
+      credit_amt: paymentMode === "cash" ? 0 : finalPrice - (paidAmount || 0)
     };
     dispatch(setInvoiceData(formData));
     setIsModalOpen(true);
@@ -197,13 +167,13 @@ const Invoices = () => {
   const resetFormFields = () => {
     setCustomer("");
     setAddress("");
-    // setPanNo(null);
     setRemarks("");
     setPaymentMode(undefined);
     setContactNo(null);
     setDiscount(0);
     setVoucher(0);
     setRemarks("");
+    setPaidAmount(null);
     setErrors({
       customer: "",
       address: "",
@@ -234,7 +204,9 @@ const Invoices = () => {
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <Label className="max-sm:w-[120px] lg:w-[130px] w-[100px]">Address: </Label>
+                <Label className="max-sm:w-[120px] lg:w-[130px] w-[100px]">
+                  Address:{" "}
+                </Label>
                 <Input
                   type="text"
                   value={address}
@@ -283,7 +255,7 @@ const Invoices = () => {
                 <Label className="lg:w-[130px] w-[100px]">
                   Mode of Payment:{" "}
                 </Label>
-                <Select value={paymentMode} onValueChange={handleSelectChange} >
+                <Select value={paymentMode} onValueChange={handleSelectChange}>
                   <SelectTrigger className="w-[220px]">
                     <SelectValue placeholder="Select Mode of Payment" />
                   </SelectTrigger>
@@ -294,6 +266,8 @@ const Invoices = () => {
                 </Select>
                 {errors.panNo && <ValidationMessage message={errors.panNo} />}
               </div>
+
+      
             </div>
 
             <DynamicTable
@@ -324,12 +298,27 @@ const Invoices = () => {
                     className="w-[220px]"
                   />
                 </div>
+                {paymentMode === "credit" && <div className="flex items-center gap-2">
+                <Label className="">Amount: </Label>
+                <Input
+                  type="number"
+                  value={paidAmount === null ? "" : paidAmount}
+                  onChange={(e) =>
+                    setPaidAmount(
+                      e.target.value === "" ? null : Number(e.target.value)
+                    )
+                  }
+                  placeholder="Enter Paid Amount"
+                />
+              </div>}
               </div>
 
               <div className="space-y-1">
                 <p>Sub Total: Rs {totalPriceBeforeDiscount}</p>
                 <p>Discount: Rs {finalDiscount}</p>
-                <p className="pt-2 border-solid border-t border-gray-600">Grand Total: Rs {finalPrice}</p>
+                <p className="pt-2 border-solid border-t border-gray-600">
+                  Grand Total: Rs {finalPrice}
+                </p>
               </div>
 
               <Button onClick={handlePDFClick} className="max-sm:w-[120px]">
@@ -340,7 +329,7 @@ const Invoices = () => {
         )}
       </div>
       {isModalOpen && (
-        <CustomModal
+        <InvoiceModal
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           resetFormFields={resetFormFields}

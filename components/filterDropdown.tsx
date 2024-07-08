@@ -1,3 +1,4 @@
+"use client"
 import {
   Select,
   SelectContent,
@@ -8,6 +9,9 @@ import {
 import { IFilterDropdown } from "@/types/dashboard";
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setRefetch } from "@/redux/features/tableReducer";
+import { setCriteria } from "@/redux/features/filterReducer";
 
 interface Option {
   id: number | string;
@@ -24,6 +28,8 @@ const FilterDropdown = ({
   const [key, setKey] = useState(+new Date());
   const [value, setValue] = useState<string | undefined>(defaultValue);
   let propsWidth = width;
+  const dispatch = useAppDispatch();
+
 
   return (
     <Select
@@ -48,6 +54,8 @@ const FilterDropdown = ({
             e.stopPropagation();
             setValue(undefined);
             setKey(+new Date());
+            dispatch(setCriteria({category:""}))
+         
           }}
         >
           Clear

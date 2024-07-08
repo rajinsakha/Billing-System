@@ -8,6 +8,7 @@ import ProductCard from "@/components/ui/productCard";
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
+import { setPageNumber } from "@/redux/features/authReducer";
 import { setCriteria } from "@/redux/features/filterReducer";
 import { setInvoiceData } from "@/redux/features/tableReducer";
 
@@ -58,6 +59,10 @@ const ProductPage = () => {
     );
   };
 
+  useEffect(()=>{
+    dispatch(setCriteria({}))
+  },[dispatch])
+
   return (
     <main className="mt-[60px] space-y-4 flex flex-col min-h-[85vh]">
       <div className="flex gap-4 items-center justify-between max-sm:flex-col">
@@ -93,7 +98,7 @@ const ProductPage = () => {
 
       {dynamicTableData.length !== 0 && (
         <div className="mt-auto">
-          <TablePagination />
+          <TablePagination type="Product" />
         </div>
       )}
     </main>

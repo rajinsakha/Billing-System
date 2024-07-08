@@ -38,10 +38,14 @@ type SingleQuantityValues = z.infer<typeof genericQuantity>;
 const QuantityForm = ({ initialData }: formProps) => {
   const dispatch = useAppDispatch();
   const { refetch } = useAppSelector((state) => state.tableReducer);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<SingleQuantityValues>({
-    resolver: zodResolver(quantityFormSchema(initialData?.quantity?.stock + initialData?.quantity?.qty)),
+    resolver: zodResolver(
+      quantityFormSchema(
+        initialData?.quantity?.stock + initialData?.quantity?.qty
+      )
+    ),
     defaultValues: {
       quantity: initialData?.quantity?.qty,
     },
@@ -64,7 +68,6 @@ const QuantityForm = ({ initialData }: formProps) => {
       setIsSubmitting(false);
     }
   };
-
 
   const stock = initialData?.quantity?.stock + initialData?.quantity?.qty || 0;
   return (
@@ -94,6 +97,7 @@ const QuantityForm = ({ initialData }: formProps) => {
                     type="number"
                     {...field}
                     onChange={(e) => field.onChange(Number(e.target.value))}
+                    onBlur={() => form.trigger("quantity")}
                     className="bg-gray-50 border-x-0 border-gray-300 h-10 text-center text-gray-900 text-sm  block w-full py-2.5"
                     placeholder="1"
                     required

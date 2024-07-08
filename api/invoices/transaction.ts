@@ -21,3 +21,8 @@ export const getAllTransactions = cache(async (query="") => {
   const response = await api.get(`product/InvoiceBills/?customer_name=${query}`);
   return response;
 });
+
+export const getTransactionPage = cache(async (pageNo:number) =>{
+  const response = await api.get(`product/InvoiceBills/?page=${pageNo}`);
+  return response;
+} )

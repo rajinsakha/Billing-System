@@ -8,11 +8,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
+import { setPageNumber } from "@/redux/features/authReducer";
 import { setCriteria, setSearchQuery } from "@/redux/features/filterReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Inventory = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ const Inventory = () => {
   };
 
   const handleCategoryChange = (value: string) => {
+
     const categoryId = Number(value);
     setSelectedCategory(categoryId);
     dispatch(
@@ -48,6 +50,10 @@ const Inventory = () => {
       })
     );
   };
+
+  useEffect(()=>{
+    dispatch(setCriteria({}))
+  },[dispatch])
 
   return (
     <ScrollArea className="mt-[60px]">
@@ -81,7 +87,7 @@ const Inventory = () => {
           type="Product"
         />
 
-        <TablePagination />
+        <TablePagination type="Product" />
       </div>
     </ScrollArea>
   );

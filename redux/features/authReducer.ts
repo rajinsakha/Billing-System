@@ -30,7 +30,7 @@ export const auth = createSlice({
     },
     setPageNumber:(state, action) => {
       state.pageNo = action.payload;
-    }
+    },
   },
 });
 

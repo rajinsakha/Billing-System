@@ -23,3 +23,8 @@ export const deleteProduct = cache(async (id:number) => {
   return response;
 });
 
+export const getProductPage = cache(async (pageNo:number) =>{
+  const response = await api.get(`product/products/?page=${pageNo}`);
+  return response;
+})
+

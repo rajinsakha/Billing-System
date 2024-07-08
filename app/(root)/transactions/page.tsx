@@ -26,6 +26,9 @@ const Transaction = () => {
       "S.N.",
       "Customer Name",
       "Total Price",
+      "Mode of Payment",
+      "Paid Amount",
+      "Credit Amount",
       "Added Date",
     ],
     data: dynamicTableData,
@@ -62,7 +65,7 @@ const Transaction = () => {
         type="Transaction"
       />
 
-      <TablePagination />
+      <TablePagination type="Transaction" />
     </div>
   );
 };

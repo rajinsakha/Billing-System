@@ -4,6 +4,7 @@ import DynamicTable from "@/components/DynamicTable";
 import AddModal from "@/components/modals/addModal";
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
+import { capitalizeFirstLetter } from "@/lib/tableFunction";
 
 import { useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
@@ -14,6 +15,7 @@ const SubCategory = () => {
 
   const { loading, error } = useFetchData("SubCategory");
   const { dynamicTableData } = useAppSelector((state) => state.tableReducer);
+  const{category} = useAppSelector((state)=>state.authReducer)
 
   const tableData: TableDataItem = {
     headers: ["S.N.", "SubCategory Name"],
@@ -27,7 +29,7 @@ const SubCategory = () => {
           <Link href="/category" className="p-2 bg-secondary rounded-full">
             <ArrowLeft />
           </Link>
-          <TitleText title="Sub-Category" />
+          <TitleText title={`${capitalizeFirstLetter(category)} Sub-Category`} />
         </div>
         <AddModal type="SubCategory" />
       </div>
