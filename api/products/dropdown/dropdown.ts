@@ -49,7 +49,7 @@ export const getSubCategoryDropdown = cache(async () => {
   return response;
 });
 
-export const deleteSubCategory = cache(async (id:number,data: any) => {
+export const deleteSubCategory = cache(async (id:number,) => {
     const response = await api.delete(`product/sub-category/${id}`);
     return response;
   });
