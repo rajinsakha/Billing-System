@@ -56,7 +56,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
           </View>
           <View style={styles.detailsRow}>
           <Text style={styles.detailsText}>
-              Contact No: {invoiceData.contact_number}
+              Contact No: {invoiceData.contact_no}
             </Text>
             <Text style={styles.detailsText}>Invoice Miti: Ashar 19, 2081</Text>
           </View>

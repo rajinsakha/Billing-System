@@ -24,16 +24,22 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
   const dispatch = useAppDispatch();
   const extractedData = extractTableData(data, type);
 
-  const handleClick = (id: number, name?:string) => {
+  const handleClick = (id: number, name?: string) => {
     if (type === "Category") {
-      dispatch(setCategory(name))
+      dispatch(setCategory(name));
       router.push(`/category/${id}/`);
     }
   };
 
   return (
     <ScrollArea
-      className={`${type === "Invoice" ? "h-[52vh]" : "h-[65vh]"} w-full`}
+      className={`${
+        type === "Invoice"
+          ? "h-[52vh]"
+          : type === "dashboardTransaction"
+          ? "h-[320px]"
+          : "h-[65vh]"
+      } w-full`}
     >
       <Table className="max-lg:overflow-x-scroll relative">
         <TableHeader className="sticky top-0 z-[10] mb-10 bg-white">
@@ -48,14 +54,16 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                 {head}
               </TableHead>
             ))}
-            <TableHead></TableHead>
+            {type !== "dashboardTransaction" && <TableHead></TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody className="w-full !overflow-scroll">
           {extractedData?.map((row, rowIndex) => (
             <TableRow
               key={rowIndex}
-              className={`${type === "Category" && "cursor-pointer"} text-[#484848]`}
+              className={`${
+                type === "Category" && "cursor-pointer"
+              } text-[#484848]`}
             >
               {Object.entries(row).map(([key, value]: any, colIndex) => (
                 <React.Fragment key={colIndex}>
@@ -72,26 +80,28 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                   ) : (
                     <TableCell
                       key={colIndex}
-                      onClick={() => handleClick(row?.id,row?.name)}
+                      onClick={() => handleClick(row?.id, row?.name)}
                     >
                       <div className="font-medium">{value}</div>
                     </TableCell>
                   )}
                 </React.Fragment>
               ))}
-              <TableCell
-                className="w-[100px] text-right"
-                onClick={() => {
-                  dispatch(setSingleData(row));
-                  dispatch(setType(type));
-                }}
-              >
-                {type !== "Invoice" ? (
-                  <ToggleDropdown />
-                ) : (
-                  <DeleteModal isSeparate />
-                )}
-              </TableCell>
+              {type !== "dashboardTransaction" && (
+                <TableCell
+                  className="w-[100px] text-right"
+                  onClick={() => {
+                    dispatch(setSingleData(row));
+                    dispatch(setType(type));
+                  }}
+                >
+                  {type !== "Invoice" ? (
+                    <ToggleDropdown />
+                  ) : (
+                    <DeleteModal isSeparate />
+                  )}
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

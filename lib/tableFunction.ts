@@ -47,6 +47,13 @@ export const extractTableData = (data: any[] | IResult , type: string): any[] =>
               id:item?.id,
               name:item?.name
             }
+          case "dashboardTransaction":
+            return{
+              customer_name: item?.bill_for,
+              total_price:item?.total_price,
+              mode_of_payment: item?.mode_of_payment || "-",
+              created_at:item?.created_at?.slice(0,10),
+            }   
         default:
           return item;
       }

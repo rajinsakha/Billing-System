@@ -10,7 +10,7 @@ import {
 
 const RecentSales = () => {
   return (
-    <Card x-chunk="dashboard-01-chunk-5">
+    <Card x-chunk="dashboard-01-chunk-5" className="h-[429px]">
       <CardHeader>
         <CardTitle>Recent Sales</CardTitle>
       </CardHeader>

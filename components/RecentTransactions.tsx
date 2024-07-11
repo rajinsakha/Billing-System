@@ -11,23 +11,21 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { TableDataItem } from "@/types/table";
+import useFetchData from "@/lib/hooks/useFetchData";
+import { useAppSelector } from "@/redux/hooks";
 
 const RecentTransactions = () => {
 
-  // const tableData: TableDataItem = {
-  //   headers: ["Customer","Category", "Status", "Date", "Amount"],
-  //   data:[{
-  //     id: 1,
-  //     category: "Pipe",
-  //     name: "Liam Johnson",
-  //     status:"sale",
-  //     date: "2023-06-23",
-  //     amount: 2500
-  //   }],
-  // };
+  useFetchData("Transaction")
+
+  const {dynamicTableData} = useAppSelector((state)=>state.tableReducer)
+  const tableData: TableDataItem = {
+    headers: ["Customer","Amount", "Mode of Payment", "Date",],
+    data: dynamicTableData.slice(0,5),
+  };
 
   return (
-    <Card x-chunk="dashboard-01-chunk-4">
+    <Card>
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
           <CardTitle>Transactions</CardTitle>
@@ -36,14 +34,14 @@ const RecentTransactions = () => {
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
-          <Link href="#">
+          <Link href="/transactions">
             View All
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
       </CardHeader>
       <CardContent>
-        {/* <DynamicTable data={tableData.data} headers={tableData.headers} type="transactions" /> */}
+        <DynamicTable data={tableData.data} headers={tableData.headers} type="dashboardTransaction" />
       </CardContent>
     </Card>
   );
