@@ -49,4 +49,6 @@ export interface InvoiceData {
   paid_amt: number;
   credit_amt: number;
   contact_no: number;
+  invoice_date:string;
+  invoice_miti: string;
 }

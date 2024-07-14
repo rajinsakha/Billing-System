@@ -81,6 +81,7 @@ const ProductForm = ({ initialData }: formProps) => {
         in_stock: data.quantity,
         category: Number(data.category),
         sub_category: Number(data.sub_category),
+        unit: data.unit
       };
       if (initialData) {
         const res = await updateProduct(singleData.id, transformedData);

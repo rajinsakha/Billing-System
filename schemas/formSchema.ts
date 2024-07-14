@@ -47,6 +47,10 @@ export const genericQuantity = z.object({
   quantity:z.number()
 })
 
+export const genericTransaction = z.object({
+  new_amt: z.number()
+})
+
 export const singleInvoiceSchema = (stock:number) =>
   z.object({
     quantity: z
@@ -71,6 +75,13 @@ export const singleProductFormSchema = (stock:number)=>
       .max(stock, `Quantity must be less than or equal to ${stock}`)
       .min(1, { message: "Quantity must be at least 1" }),
   });
+
+  export const transactionFormSchema = (amount: number)=> z.object({
+    new_amt: z.number()
+    .nonnegative({ message: "Amount must be a non-negative number" })
+    .max(amount, `Amount must be less than or equal to ${amount}`)
+    .min(1, { message: "Amount must be at least 1" }),
+  })
 
   export const quantityFormSchema = (stock:number)=>
     z.object({

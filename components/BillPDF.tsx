@@ -28,7 +28,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
     },
   });
 
-  const nepaliDate = generateNepaliDate();
+ 
 
   return (
     <Document>
@@ -62,14 +62,14 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               Address: {invoiceData.address}
             </Text>
             <Text style={styles.detailsText}>
-              Invoice Date: {generateDateTime(true)}
+              Invoice Date: {invoiceData.invoice_date}
             </Text>
           </View>
           <View style={styles.detailsRow}>
             <Text style={styles.detailsText}>
               Contact No: {invoiceData.contact_no}
             </Text>
-            <Text style={styles.detailsText}>Invoice Miti: {nepaliDate}</Text>
+            <Text style={styles.detailsText}>Invoice Miti: {invoiceData.invoice_miti}</Text>
           </View>
           <View style={styles.detailsRow}>
             <Text style={styles.detailsText}>

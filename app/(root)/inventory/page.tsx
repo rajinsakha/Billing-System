@@ -35,6 +35,7 @@ const Inventory = () => {
       "Stock Quantity",
       "Category",
       "Sub-Category",
+      "Unit",
       "Added Date",
     ],
     data: dynamicTableData,

@@ -29,6 +29,7 @@ const Transaction = () => {
       "Mode of Payment",
       "Paid Amount",
       "Credit Amount",
+      "Contact No.",
       "Added Date",
     ],
     data: dynamicTableData,

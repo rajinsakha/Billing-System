@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import ValidationMessage from "@/components/ui/validation-message";
-import { calculateTotalPrice, generateNepaliDate } from "@/lib/calculation";
+import { calculateTotalPrice, generateDateTime, generateNepaliDate } from "@/lib/calculation";
 import useFetchData from "@/lib/hooks/useFetchData";
 import { setInvoiceData } from "@/redux/features/authReducer";
 import { setRefetch } from "@/redux/features/tableReducer";
@@ -144,6 +144,8 @@ const Invoices = () => {
       return;
     }
 
+
+
     
 
     const formData = {
@@ -158,7 +160,9 @@ const Invoices = () => {
       price_before_discount: totalPriceBeforeDiscount,
       remarks: remarks,
       paid_amt: paymentMode === "cash" ? finalPrice :   paidAmount,
-      credit_amt: paymentMode === "cash" ? 0 : finalPrice - (paidAmount || 0)
+      credit_amt: paymentMode === "cash" ? 0 : finalPrice - (paidAmount || 0),
+      invoice_date: generateNepaliDate(),
+      invoice_miti: generateDateTime(true)
     };
     dispatch(setInvoiceData(formData));
     setIsModalOpen(true);

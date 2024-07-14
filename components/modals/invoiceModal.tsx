@@ -66,6 +66,10 @@ const InvoiceModal = ({
         contact_no: invoiceData.contact_no,
 
         remark: invoiceData.remarks,
+
+        invoice_date: invoiceData.invoice_date,
+
+        invoice_miti: invoiceData.invoice_miti,
       };
       const res = await createTransactionBill(newData);
       if (res.status === 201) {
