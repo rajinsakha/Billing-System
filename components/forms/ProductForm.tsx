@@ -38,10 +38,9 @@ const ProductForm = ({ initialData }: formProps) => {
   const { toast } = useToast();
   const dispatch = useAppDispatch();
   const title = initialData ? "Edit Product" : "New Product";
-  const { singleData, categoryDropdown, subCategoryDropdown, refetch } = useAppSelector((state) => state.tableReducer);
+  const { singleData, categoryDropdown, subCategoryDropdown, refetch } =
+    useAppSelector((state) => state.tableReducer);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-
 
   const defaultValues = initialData
     ? {
@@ -58,7 +57,6 @@ const ProductForm = ({ initialData }: formProps) => {
         category: "",
         sub_category: "",
       };
-
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
@@ -135,9 +133,9 @@ const ProductForm = ({ initialData }: formProps) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Product Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Enter Product Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,7 +150,7 @@ const ProductForm = ({ initialData }: formProps) => {
                   <FormItem>
                     <FormLabel>Stock Quantity</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="shadcn" {...field} />
+                      <Input type="number" placeholder="Enter Quantity" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -166,7 +164,7 @@ const ProductForm = ({ initialData }: formProps) => {
                   <FormItem>
                     <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="shadcn" {...field} />
+                      <Input type="number" placeholder="Enter Price" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -187,7 +185,10 @@ const ProductForm = ({ initialData }: formProps) => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a Category"  defaultValue={field.value?.toString()} />
+                        <SelectValue
+                          placeholder="Select Category"
+                          defaultValue={field.value?.toString()}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -203,41 +204,62 @@ const ProductForm = ({ initialData }: formProps) => {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="sub_category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sub Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value?.toString()}
-                    defaultValue={field.value?.toString()}
-                  >
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="sub_category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sub Category</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value?.toString()}
+                      defaultValue={field.value?.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            placeholder="Select Sub Category"
+                            defaultValue={field.value?.toString()}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {filteredSubCategory.length === 0 ? (
+                          <p className="p-1">No SubCategory Found</p>
+                        ) : (
+                          filteredSubCategory.map((item, index) => (
+                            <SelectItem key={index} value={item.id.toString()}>
+                              {item.name}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="unit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Unit</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a subCategory" defaultValue={field.value?.toString()} />
-                      </SelectTrigger>
+                      <Input  placeholder="Select Unit" {...field} />
                     </FormControl>
-                    <SelectContent>
-                      {filteredSubCategory.length === 0 ? (
-                        <p className="p-1">No SubCategory Found</p>
-                      ) : (
-                        filteredSubCategory.map((item, index) => (
-                          <SelectItem key={index} value={item.id.toString()}>
-                            {item.name}
-                          </SelectItem>
-                        ))
-                      )}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
 
-          <Button type="submit" disabled={isSubmitting}>Submit</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            Submit
+          </Button>
         </form>
       </Form>
     </main>

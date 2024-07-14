@@ -1,11 +1,13 @@
 import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { Page, Text, View, Document,  } from "@react-pdf/renderer";
 import { InvoiceData } from "@/types/products";
 import InvoiceTable from "./InvoiceTable";
 import { ProductData } from "@/types/table";
 import { ToWords } from "to-words";
 import { styles } from "@/constants/styles";
-import { generateDateTime } from "@/lib/calculation";
+import { generateDateTime, generateNepaliDate } from "@/lib/calculation";
+
+
 
 // Create styles
 
@@ -26,12 +28,19 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
     },
   });
 
+  const nepaliDate = generateNepaliDate();
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.headerText}>Phulchowki Pipes Suppliers</Text>
+            {/* <Text style={nepaliStyles.nepaliText}>
+              न्यु फुल्चोकी पाईप फिटिङ्ग सप्लायर्स
+            </Text> */}
+            <Text style={styles.headerText}>
+              New Phulchowki Pipes Fitting Suppliers
+            </Text>
             <Text style={styles.headerText}>Ward No.9, Suchitar, Lalitpur</Text>
           </View>
 
@@ -52,16 +61,17 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.detailsText}>
               Address: {invoiceData.address}
             </Text>
-            <Text style={styles.detailsText}>Invoice Date: July 7, 2024</Text>
+            <Text style={styles.detailsText}>
+              Invoice Date: {generateDateTime(true)}
+            </Text>
           </View>
           <View style={styles.detailsRow}>
-          <Text style={styles.detailsText}>
+            <Text style={styles.detailsText}>
               Contact No: {invoiceData.contact_no}
             </Text>
-            <Text style={styles.detailsText}>Invoice Miti: Ashar 19, 2081</Text>
+            <Text style={styles.detailsText}>Invoice Miti: {nepaliDate}</Text>
           </View>
           <View style={styles.detailsRow}>
-         
             <Text style={styles.detailsText}>
               MODE OF PAYMENT: {invoiceData.payment.toUpperCase()}
             </Text>
@@ -69,29 +79,36 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
         </View>
 
         {/* <View style={styles.mainContent}> */}
-          <InvoiceTable data={productData} />
-          <View style={styles.calculation}>
-            <View style={styles.calculationCol1}>
+        <InvoiceTable data={productData} />
+        <View style={styles.calculation}>
+          <View style={styles.calculationCol1}>
+            <Text style={styles.calculationText}>
+              In Words:{" "}
+              <Text style={styles.inWordsText}>
+                {toWords.convert(invoiceData.total_price)}
+              </Text>
+            </Text>
+            <Text style={styles.calculationText}>
+              Remarks: {invoiceData.remarks}
+            </Text>
+            {invoiceData.payment === "credit" && (
               <Text style={styles.calculationText}>
-                In Words: <Text style={styles.inWordsText}>{toWords.convert(invoiceData.total_price)}
-                  </Text>
+                Paid Amount: {invoiceData.paid_amt}
               </Text>
-              <Text style={styles.calculationText}>
-                Remarks: {invoiceData.remarks}
-              </Text>
-            </View>
-            <View style={styles.calculationCol2}>
-              <Text style={styles.calculationText}>
-                Total: Rs {invoiceData.price_before_discount}
-              </Text>
-              <Text style={[styles.calculationText, styles.discount]}>
-                Discount: Rs {invoiceData.discount}
-              </Text>
-              <Text style={styles.grandTotalText}>
-                Grand Total: Rs {invoiceData.total_price}
-              </Text>
-            </View>
+            )}
           </View>
+          <View style={styles.calculationCol2}>
+            <Text style={styles.calculationText}>
+              Total: Rs {invoiceData.price_before_discount}
+            </Text>
+            <Text style={[styles.calculationText, styles.discount]}>
+              Discount: Rs {invoiceData.discount}
+            </Text>
+            <Text style={styles.grandTotalText}>
+              Grand Total: Rs {invoiceData.total_price}
+            </Text>
+          </View>
+        </View>
         {/* </View> */}
 
         <View style={styles.signatureSection}>
@@ -101,7 +118,6 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
           <View style={styles.signatureBox}>
             <Text style={styles.signatureText}>Receiver&apos;s Signature</Text>
           </View>
-        
         </View>
 
         <View style={styles.footer}>

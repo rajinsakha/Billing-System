@@ -1,3 +1,5 @@
+import BikramSambat from "@askbuddie/bikram-sambat";
+
 export const calculateTotalPrice = (
   data: any[],
   discount: number = 0,
@@ -21,31 +23,81 @@ export const calculateTotalPrice = (
   };
 };
 
-export function generateDateTime() {
+export function generateDateTime(dateType?: boolean) {
   const now = new Date();
 
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const months = [
-      "January", "February", "March", "April", "May", "June", 
-      "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const day = days[now.getDay()];
   const month = months[now.getMonth()];
   const date = now.getDate();
   const year = now.getFullYear();
-  
+
   let hours = now.getHours();
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+
   hours = hours % 12;
   hours = hours ? hours : 12; // The hour '0' should be '12'
-  
+
   const time = `${hours}:${minutes}:${seconds} ${ampm}`;
-  
-  return `${day}, ${month} ${date}, ${year} ${time}`;
+
+  if (dateType) {
+    return `${month} ${date}, ${year}`;
+  } else {
+    return `${day}, ${month} ${date}, ${year} ${time}`;
+  }
 }
 
+export function generateNepaliDate() {
+  const nepaliMonths = [
+    "Baishakh",
+    "Jestha",
+    "Ashad",
+    "Shrawan",
+    "Bhadra",
+    "Ashwin",
+    "Kartik",
+    "Mangsir",
+    "Poush",
+    "Magh",
+    "Falgun",
+    "Chaitra",
+  ];
 
+  const date = new BikramSambat();
+
+  const year = date.getYear();
+
+  const month = date.getMonth();
+
+  const day = date.getDay();
+
+  // Nepali months are 1-based index, so subtract 1 for 0-based index
+  const monthName = nepaliMonths[month - 1];
+
+  return `${monthName} ${day}, ${year}`;
+}

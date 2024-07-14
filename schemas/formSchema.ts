@@ -33,6 +33,7 @@ export const productFormSchema = z.object({
     message: "Category must be selected.",
   }),
   sub_category: z.string().optional(),
+  unit: z.string().optional()
 
 });
 

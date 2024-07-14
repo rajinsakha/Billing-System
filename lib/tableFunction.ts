@@ -35,10 +35,10 @@ export const extractTableData = (data: any[] | IResult , type: string): any[] =>
           return{
             id:item?.id,
             customer_name: item?.bill_for,
-            total_price:item?.total_price,
-            mode_of_payment: item?.mode_of_payment || "-",
-            paid_amt: item?.paid_amt || "-",
-            credit_amt:item?.credit_amt || "-",
+            total_price:"Rs " + item?.total_price,
+            mode_of_payment: item?.mode_of_payment,
+            paid_amt: "Rs " +  item?.paid_amt ,
+            credit_amt:"Rs " +  item?.credit_amt,
             created_at:item?.created_at?.slice(0,10),
           
           }      
@@ -50,7 +50,7 @@ export const extractTableData = (data: any[] | IResult , type: string): any[] =>
           case "dashboardTransaction":
             return{
               customer_name: item?.bill_for,
-              total_price:item?.total_price,
+              total_price:"Rs " +  item?.total_price,
               mode_of_payment: item?.mode_of_payment || "-",
               created_at:item?.created_at?.slice(0,10),
             }   

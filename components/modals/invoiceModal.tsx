@@ -101,7 +101,7 @@ const InvoiceModal = ({
             productData={dynamicTableData as ProductData[]}
           />
         </PDFViewer>
-        <div className="flex gap-4">
+        <div className="flex justify-between gap-4">
           <DownloadButton
             invoiceData={invoiceData}
             productData={dynamicTableData as ProductData[]}
