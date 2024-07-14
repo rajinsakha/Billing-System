@@ -4,8 +4,11 @@ import { DollarSign, Users } from "lucide-react";
 import DynamicCard from "@/components/DashboardCard";
 import RecentSales from "@/components/RecentSales";
 import RecentTransactions from "@/components/RecentTransactions";
+import useFetchDashboard from "@/lib/hooks/useFetchDashboard";
 
 export default function Dashboard() {
+  const {data} = useFetchDashboard();
+  console.log(data);
   return (
     <div className="flex min-h-screen w-full flex-col mt-[40px]">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -13,11 +16,11 @@ export default function Dashboard() {
           <DynamicCard
             title="Total Revenue"
             Icon={DollarSign}
-            description="+20.1% from last month"
-            amount={45231.89}
+            description="-"
+            amount={data?.total_paid_amt || 0}
           />
           <DynamicCard
-            title="Subscriptions"
+            title="Total Credits"
             Icon={Users}
             description="+180.1% from last month"
             amount={45231.89}

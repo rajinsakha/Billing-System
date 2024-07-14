@@ -32,7 +32,7 @@ const useFetchData = (
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log(singleData);
+
 
   const fetchData = useCallback(async () => {
     setLoading(true);
