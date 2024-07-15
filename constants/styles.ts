@@ -22,6 +22,17 @@ export const styles = StyleSheet.create({
   headerText: {
     fontSize: 14,
   },
+  billTextContainer: {
+    alignSelf: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    paddingBottom: 4,
+    marginTop: 8,
+  },
+  billText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   detailsSection: {
     marginTop: 10,
     display: "flex",

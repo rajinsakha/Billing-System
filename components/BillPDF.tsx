@@ -1,13 +1,11 @@
 import React from "react";
-import { Page, Text, View, Document,  } from "@react-pdf/renderer";
+import { Page, Text, View, Document } from "@react-pdf/renderer";
 import { InvoiceData } from "@/types/products";
 import InvoiceTable from "./InvoiceTable";
 import { ProductData } from "@/types/table";
 import { ToWords } from "to-words";
 import { styles } from "@/constants/styles";
-import { generateDateTime, } from "@/lib/calculation";
-
-
+import { generateDateTime } from "@/lib/calculation";
 
 // Create styles
 
@@ -28,8 +26,6 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
     },
   });
 
- 
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -39,14 +35,18 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               न्यु फुल्चोकी पाईप फिटिङ्ग सप्लायर्स
             </Text> */}
             <Text style={styles.titleText}>
-             Phulchowki Pipes Fitting Suppliers
+              Phulchowki Pipes Fitting Suppliers
             </Text>
-            <Text style={styles.headerText}>Ward No.9, Suchitar, Lalitpur</Text>
+            <Text style={styles.headerText}>Kathmandu, Nepal</Text>
           </View>
 
           <View>
             <Text style={styles.headerText}>Phone No: 9818123456</Text>
             <Text style={styles.headerText}>PAN No: 9818123456</Text>
+          </View>
+
+          <View style={styles.billTextContainer}>
+            <Text style={styles.billText}>ESTIMATE BILL</Text>
           </View>
         </View>
 
@@ -69,7 +69,9 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.detailsText}>
               Contact No: {invoiceData.contact_no}
             </Text>
-            <Text style={styles.detailsText}>Invoice Miti: {invoiceData.invoice_miti}</Text>
+            <Text style={styles.detailsText}>
+              Invoice Miti: {invoiceData.invoice_miti}
+            </Text>
           </View>
           <View style={styles.detailsRow}>
             <Text style={styles.detailsText}>
