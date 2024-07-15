@@ -28,7 +28,7 @@ const Navbar = () => {
     
 
       <div className="relative">
-        {pathname !== '/invoices' && <SearchBox />}
+        {pathname !== '/invoices' && pathname !== "/"   && <SearchBox />}
       </div>
 
       <div>
