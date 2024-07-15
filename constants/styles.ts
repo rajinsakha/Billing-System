@@ -16,8 +16,11 @@ export const styles = StyleSheet.create({
     borderBottom: "1px solid black",
     paddingBottom: 8,
   },
+  titleText:{
+  fontSize: 16
+  },
   headerText: {
-    fontSize: 12,
+    fontSize: 14,
   },
   detailsSection: {
     marginTop: 10,

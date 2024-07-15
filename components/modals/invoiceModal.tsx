@@ -13,11 +13,15 @@ import { useToast } from "../ui/use-toast";
 import { X } from "lucide-react";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import { ProductData } from "@/types/table";
+import { InvoiceData } from "@/types/products";
+import { printPDF } from "../printPDF";
 interface BillModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
   resetFormFields: () => void;
 }
+
+
 
 const InvoiceModal = ({
   isModalOpen,
@@ -81,6 +85,8 @@ const InvoiceModal = ({
         });
         resetFormFields();
         setIsModalOpen(false);
+         // Print the PDF after the bill is created
+         printPDF(invoiceData, dynamicTableData as ProductData[]);
       }
     } catch (error) {
       toast({

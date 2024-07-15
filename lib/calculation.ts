@@ -101,3 +101,5 @@ export function generateNepaliDate() {
 
   return `${monthName} ${day}, ${year}`;
 }
+
+
