@@ -41,8 +41,8 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
           </View>
 
           <View>
-            <Text style={styles.headerText}>Phone No: 9818123456</Text>
-            <Text style={styles.headerText}>PAN No: 9818123456</Text>
+            <Text style={styles.headerText}>Phone No: 9851157901</Text>
+            <Text style={styles.headerText}>PAN No: 619242851</Text>
           </View>
 
           <View style={styles.billTextContainer}>
