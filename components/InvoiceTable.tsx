@@ -92,7 +92,7 @@ const InvoiceTable = ({data}:{data:ProductData[]}) => {
             <Text style={[styles.bold, styles.tableRowText]}>{row.quantity}</Text> 
           </Text>
           <Text style={styles.col5}>
-            <Text style={[styles.bold, styles.tableRowText]}>Unit</Text> 
+            <Text style={[styles.bold, styles.tableRowText]}>{row.unit}</Text> 
           </Text>
           <Text style={[styles.col6, styles.tableRowText]}>{row.product_info.price}</Text>
           <Text style={[styles.col7, styles.tableRowText]}>{row.total_price}</Text>

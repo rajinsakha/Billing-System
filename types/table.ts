@@ -51,4 +51,5 @@ export interface ProductData {
   created_at: string;
   discount: null | number | string;
   product: number;
+  unit:string;
 }

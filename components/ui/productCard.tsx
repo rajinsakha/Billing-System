@@ -153,7 +153,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
             />
 
             <p className="text-xl font-semibold text-orange-600">Rs {price}</p>
-            <Button type="submit" disabled={isSubmitting || stock === 0}>
+            <Button className="hover:bg-blue-700" type="submit" disabled={isSubmitting || stock === 0}>
               Add to Invoice
             </Button>
           </div>
