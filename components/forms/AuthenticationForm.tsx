@@ -48,6 +48,7 @@ const AuthenticationForm = () => {
           variant:'default',
           title: "Login Successful",
           description: `You have successfully logged in to the system.`,
+          duration: 3000
         })
         router.push('/');
       }

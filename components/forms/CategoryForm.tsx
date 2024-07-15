@@ -52,6 +52,7 @@ const CategoryForm = ({initialData}:formProps) => {
             variant: "default",
             title: "Category Updated",
             description: `Category has been successfully updated`,
+            duration: 3000
           });
         }
       }else{
@@ -64,6 +65,7 @@ const CategoryForm = ({initialData}:formProps) => {
           variant: "default",
           title: "New Category Added",
           description: `Category has been successfully added `,
+          duration: 3000
         });
       }
     }

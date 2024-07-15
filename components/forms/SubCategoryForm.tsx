@@ -73,6 +73,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
             variant: "default",
             title: "Sub-Category Updated",
             description: `Sub-Category has been successfully updated `,
+            duration: 3000
           });
         }
       } else {
@@ -89,7 +90,9 @@ const [isSubmitting, setIsSubmitting] = useState(false);
             variant: "default",
             title: "New Sub-Category Added",
             description: `Sub-Category has been successfully added `,
+            duration: 3000
           });
+
         }
       }
     } catch (error) {
@@ -97,6 +100,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
         variant: "destructive",
         title: "Error Occured",
         description: `Error Occured: ${error}`,
+        duration: 3000
       });
     } finally {
       setIsSubmitting(false);

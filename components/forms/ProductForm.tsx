@@ -92,6 +92,7 @@ const ProductForm = ({ initialData }: formProps) => {
             variant: "default",
             title: "Product Updated",
             description: `Product has been successfully updated`,
+            duration: 3000
           });
         }
       } else {
@@ -103,6 +104,7 @@ const ProductForm = ({ initialData }: formProps) => {
             variant: "default",
             title: "New Product Added",
             description: `Product has been successfully added `,
+            duration: 3000
           });
           console.log(res.data);
         }

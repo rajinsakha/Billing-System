@@ -85,6 +85,7 @@ const TransactionForm = ({ initialData }: formProps) => {
           variant: "default",
           title: "Transaction Updated",
           description: `Transaction has been successfully updated`,
+          duration: 3000
         });
       }
     } catch (error) {
