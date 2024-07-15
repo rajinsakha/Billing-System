@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="flex gap-4 h-14 items-center border-b lg:h-[60px] ">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <Package2 className="h-6 w-6" />
-          <span className="">Hardware Shop</span>
+          <span className="">न्यु फुल्चोकी पाईप फिटिङ्ग सप्लायर्स</span>
         </Link>
 
       </div>
