@@ -5,7 +5,7 @@ import InvoiceTable from "./InvoiceTable";
 import { ProductData } from "@/types/table";
 import { ToWords } from "to-words";
 import { styles } from "@/constants/styles";
-import { generateDateTime, generateNepaliDate } from "@/lib/calculation";
+import { generateDateTime, } from "@/lib/calculation";
 
 
 

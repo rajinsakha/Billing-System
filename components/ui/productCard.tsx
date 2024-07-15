@@ -46,6 +46,8 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
     }
   }, [form.formState.errors, toast]);
 
+  console.log(invoiceData);
+
   const onSubmit = async (data: SingleProductFormValues) => {
     setIsSubmitting(true);
     try {
@@ -70,6 +72,7 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
           ...data,
           product: id,
           total_price: data.price * data.quantity,
+        
         };
 
         const res = await addToInvoice(newData);

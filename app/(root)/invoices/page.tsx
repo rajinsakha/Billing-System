@@ -61,6 +61,8 @@ const Invoices = () => {
     data: dynamicTableData,
   };
 
+  console.log(dynamicTableData);
+  
   useEffect(() => {
     const { totalPriceBeforeDiscount, finalPrice, finalDiscount } =
       calculateTotalPrice(dynamicTableData, discount, voucher);
@@ -278,7 +280,7 @@ const Invoices = () => {
             />
 
             <div className="flex justify-between max-sm:flex-col gap-5 !mt-4 px-2">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 <CustomInput
                   label="Discount"
                   placeholder="Enter Discount (in %)"
