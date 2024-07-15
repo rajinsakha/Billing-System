@@ -39,7 +39,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               न्यु फुल्चोकी पाईप फिटिङ्ग सप्लायर्स
             </Text> */}
             <Text style={styles.headerText}>
-              New Phulchowki Pipes Fitting Suppliers
+             Phulchowki Pipes Fitting Suppliers
             </Text>
             <Text style={styles.headerText}>Ward No.9, Suchitar, Lalitpur</Text>
           </View>

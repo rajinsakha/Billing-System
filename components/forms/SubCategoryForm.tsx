@@ -133,7 +133,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
             />
           </div>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isSubmitting}>Submit</Button>
         </form>
       </Form>
     </main>

@@ -5,7 +5,8 @@ import { StyleSheet, Text, View } from '@react-pdf/renderer'
 const styles = StyleSheet.create({
   table: {
     width: '100%',
-    border: '1px solid #000',
+    borderLeft: '1px solid #000',
+    borderRight: '1px solid #000',
     borderCollapse: 'collapse',
   },
   row: {
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
   tableRowText: {
     fontSize: 10,
     padding: 5,
+    borderBottom: '1px solid #000'
   },
   col1: {
     width: '5%',
@@ -88,11 +90,11 @@ const InvoiceTable = ({data}:{data:ProductData[]}) => {
           </Text>
           <Text style={[styles.col2, styles.tableRowText]}>{row.product_info.label}</Text>
           <Text style={[styles.col3, styles.tableRowText]}>{1}</Text>
-          <Text style={styles.col4}>
-            <Text style={[styles.bold, styles.tableRowText]}>{row.quantity}</Text> 
+          <Text style={[styles.col4, styles.tableRowText]}>
+            <Text style={styles.bold}>{row.quantity}</Text> 
           </Text>
-          <Text style={styles.col5}>
-            <Text style={[styles.bold, styles.tableRowText]}>{row.unit}</Text> 
+          <Text style={[styles.col5, styles.tableRowText]}>
+            <Text style={[styles.bold]}>{row.unit}</Text> 
           </Text>
           <Text style={[styles.col6, styles.tableRowText]}>{row.product_info.price}</Text>
           <Text style={[styles.col7, styles.tableRowText]}>{row.total_price}</Text>
