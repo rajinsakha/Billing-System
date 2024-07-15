@@ -3,17 +3,15 @@
 import { getAllInvoices } from "@/api/invoices/invoice";
 import FilterDropdown from "@/components/filterDropdown";
 import TablePagination from "@/components/TablePagination";
-import Loader from "@/components/ui/loader";
 import ProductCard from "@/components/ui/productCard";
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
-import { setPageNumber } from "@/redux/features/authReducer";
 import { setCriteria } from "@/redux/features/filterReducer";
 import { setInvoiceData } from "@/redux/features/tableReducer";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Dice1 } from "lucide-react";
+
 import { useCallback, useEffect, useState } from "react";
 
 const ProductPage = () => {

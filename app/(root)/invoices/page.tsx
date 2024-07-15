@@ -1,6 +1,5 @@
 "use client";
 
-
 import DynamicTable from "@/components/DynamicTable";
 import InvoiceModal from "@/components/modals/invoiceModal";
 
@@ -17,7 +16,11 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import ValidationMessage from "@/components/ui/validation-message";
-import { calculateTotalPrice, generateDateTime, generateNepaliDate } from "@/lib/calculation";
+import {
+  calculateTotalPrice,
+  generateDateTime,
+  generateNepaliDate,
+} from "@/lib/calculation";
 import useFetchData from "@/lib/hooks/useFetchData";
 import { setInvoiceData } from "@/redux/features/authReducer";
 import { setRefetch } from "@/redux/features/tableReducer";
@@ -144,10 +147,6 @@ const Invoices = () => {
       return;
     }
 
-
-
-    
-
     const formData = {
       bill_for: customer,
       is_printed: true,
@@ -159,10 +158,10 @@ const Invoices = () => {
       discount: finalDiscount,
       price_before_discount: totalPriceBeforeDiscount,
       remarks: remarks,
-      paid_amt: paymentMode === "cash" ? finalPrice :   paidAmount,
+      paid_amt: paymentMode === "cash" ? finalPrice : paidAmount,
       credit_amt: paymentMode === "cash" ? 0 : finalPrice - (paidAmount || 0),
-      invoice_date: generateNepaliDate(),
-      invoice_miti: generateDateTime(true)
+      invoice_date: generateDateTime(true),
+      invoice_miti: generateNepaliDate(),
     };
     dispatch(setInvoiceData(formData));
     setIsModalOpen(true);
@@ -185,8 +184,6 @@ const Invoices = () => {
       contactNo: "",
     });
   };
-
-
 
   return (
     <>
@@ -272,8 +269,6 @@ const Invoices = () => {
                 </Select>
                 {errors.panNo && <ValidationMessage message={errors.panNo} />}
               </div>
-
-      
             </div>
 
             <DynamicTable
@@ -304,19 +299,21 @@ const Invoices = () => {
                     className="w-[220px]"
                   />
                 </div>
-                {paymentMode === "credit" && <div className="flex items-center gap-2">
-                <Label className="">Amount: </Label>
-                <Input
-                  type="number"
-                  value={paidAmount === null ? "" : paidAmount}
-                  onChange={(e) =>
-                    setPaidAmount(
-                      e.target.value === "" ? null : Number(e.target.value)
-                    )
-                  }
-                  placeholder="Enter Paid Amount"
-                />
-              </div>}
+                {paymentMode === "credit" && (
+                  <div className="flex items-center gap-2">
+                    <Label className="">Amount: </Label>
+                    <Input
+                      type="number"
+                      value={paidAmount === null ? "" : paidAmount}
+                      onChange={(e) =>
+                        setPaidAmount(
+                          e.target.value === "" ? null : Number(e.target.value)
+                        )
+                      }
+                      placeholder="Enter Paid Amount"
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="space-y-1">

@@ -71,7 +71,10 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                     <TableCell>
                       <QuantityForm initialData={row} />
                     </TableCell>
-                  ) : typeof value === "object" &&
+                   ) : key === "total_price" || key === "paid_amt" || key === "credit_amt" ? (
+                    <TableCell>Rs {value}</TableCell>
+                   )
+                   : typeof value === "object" &&
                     value?.hasOwnProperty("label") &&
                     value?.hasOwnProperty("value") ? (
                     <TableCell>{value.label}</TableCell>

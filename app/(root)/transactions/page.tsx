@@ -14,7 +14,10 @@ import { useState } from "react";
 const Transaction = () => {
   const dispatch = useAppDispatch();
   const { loading: dropdownLoading, error: dropdownError } = useFetchDropdown();
-  const { loading, error } = useFetchData("Transaction");
+  const { searchQuery, criteria } = useAppSelector(
+    (state) => state.filterReducer
+  );
+  const { loading, error } = useFetchData("Transaction", searchQuery);
   const { dynamicTableData, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
@@ -50,7 +53,7 @@ const Transaction = () => {
       <div className="flex gap-4 items-center justify-between max-sm:flex-col">
      <TitleText title="Transaction" />
      <div className=" flex items-center gap-2 justify-end">
-        <p>Filter By:</p>
+        {/* <p>Filter By:</p> */}
         {/* <FilterDropdown
           placeholder="Select Category"
           width="w-[200px]"

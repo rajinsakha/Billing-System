@@ -51,9 +51,9 @@ export const extractTableData = (data: any[] | IResult , type: string): any[] =>
           case "dashboardTransaction":
             return{
               customer_name: item?.bill_for,
-              total_price:"Rs " +  item?.total_price,
+              total_price: item?.total_price,
               mode_of_payment: item?.mode_of_payment || "-",
-              created_at:item?.created_at?.slice(0,10),
+              invoice_miti: item?.invoice_miti
             }   
         default:
           return item;
