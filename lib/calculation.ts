@@ -96,10 +96,8 @@ export function generateNepaliDate() {
 
   const day = date.getDay();
 
-  // Nepali months are 1-based index, so subtract 1 for 0-based index
+ 
   const monthName = nepaliMonths[month - 1];
 
   return `${monthName} ${day}, ${year}`;
 }
-
-

@@ -31,9 +31,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
-            {/* <Text style={nepaliStyles.nepaliText}>
-              न्यु फुल्चोकी पाईप फिटिङ्ग सप्लायर्स
-            </Text> */}
+        
             <Text style={styles.titleText}>
               Phulchowki Pipes Fitting Suppliers
             </Text>
@@ -95,19 +93,39 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             </Text>
             {invoiceData.payment === "credit" && (
               <Text style={styles.calculationText}>
-                Paid Amount: {invoiceData.paid_amt}
+                Paid Amount:{" "}
+                {new Intl.NumberFormat("en-IN", {
+                   minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+
+                }).format(invoiceData.paid_amt)}
               </Text>
             )}
           </View>
           <View style={styles.calculationCol2}>
             <Text style={styles.calculationText}>
-              Total: Rs {invoiceData.price_before_discount}
+              Total: Rs{" "}
+              {new Intl.NumberFormat("en-IN", {
+                 minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+
+              }).format(invoiceData.price_before_discount)}
             </Text>
             <Text style={[styles.calculationText, styles.discount]}>
-              Discount: Rs {invoiceData.discount}
+              Discount: Rs{" "}
+              {new Intl.NumberFormat("en-IN", {
+                 minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+
+              }).format(invoiceData.discount)}
             </Text>
             <Text style={styles.grandTotalText}>
-              Grand Total: Rs {invoiceData.total_price}
+              Grand Total: Rs{" "}
+              {new Intl.NumberFormat("en-IN", {
+                 minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+
+              }).format(invoiceData.total_price)}
             </Text>
           </View>
         </View>

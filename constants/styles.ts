@@ -17,7 +17,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   titleText:{
-  fontSize: 16
+  fontSize: 16,
+  fontWeight: 'bold'
   },
   headerText: {
     fontSize: 14,
@@ -98,7 +99,7 @@ export const styles = StyleSheet.create({
     borderTop: "1px solid black",
     paddingTop: 4,
     fontSize: 12,
-    fontWeight: "semibold",
+    fontWeight: "bold",
   },
   signatureSection: {
     display: "flex",
