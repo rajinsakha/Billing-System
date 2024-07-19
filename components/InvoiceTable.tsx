@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
 });
 
 const InvoiceTable = ({ data }: { data: ProductData[] }) => {
+  console.log(data);
   return (
     <View style={styles.table}>
       <View style={[styles.row, styles.bold, styles.header]}>
@@ -92,7 +93,7 @@ const InvoiceTable = ({ data }: { data: ProductData[] }) => {
             <Text style={styles.bold}>{row.quantity}</Text>
           </Text>
           <Text style={[styles.col5, styles.tableRowText]}>
-            <Text style={[styles.bold]}>{row.unit}</Text>
+            <Text style={[styles.bold]}>{row.product_info.unit}</Text>
           </Text>
           <Text style={[styles.col6, styles.tableRowText]}>
             {new Intl.NumberFormat("en-IN", {

@@ -96,8 +96,13 @@ export function generateNepaliDate() {
 
   const day = date.getDay();
 
- 
   const monthName = nepaliMonths[month - 1];
 
   return `${monthName} ${day}, ${year}`;
+}
+
+export function formatNumber(num: number) {
+  return new Intl.NumberFormat("en-IN", {
+    maximumFractionDigits: 2,
+  }).format(num);
 }

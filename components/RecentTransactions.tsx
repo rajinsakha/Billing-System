@@ -26,14 +26,14 @@ const RecentTransactions = () => {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center">
+      <CardHeader className="flex flex-col sm:flex-row sm:items-center items-start gap-4">
         <div className="grid gap-2">
           <CardTitle>Transactions</CardTitle>
           <CardDescription>
             Recent transactions from your store.
           </CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
+        <Button asChild size="sm" className="sm:ml-auto gap-1">
           <Link href="/transactions">
             View All
             <ArrowUpRight className="h-4 w-4" />

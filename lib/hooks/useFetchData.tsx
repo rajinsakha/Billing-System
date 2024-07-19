@@ -67,7 +67,7 @@ const useFetchData = (
       }
 
       if (type === "Transaction") {
-        response = await getAllTransactions(searchQuery);
+        response = await getAllTransactions(searchQuery, criteria?.mode_of_payment);
       }
 
       if (response?.status === 200) {

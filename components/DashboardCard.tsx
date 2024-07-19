@@ -8,6 +8,7 @@ import {
   } from "@/components/ui/card"
 
 import { DashboardCardProps } from '@/types/dashboard'
+import { formatNumber } from '@/lib/calculation'
 
 
 
@@ -21,7 +22,7 @@ const DashboardCard = ({title, amount, description, Icon}: DashboardCardProps) =
       <Icon className="h-4 w-4 text-muted-foreground" />
     </CardHeader>
     <CardContent>
-      <div className="text-2xl font-bold">Rs {amount}</div>
+      <div className="text-2xl font-bold">Rs {formatNumber(amount)}</div>
       <p className="text-xs text-muted-foreground">
         {description}
       </p>

@@ -43,13 +43,13 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
     >
       <Table className="max-lg:overflow-x-scroll relative">
         <TableHeader className="sticky top-0 z-[10] mb-10 bg-white">
-          <TableRow className="bg-[#F2F2F2]">
+          <TableRow className="bg-[#F2F2F2] hover:bg-[#F2F2F2]">
             {headers.map((head, index) => (
               <TableHead
                 key={index}
                 className={`${
                   head === "Quantity" && "flex justify-center items-center"
-                }`}
+                } `}
               >
                 {head}
               </TableHead>
@@ -71,19 +71,24 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                     <TableCell>
                       <QuantityForm initialData={row} />
                     </TableCell>
-                   ) : key === "total_price" || key === "paid_amt" || key === "credit_amt" ? (
-                    <TableCell>Rs {value}</TableCell>
-                   )
-                   : typeof value === "object" &&
+                  ) :  key === "total_price" ||
+                    key === "paid_amt" ||
+                    key === "credit_amt" || key === "price"  ? (
+                    <TableCell>
+                      <div className="font-medium">Rs {value}</div>
+                    </TableCell>
+                  ) : typeof value === "object" &&
                     value?.hasOwnProperty("label") &&
                     value?.hasOwnProperty("value") ? (
-                    <TableCell>{value.label}</TableCell>
+                    <TableCell><div className="font-medium">{value.label}
+                      </div></TableCell>
                   ) : type === "Invoice" && key === "id" ? (
                     <TableCell>{rowIndex + 1}</TableCell>
                   ) : (
                     <TableCell
                       key={colIndex}
                       onClick={() => handleClick(row?.id, row?.name)}
+                      className={`${type === "dashboardTransaction" && "!py-3"}`}
                     >
                       <div className="font-medium">{value}</div>
                     </TableCell>

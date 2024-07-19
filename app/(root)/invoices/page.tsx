@@ -57,12 +57,10 @@ const Invoices = () => {
   });
 
   const tableData: TableDataItem = {
-    headers: ["S.N.", "Name", "Quantity", "Total Price", "Added Date"],
+    headers: ["S.N.", "Name", "Rate", "Quantity", "Total Price", "Added Date"],
     data: dynamicTableData,
   };
 
-  console.log(dynamicTableData);
-  
   useEffect(() => {
     const { totalPriceBeforeDiscount, finalPrice, finalDiscount } =
       calculateTotalPrice(dynamicTableData, discount, voucher);
@@ -318,11 +316,12 @@ const Invoices = () => {
                 )}
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1 font-medium">
                 <p>Sub Total: Rs {totalPriceBeforeDiscount}</p>
                 <p>Discount: Rs {finalDiscount}</p>
-                <p className="pt-2 border-solid border-t border-gray-600">
-                  Grand Total: Rs {finalPrice}
+                <p className="pt-2 border-solid border-t border-gray-600 font-semibold">
+                  Grand Total: <span className=" text-lg">Rs {finalPrice}
+                    </span>
                 </p>
               </div>
 

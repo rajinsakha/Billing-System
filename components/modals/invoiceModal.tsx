@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 import { BillPDF } from "../BillPDF";
-import { PDFViewer } from "@react-pdf/renderer";
+import { pdf, PDFViewer } from "@react-pdf/renderer";
 import DownloadButton from "../ui/downloadPdf";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createTransactionBill } from "@/api/invoices/transaction";
@@ -21,8 +21,6 @@ interface BillModalProps {
   resetFormFields: () => void;
 }
 
-
-
 const InvoiceModal = ({
   isModalOpen,
   setIsModalOpen,
@@ -31,9 +29,11 @@ const InvoiceModal = ({
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const { invoiceData } = useAppSelector((state) => state.authReducer);
+
   const { refetch, dynamicTableData } = useAppSelector(
     (state) => state.tableReducer
   );
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +50,7 @@ const InvoiceModal = ({
     setIsSubmitting(true);
     try {
       console.log(invoiceData);
-      const newData = {
+      const newData: { [key: string]: any } = {
         bill_for: invoiceData.bill_for,
 
         is_printed: invoiceData.is_printed,
@@ -75,6 +75,22 @@ const InvoiceModal = ({
 
         invoice_miti: invoiceData.invoice_miti,
       };
+
+      // const blob = await pdf(
+      //   <BillPDF
+      //     productData={dynamicTableData as ProductData[]}
+      //     invoiceData={invoiceData}
+      //   />
+      // ).toBlob();
+
+      // // Create a form data to upload the PDF
+      // const formData = new FormData();
+      // formData.append("pdf", blob);
+
+      // Object.keys(newData).forEach((key) => {
+      //   formData.append(key, newData[key as keyof typeof newData]);
+      // });
+
       const res = await createTransactionBill(newData);
       if (res.status === 201) {
         dispatch(setRefetch(!refetch));
@@ -85,8 +101,8 @@ const InvoiceModal = ({
         });
         resetFormFields();
         setIsModalOpen(false);
-         // Print the PDF after the bill is created
-         printPDF(invoiceData, dynamicTableData as ProductData[]);
+        // Print the PDF after the bill is created
+        printPDF(invoiceData, dynamicTableData as ProductData[]);
       }
     } catch (error) {
       toast({

@@ -96,7 +96,10 @@ const QuantityForm = ({ initialData }: formProps) => {
                   <input
                     type="number"
                     {...field}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
+                    onChange={(e) => {
+                      field.onChange(Number(e.target.value));
+                
+                    }}
                     onBlur={() => form.trigger("quantity")}
                     className="bg-gray-50 border-x-0 border-gray-300 h-10 text-center text-gray-900 text-sm  block w-full py-2.5"
                     placeholder="1"

@@ -68,7 +68,7 @@ const ProductPage = () => {
       <div className="flex items-center gap-2 justify-end">
         <p>Filter By:</p>
         <FilterDropdown
-          placeholder="Select Category"
+          placeholder="Category"
           width="w-[200px]"
           options={categoryDropdown}
           handleChange={handleCategoryChange}

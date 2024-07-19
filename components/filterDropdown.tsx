@@ -30,7 +30,6 @@ const FilterDropdown = ({
   let propsWidth = width;
   const dispatch = useAppDispatch();
 
-
   return (
     <Select
       key={key}

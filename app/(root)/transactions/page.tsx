@@ -1,11 +1,13 @@
 "use client";
 
 import DynamicTable from "@/components/DynamicTable";
+import FilterDropdown from "@/components/filterDropdown";
 import TablePagination from "@/components/TablePagination";
 
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
+import { setCriteria } from "@/redux/features/filterReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
 
@@ -17,11 +19,11 @@ const Transaction = () => {
   const { searchQuery, criteria } = useAppSelector(
     (state) => state.filterReducer
   );
-  const { loading, error } = useFetchData("Transaction", searchQuery);
+  const { loading, error } = useFetchData("Transaction", searchQuery, criteria);
   const { dynamicTableData, refetch } = useAppSelector(
     (state) => state.tableReducer
   );
-  const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
+  const [selectedPayment, setSelectedPayment] = useState<null | string>(null);
 
 
   const tableData: TableDataItem = {
@@ -38,28 +40,32 @@ const Transaction = () => {
     data: dynamicTableData,
   };
 
-  // const handleCategoryChange = (value: string) => {
-  //   const categoryId = Number(value);
-  //   setSelectedCategory(categoryId);
-  //   dispatch(
-  //     setCriteria({
-  //       category: categoryId,
-  //     })
-  //   );
-  // };
+  const handlePaymentChange = (value: string) => {
+    setSelectedPayment(value);
+    dispatch(
+      setCriteria({
+        mode_of_payment: value,
+      })
+    );
+  };
+
+  const paymentDropdown = [
+    {id: 'cash', name: 'cash'},
+    {id: 'credit', name: 'credit'}
+  ]
 
   return (
-    <div className="mt-[60px] space-y-4">
+    <div className="mt-[60px] space-y-6">
       <div className="flex gap-4 items-center justify-between max-sm:flex-col">
      <TitleText title="Transaction" />
      <div className=" flex items-center gap-2 justify-end">
-        {/* <p>Filter By:</p> */}
-        {/* <FilterDropdown
-          placeholder="Select Category"
+        <p>Filter By:</p>
+        <FilterDropdown
+          placeholder="Mode of Payment"
           width="w-[200px]"
-          options={categoryDropdown}
-          handleChange={handleCategoryChange}
-        /> */}
+          options={paymentDropdown}
+          handleChange={handlePaymentChange}
+        />
       </div>
       </div>
 

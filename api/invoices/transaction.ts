@@ -22,8 +22,8 @@ export const deleteTransaction = cache(async (id: number) => {
     return response;
   });
 
-export const getAllTransactions = cache(async (query="") => {
-  const response = await api.get(`product/InvoiceBills/?customer_name=${query}`);
+export const getAllTransactions = cache(async (query="", mode_of_payment="") => {
+  const response = await api.get(`product/InvoiceBills/?customer_name=${query}&mode_of_payment=${mode_of_payment}`);
   return response;
 });
 

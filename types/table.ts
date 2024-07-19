@@ -45,6 +45,7 @@ export interface ProductData {
     label: string;
     price: number;
     in_stock: number;
+    unit:string;
   };
   quantity: number;
   total_price: number;
