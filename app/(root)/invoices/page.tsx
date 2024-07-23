@@ -1,5 +1,6 @@
 "use client";
 
+import api from "@/api/axiosInstance";
 import DynamicTable from "@/components/DynamicTable";
 import InvoiceModal from "@/components/modals/invoiceModal";
 
@@ -23,10 +24,9 @@ import {
 } from "@/lib/calculation";
 import useFetchData from "@/lib/hooks/useFetchData";
 import { setInvoiceData } from "@/redux/features/authReducer";
-import { setRefetch } from "@/redux/features/tableReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const Invoices = () => {
   const { toast } = useToast();
@@ -52,9 +52,21 @@ const Invoices = () => {
   const [errors, setErrors] = useState({
     customer: "",
     address: "",
-    panNo: "",
+    paymentMode: "",
     contactNo: "",
   });
+  const [invoiceNum, setInvoiceNum] = useState<number>(0);
+
+  const getInvoiceNum = useCallback(async () => {
+    const res = await api.get(`product/latest-invoice-bill/`);
+    if (res.status === 200) {
+      setInvoiceNum(res.data.id);
+    }
+  }, []);
+
+  useEffect(() => {
+    getInvoiceNum();
+  }, [getInvoiceNum]);
 
   const tableData: TableDataItem = {
     headers: ["S.N.", "Name", "Rate", "Quantity", "Total Price", "Added Date"],
@@ -93,36 +105,44 @@ const Invoices = () => {
 
   const validateFields = () => {
     const newErrors = {
-      customer: "",
-      address: "",
-      panNo: "",
-      contactNo: "",
+        customer: "",
+        address: "",
+        contactNo: "",
+        paymentMode: "",
     };
     let isValid = true;
 
     if (!customer.trim()) {
-      newErrors.customer = "Customer field is required";
-      isValid = false;
+        newErrors.customer = "Customer field is required";
+        isValid = false;
+    } else if (customer.trim().length < 3) {
+        newErrors.customer = "Customer name must be at least 3 characters";
+        isValid = false;
     }
+
     if (!address.trim()) {
-      newErrors.address = "Address field is required";
-      isValid = false;
+        newErrors.address = "Address field is required";
+        isValid = false;
+    } else if (address.trim().length < 3) {
+        newErrors.address = "Address must be at least 3 characters";
+        isValid = false;
     }
+
     if (paymentMode === undefined) {
-      newErrors.panNo = "Mode of Payment is required";
-      isValid = false;
+        newErrors.paymentMode = "Mode of Payment is required";
+        isValid = false;
     }
-    if (contactNo === null) {
-      newErrors.contactNo = "Contact Number is required";
-      isValid = false;
+
+    if (contactNo === null || !/^[9]\d{9}$/.test(contactNo.toString())) {
+        newErrors.contactNo = "Contact Number is required and should be 10 digits starting from 9";
+        isValid = false;
     }
-    // if(paidAmount && paidAmount === null){
-    //   newErrors.contactNo = "Paid Amount is required";
-    // }
+
+ 
 
     setErrors(newErrors);
     return isValid;
-  };
+};
 
   const Ids = dynamicTableData?.map((item) => item.id);
 
@@ -148,6 +168,7 @@ const Invoices = () => {
     }
 
     const formData = {
+      invoice_number: invoiceNum,
       bill_for: customer,
       is_printed: true,
       total_price: finalPrice,
@@ -180,7 +201,7 @@ const Invoices = () => {
     setErrors({
       customer: "",
       address: "",
-      panNo: "",
+      paymentMode: "",
       contactNo: "",
     });
   };
@@ -267,7 +288,7 @@ const Invoices = () => {
                     <SelectItem value="credit">Credit</SelectItem>
                   </SelectContent>
                 </Select>
-                {errors.panNo && <ValidationMessage message={errors.panNo} />}
+                {errors.paymentMode && <ValidationMessage message={errors.paymentMode} />}
               </div>
             </div>
 

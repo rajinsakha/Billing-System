@@ -21,7 +21,7 @@ const RecentTransactions = () => {
   const {dynamicTableData} = useAppSelector((state)=>state.tableReducer)
   const tableData: TableDataItem = {
     headers: ["Customer","Amount", "Mode of Payment", "Date",],
-    data: dynamicTableData,
+    data: dynamicTableData.slice(0,5),
   };
 
   return (

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 import { BillPDF } from "../BillPDF";
@@ -15,6 +15,7 @@ import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import { ProductData } from "@/types/table";
 import { InvoiceData } from "@/types/products";
 import { printPDF } from "../printPDF";
+import api from "@/api/axiosInstance";
 interface BillModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
@@ -29,6 +30,9 @@ const InvoiceModal = ({
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const { invoiceData } = useAppSelector((state) => state.authReducer);
+ 
+
+
 
   const { refetch, dynamicTableData } = useAppSelector(
     (state) => state.tableReducer
@@ -42,15 +46,14 @@ const InvoiceModal = ({
     setIsModalOpen(false);
   });
 
-  console.log(dynamicTableData);
 
-  console.log(invoiceData);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
       console.log(invoiceData);
       const newData: { [key: string]: any } = {
+        invoice_number: invoiceData.invoice_number,
         bill_for: invoiceData.bill_for,
 
         is_printed: invoiceData.is_printed,
@@ -125,6 +128,7 @@ const InvoiceModal = ({
           <BillPDF
             invoiceData={invoiceData}
             productData={dynamicTableData as ProductData[]}
+
           />
         </PDFViewer>
         <div className="flex justify-between gap-4">

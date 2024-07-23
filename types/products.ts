@@ -36,6 +36,7 @@ export interface ISubCategoryDropdown {
 }
 
 export interface InvoiceData {
+  invoice_number: number;
   address: string;
   contact_number: number;
   bill_for: string;

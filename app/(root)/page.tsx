@@ -23,19 +23,19 @@ export default function Dashboard() {
             title="Total Credits"
             Icon={Users}
             description="+180.1% from last month"
-            amount={45231.89}
+            amount={data?.total_credit_amt || 0}
           />
           <DynamicCard
-            title="Subscriptions"
+            title="Total Sales"
             Icon={Users}
             description="+180.1% from last month"
-            amount={45231.89}
+            amount={data?.total_bill_price || 0}
           />
           <DynamicCard
-            title="Subscriptions"
+            title="Total Products Sold"
             Icon={Users}
             description="+180.1% from last month"
-            amount={45231.89}
+            amount={data?.total_quantity_sold || 0}
           />
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-5">
@@ -44,7 +44,7 @@ export default function Dashboard() {
           </div>
 
           <div className="col-span-1 xl:col-span-2">
-            <RecentSales />
+            <RecentSales data={data?.products_sold?.slice(0,5)} />
           </div>
         </div>
       </main>

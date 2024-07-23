@@ -88,7 +88,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                     <TableCell
                       key={colIndex}
                       onClick={() => handleClick(row?.id, row?.name)}
-                      className={`${type === "dashboardTransaction" && "!py-3"}`}
+                      className={`${type === "dashboardTransaction" && "!py-4"}`}
                     >
                       <div className="font-medium">{value}</div>
                     </TableCell>

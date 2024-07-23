@@ -31,6 +31,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ISubCategoryDropdown } from "@/types/products";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { useState } from "react";
+import { generateNepaliDate } from "@/lib/calculation";
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
 
@@ -81,7 +82,8 @@ const ProductForm = ({ initialData }: formProps) => {
         in_stock: data.quantity,
         category: Number(data.category),
         sub_category: Number(data.sub_category),
-        unit: data.unit
+        unit: data.unit,
+        invoice_miti: generateNepaliDate(),
       };
       if (initialData) {
         const res = await updateProduct(singleData.id, transformedData);

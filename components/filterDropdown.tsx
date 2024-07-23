@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setRefetch } from "@/redux/features/tableReducer";
 import { setCriteria } from "@/redux/features/filterReducer";
+import { capitalizeFirstLetter } from "@/lib/tableFunction";
 
 interface Option {
   id: number | string;
@@ -64,7 +65,7 @@ const FilterDropdown = ({
             key={index}
             value={option?.id ? option.id.toString() : ""}
           >
-            {option.name}
+            {capitalizeFirstLetter(option.name)}
           </SelectItem>
         ))}
       </SelectContent>

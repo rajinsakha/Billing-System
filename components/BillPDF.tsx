@@ -53,7 +53,7 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.detailsText}>
               Customer Name: {invoiceData.bill_for}
             </Text>
-            <Text style={styles.detailsText}>Invoice No.: 1</Text>
+            <Text style={styles.detailsText}>Invoice No.: {invoiceData.invoice_number}</Text>
           </View>
           <View style={styles.detailsRow}>
             <Text style={styles.detailsText}>
