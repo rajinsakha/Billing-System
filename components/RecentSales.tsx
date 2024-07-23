@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -13,9 +19,7 @@ const RecentSales = ({ data }: any) => {
     <Card x-chunk="dashboard-01-chunk-5" className="h-[429px]">
       <CardHeader>
         <CardTitle>Highest Sales</CardTitle>
-        <CardDescription>
-            Top Products from your store.
-          </CardDescription>
+        <CardDescription>Top Products from your store.</CardDescription>
       </CardHeader>
       <CardContent className="grid">
         <Table>
@@ -30,7 +34,6 @@ const RecentSales = ({ data }: any) => {
             {data?.map((row: any, index: number) => (
               <TableRow key={index}>
                 <TableCell className="!py-4">{row.product__name}</TableCell>
-
                 <TableCell className="!py-4 text-center font-medium">
                   {row.total_sold}
                 </TableCell>

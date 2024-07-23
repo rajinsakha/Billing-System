@@ -1,5 +1,5 @@
 "use client"
-import { DollarSign, Users } from "lucide-react";
+import { BadgeDollarSign, Coins, DollarSign, Package, Users } from "lucide-react";
 
 import DynamicCard from "@/components/DashboardCard";
 import RecentSales from "@/components/RecentSales";
@@ -21,19 +21,19 @@ export default function Dashboard() {
           />
           <DynamicCard
             title="Total Credits"
-            Icon={Users}
+            Icon={Coins}
             description="+180.1% from last month"
             amount={data?.total_credit_amt || 0}
           />
           <DynamicCard
             title="Total Sales"
-            Icon={Users}
+            Icon={BadgeDollarSign}
             description="+180.1% from last month"
             amount={data?.total_bill_price || 0}
           />
           <DynamicCard
             title="Total Products Sold"
-            Icon={Users}
+            Icon={Package}
             description="+180.1% from last month"
             amount={data?.total_quantity_sold || 0}
           />

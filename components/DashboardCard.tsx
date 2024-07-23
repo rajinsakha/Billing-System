@@ -26,7 +26,7 @@ const DashboardCard = ({
         <div className="text-2xl font-bold">
           {title !== "Total Products Sold" && "Rs"} {formatNumber(amount)}
         </div>
-        <p className="text-xs text-muted-foreground">{description}</p>
+        {/* <p className="text-xs text-muted-foreground">{description}</p> */}
       </CardContent>
     </Card>
   );

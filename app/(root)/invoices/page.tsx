@@ -133,8 +133,8 @@ const Invoices = () => {
         isValid = false;
     }
 
-    if (contactNo === null || !/^[9]\d{9}$/.test(contactNo.toString())) {
-        newErrors.contactNo = "Contact Number is required and should be 10 digits starting from 9";
+    if (contactNo === null) {
+        newErrors.contactNo = "Contact Number is required";
         isValid = false;
     }
 
@@ -168,7 +168,7 @@ const Invoices = () => {
     }
 
     const formData = {
-      invoice_number: invoiceNum,
+      invoice_number: invoiceNum + 1,
       bill_for: customer,
       is_printed: true,
       total_price: finalPrice,
@@ -242,21 +242,7 @@ const Invoices = () => {
                   <ValidationMessage message={errors.address} />
                 )}
               </div>
-              {/* <div className="flex items-center gap-2">
-                <Label className="w-[120px]">PAN No: </Label>
-                <Input
-                  type="number"
-                  value={panNo === null ? "" : panNo}
-                  onChange={(e) =>
-                    setPanNo(
-                      e.target.value === "" ? null : Number(e.target.value)
-                    )
-                  }
-                  placeholder="Enter PAN Number"
-                  className="w-[220px]"
-                />
-                {errors.panNo && <ValidationMessage message={errors.panNo} />}
-              </div> */}
+           
               <div className="flex items-center gap-2">
                 <Label className="w-[120px]">Contact No: </Label>
                 <Input

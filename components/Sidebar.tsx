@@ -1,8 +1,11 @@
-"use client"
+"use client";
 import React from "react";
 
 import { sidebarlist } from "@/constants/data";
 import LinkComponent from "./LinkComponent";
+import { Button } from "./ui/button";
+import Logout from "./logout";
+
 
 const Sidebar = () => {
   return (
@@ -17,6 +20,12 @@ const Sidebar = () => {
           />
         ))}
       </div>
+
+   <div className="p-4" >
+   <Logout />
+    
+   </div>
+       
     </div>
   );
 };
