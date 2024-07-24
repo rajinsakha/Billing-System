@@ -100,10 +100,10 @@ const ProductCard = ({ id, title, price, stock }: IProductCard) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <div className="flex flex-col  shadow-md rounded-md h-[300px] justify-between py-4 px-6 border">
+        <div className="flex flex-col  shadow-md rounded-md h-[340px] justify-between py-4 px-6 border">
           <div>
-            <h1 className="text-lg h-[45px]">
-              {title?.length > 50 ? title?.slice(0, 50) + "..." : title}
+            <h1 className="text-lg h-[60px]">
+              {title}
             </h1>
           </div>
           <div className="space-y-1">

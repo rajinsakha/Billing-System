@@ -63,7 +63,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
               key={rowIndex}
               className={`${
                 type === "Category" && "cursor-pointer"
-              } text-[#484848]`}
+              } text-[#484848] !text-[13px]`}
             >
               {Object.entries(row).map(([key, value]: any, colIndex) => (
                 <React.Fragment key={colIndex}>
@@ -77,7 +77,12 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                     <TableCell>
                       <div className="font-medium">Rs {value}</div>
                     </TableCell>
-                  ) : typeof value === "object" &&
+                  ): type === "SubCategory" && key === "id" ? (
+                    <TableCell>
+                      <div className="font-medium">{rowIndex+1}</div>
+                    </TableCell>
+                  )
+                   : typeof value === "object" &&
                     value?.hasOwnProperty("label") &&
                     value?.hasOwnProperty("value") ? (
                     <TableCell><div className="font-medium">{value.label}
