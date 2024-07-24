@@ -31,13 +31,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   col2: {
-    width: "45%",
+    width: "43%",
     fontSize: 10,
     borderRight: "1px solid #000",
     padding: 5,
   },
   col3: {
-    width: "8%",
+    width: "10%",
     fontSize: 10,
     borderRight: "1px solid #000",
     padding: 5,
@@ -73,14 +73,14 @@ const InvoiceTable = ({ data }: { data: ProductData[] }) => {
   console.log(data);
   return (
     <View style={styles.table}>
-      <View style={[styles.row, styles.bold, styles.header]}>
-        <Text style={styles.col1}>S.N.</Text>
-        <Text style={styles.col2}>PARTICULARS</Text>
-        <Text style={styles.col3}>Alt. Qty</Text>
-        <Text style={styles.col4}>Qty</Text>
-        <Text style={styles.col5}>Unit</Text>
-        <Text style={styles.col6}>Rate</Text>
-        <Text style={styles.col7}>Amount</Text>
+      <View style={[styles.row, styles.header]}>
+        <Text style={[styles.col1,styles.bold,]}>S.N.</Text>
+        <Text style={[styles.col2,styles.bold,]}>PARTICULARS</Text>
+        <Text style={[styles.col3,styles.bold,]}>Alt. Qty</Text>
+        <Text style={[styles.col4,styles.bold,]}>Qty</Text>
+        <Text style={[styles.col5,styles.bold,]}>Unit</Text>
+        <Text style={[styles.col6,styles.bold,]}>Rate</Text>
+        <Text style={[styles.col7,styles.bold,]}>Amount</Text>
       </View>
       {data?.map((row, i) => (
         <View key={i} style={styles.row} wrap={false}>
