@@ -5,8 +5,8 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     backgroundColor: "white",
-    paddingHorizontal: 20, // Adjusted for horizontal padding
-    paddingVertical: 20, // Added vertical padding
+    paddingHorizontal: 40, // Adjusted for horizontal padding
+    paddingVertical: 40, // Added vertical padding
   },
   header: {
     textAlign: "center",
