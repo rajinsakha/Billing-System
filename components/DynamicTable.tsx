@@ -38,7 +38,8 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
           ? "h-[52vh]"
           : type === "dashboardTransaction"
           ? "h-[320px]"
-          : "h-[65vh]"
+          : type === "Transaction" ? "h-[65vh]"
+          : "h-[75vh]"
       } w-full`}
     >
       <Table className="max-lg:overflow-x-scroll relative">

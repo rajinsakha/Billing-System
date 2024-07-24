@@ -47,7 +47,7 @@ const Logout = () => {
     <Dialog>
       <DialogTrigger>
         <>
-          <Button className="flex items-center gap-3 rounded-lg  py-2 text-muted-foreground transition-all bg-muted/40 hover:text-primary hover:bg-blue-100 w-[200px] justify-start">
+          <Button className="flex items-center gap-3 rounded-lg  py-2 text-muted-foreground transition-all bg-transparent hover:text-primary hover:bg-blue-100 w-[200px] justify-start">
             <LogOut size={24} className="max-sm:w-[20px]" />
             <p className="font-semibold text-sm sm:text-base">Logout</p>
           </Button>

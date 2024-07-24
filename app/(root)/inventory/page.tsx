@@ -4,12 +4,11 @@ import DynamicTable from "@/components/DynamicTable";
 import TablePagination from "@/components/TablePagination";
 import FilterDropdown from "@/components/filterDropdown";
 import AddModal from "@/components/modals/addModal";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
 import TitleText from "@/components/ui/titleText";
 import useFetchData from "@/lib/hooks/useFetchData";
 import useFetchDropdown from "@/lib/hooks/useFetchDropdown";
-import { setPageNumber } from "@/redux/features/authReducer";
-import { setCriteria, setSearchQuery } from "@/redux/features/filterReducer";
+import { setCriteria,  } from "@/redux/features/filterReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TableDataItem } from "@/types/table";
 import Link from "next/link";
@@ -57,7 +56,7 @@ const Inventory = () => {
   },[dispatch])
 
   return (
-    <ScrollArea className="mt-[60px]">
+    <div className="mt-[60px]">
       <div className="space-y-4">
         <div className="flex gap-4 items-center justify-between max-sm:flex-col">
           <TitleText title="Inventory" />
@@ -90,7 +89,7 @@ const Inventory = () => {
 
         <TablePagination type="Product" />
       </div>
-    </ScrollArea>
+    </div>
   );
 };
 

@@ -23,7 +23,6 @@ const Sidebar = () => {
 
    <div className="p-4" >
    <Logout />
-    
    </div>
        
     </div>

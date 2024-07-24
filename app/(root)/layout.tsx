@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      <div className="flex">
+      <div className="flex ">
         <Sidebar />
         <div className="p-5 w-full ">{children}</div>
       </div>
