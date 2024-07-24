@@ -3,6 +3,7 @@ export interface DashboardCardProps{
     amount:number;
     description:string;
     Icon:React.ElementType;
+    moneyType?: boolean;
 }
 
 export interface ISidebar{

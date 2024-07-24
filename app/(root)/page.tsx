@@ -18,24 +18,33 @@ export default function Dashboard() {
             Icon={DollarSign}
             description="-"
             amount={data?.total_paid_amt || 0}
+            moneyType
           />
           <DynamicCard
             title="Total Credits"
             Icon={Coins}
             description="+180.1% from last month"
             amount={data?.total_credit_amt || 0}
+            moneyType
           />
           <DynamicCard
             title="Total Sales"
             Icon={BadgeDollarSign}
             description="+180.1% from last month"
             amount={data?.total_bill_price || 0}
+            moneyType
           />
           <DynamicCard
             title="Total Products Sold"
             Icon={Package}
             description="+180.1% from last month"
             amount={data?.total_quantity_sold || 0}
+          />
+           <DynamicCard
+            title="Total Stock"
+            Icon={Package}
+            description="+180.1% from last month"
+            amount={data?.total_in_stock || 0}
           />
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-5">

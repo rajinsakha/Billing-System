@@ -92,14 +92,24 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
               Remarks: {invoiceData.remarks}
             </Text>
             {invoiceData.payment === "credit" && (
+              <>
               <Text style={styles.calculationText}>
-                Paid Amount:{" "}
+                Paid Amount:Rs 
                 {new Intl.NumberFormat("en-IN", {
                    minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
 
                 }).format(invoiceData.paid_amt)}
               </Text>
+                <Text style={styles.calculationText}>
+                Remaining Amount:Rs 
+                {new Intl.NumberFormat("en-IN", {
+                   minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+
+                }).format(invoiceData.credit_amt)}
+              </Text>
+              </>
             )}
           </View>
           <View style={styles.calculationCol2}>

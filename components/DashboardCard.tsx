@@ -2,7 +2,6 @@ import React from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,6 +14,7 @@ const DashboardCard = ({
   amount,
   description,
   Icon,
+  moneyType
 }: DashboardCardProps) => {
   return (
     <Card x-chunk="dashboard-01-chunk-0">
@@ -24,7 +24,7 @@ const DashboardCard = ({
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {title !== "Total Products Sold" && "Rs"} {formatNumber(amount)}
+          {moneyType  && "Rs"} {formatNumber(amount)}
         </div>
         {/* <p className="text-xs text-muted-foreground">{description}</p> */}
       </CardContent>

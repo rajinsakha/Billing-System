@@ -54,6 +54,7 @@ const Invoices = () => {
     address: "",
     paymentMode: "",
     contactNo: "",
+    paidAmount:""
   });
   const [invoiceNum, setInvoiceNum] = useState<number>(0);
 
@@ -109,6 +110,7 @@ const Invoices = () => {
         address: "",
         contactNo: "",
         paymentMode: "",
+        paidAmount: "",
     };
     let isValid = true;
 
@@ -138,7 +140,12 @@ const Invoices = () => {
         isValid = false;
     }
 
- 
+    if(paidAmount !==null && paidAmount > finalPrice){
+      newErrors.paidAmount = "Paid Amount must be less than or equal to Total Amount."
+      isValid = false;
+
+    }
+
 
     setErrors(newErrors);
     return isValid;
@@ -151,7 +158,7 @@ const Invoices = () => {
       toast({
         variant: "destructive",
         title: "Validation Error",
-        description: "Please fill out all required fields.",
+        description: "Please fill out all required fields or fix errors (if any).",
       });
       setIsModalOpen(false);
       return;
@@ -203,6 +210,7 @@ const Invoices = () => {
       address: "",
       paymentMode: "",
       contactNo: "",
+      paidAmount:""
     });
   };
 
@@ -307,6 +315,7 @@ const Invoices = () => {
                   />
                 </div>
                 {paymentMode === "credit" && (
+                  <div className="flex flex-col">
                   <div className="flex items-center gap-2">
                     <Label className="">Amount: </Label>
                     <Input
@@ -319,6 +328,8 @@ const Invoices = () => {
                       }
                       placeholder="Enter Paid Amount"
                     />
+                  </div>
+                  {errors.paidAmount && <ValidationMessage message={errors.paidAmount} />}
                   </div>
                 )}
               </div>
