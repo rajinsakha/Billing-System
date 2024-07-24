@@ -1,4 +1,5 @@
 import { pdf } from '@react-pdf/renderer';
+import { saveAs } from "file-saver";
 
 import { BillPDF } from './BillPDF';
 import { InvoiceData } from '@/types/products';
@@ -15,4 +16,12 @@ export const printPDF = async (invoiceData:InvoiceData, productData:ProductData[
   iframe.onload = () => {
     iframe.contentWindow?.print();
   };
+};
+
+export const downloadPdf = async (invoiceData:InvoiceData, productData:ProductData[]) => {
+  const fileName = "test.pdf";
+  const blob = await pdf(
+    <BillPDF productData={productData} invoiceData={invoiceData} />
+  ).toBlob();
+  saveAs(blob, fileName);
 };

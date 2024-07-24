@@ -54,7 +54,9 @@ const Invoices = () => {
     address: "",
     paymentMode: "",
     contactNo: "",
-    paidAmount:""
+    paidAmount:"",
+    voucher: "",
+    discount: ""
   });
   const [invoiceNum, setInvoiceNum] = useState<number>(0);
 
@@ -111,6 +113,8 @@ const Invoices = () => {
         contactNo: "",
         paymentMode: "",
         paidAmount: "",
+        voucher: "",
+        discount: "",
     };
     let isValid = true;
 
@@ -141,10 +145,20 @@ const Invoices = () => {
     }
 
     if(paidAmount !==null && paidAmount > finalPrice){
-      newErrors.paidAmount = "Paid Amount must be less than or equal to Total Amount."
+      newErrors.paidAmount = "Paid Amount must be less than total amount."
       isValid = false;
-
     }
+
+    if(voucher < 0 || voucher > 100){
+      newErrors.voucher = "Voucher must be greater than 0 and less than 100."
+      isValid = false;
+    }
+
+    if(discount < 0 || discount > 100){
+      newErrors.discount = "Discount must be greater than 0 and less than 100."
+      isValid = false;
+    }
+
 
 
     setErrors(newErrors);
@@ -210,7 +224,9 @@ const Invoices = () => {
       address: "",
       paymentMode: "",
       contactNo: "",
-      paidAmount:""
+      paidAmount:"",
+      discount: "",
+      voucher: ""
     });
   };
 
@@ -294,16 +310,24 @@ const Invoices = () => {
 
             <div className="flex justify-between max-sm:flex-col gap-5 !mt-4 px-2">
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <div className="flex flex-col">
                 <CustomInput
                   label="Discount"
                   placeholder="Enter Discount (in %)"
                   handleChange={handleDiscountChange}
                 />
-                <CustomInput
+                 {errors.discount && <ValidationMessage message={errors.discount} />}
+                </div>
+              
+              <div className="flex flex-col">
+              <CustomInput
                   label="Voucher"
                   placeholder="Enter Voucher (in %)"
                   handleChange={handleVoucherChange}
                 />
+                {errors.voucher && <ValidationMessage message={errors.voucher} />}
+              </div>
+             
                 <div className="flex items-center gap-2">
                   <Label className="">Remarks: </Label>
                   <Input

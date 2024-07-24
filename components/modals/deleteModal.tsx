@@ -25,6 +25,8 @@ const DeleteModal = ({isSeparate}: { isSeparate?: boolean }) => {
     (state) => state.tableReducer
   );
 
+  console.log(singleData);
+
   const handleDelete = async () => {
     let res;
     if (type === "Product") {
@@ -82,7 +84,8 @@ const DeleteModal = ({isSeparate}: { isSeparate?: boolean }) => {
 
         <p className="text-[13.4px] leading-[22px]">
           <span className="font-semibold">
-            {singleData.title || singleData.name}
+            
+            {singleData.title || singleData.name || singleData.customer_name + "'s Transaction"}
           </span>{" "}
           will be permanently deleted from the system. Do you want to delete?
         </p>

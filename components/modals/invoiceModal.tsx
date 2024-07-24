@@ -14,7 +14,7 @@ import { X } from "lucide-react";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import { ProductData } from "@/types/table";
 import { InvoiceData } from "@/types/products";
-import { printPDF } from "../printPDF";
+import { downloadPdf, printPDF } from "../printPDF";
 import api from "@/api/axiosInstance";
 interface BillModalProps {
   isModalOpen: boolean;
@@ -104,7 +104,7 @@ const InvoiceModal = ({
         });
         resetFormFields();
         setIsModalOpen(false);
-        // Print the PDF after the bill is created
+        downloadPdf(invoiceData, dynamicTableData as ProductData[]);
         printPDF(invoiceData, dynamicTableData as ProductData[]);
       }
     } catch (error) {
