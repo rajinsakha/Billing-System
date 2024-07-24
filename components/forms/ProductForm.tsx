@@ -43,6 +43,7 @@ const ProductForm = ({ initialData }: formProps) => {
     useAppSelector((state) => state.tableReducer);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+
   const defaultValues = initialData
     ? {
         name: initialData.name,
@@ -50,6 +51,7 @@ const ProductForm = ({ initialData }: formProps) => {
         price: initialData.price,
         category: initialData.category?.value.toString(),
         sub_category: initialData.sub_category?.value.toString(),
+        unit: initialData.unit
       }
     : {
         name: "",
@@ -57,6 +59,7 @@ const ProductForm = ({ initialData }: formProps) => {
         price: null,
         category: "",
         sub_category: "",
+        unit: "",
       };
 
   const form = useForm<ProductFormValues>({
