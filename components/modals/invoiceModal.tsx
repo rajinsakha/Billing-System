@@ -104,7 +104,7 @@ const InvoiceModal = ({
         });
         resetFormFields();
         setIsModalOpen(false);
-        downloadPdf(invoiceData, dynamicTableData as ProductData[]);
+        // downloadPdf(invoiceData, dynamicTableData as ProductData[]);
         printPDF(invoiceData, dynamicTableData as ProductData[]);
       }
     } catch (error) {

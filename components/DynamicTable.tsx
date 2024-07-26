@@ -50,7 +50,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                 key={index}
                 className={`${
                   head === "Quantity" && "flex justify-center items-center"
-                } `}
+                }  `}
               >
                 {head}
               </TableHead>

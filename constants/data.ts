@@ -1,5 +1,5 @@
 import { ISidebar } from "@/types/dashboard";
-import {  BadgeDollarSign, Boxes, HomeIcon, LineChart, Package, ReceiptText, } from 'lucide-react'
+import {  Banknote, Boxes, HomeIcon, Package, ReceiptText, } from 'lucide-react'
 
 export const sidebarlist:ISidebar[] = [
     {
@@ -26,7 +26,7 @@ export const sidebarlist:ISidebar[] = [
     {
         title:"Transactions",
         href:"/transactions",
-        Icon: BadgeDollarSign
+        Icon: Banknote
     },
 
 ]

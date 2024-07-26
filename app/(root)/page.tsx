@@ -1,10 +1,12 @@
 "use client"
-import { BadgeDollarSign, Coins, DollarSign, Package, Users } from "lucide-react";
+import { BadgeDollarSign, Banknote, Boxes, Coins, DollarSign, Package, Package2, ShoppingCart, Users,} from "lucide-react";
+
 
 import DynamicCard from "@/components/DashboardCard";
 import RecentSales from "@/components/RecentSales";
 import RecentTransactions from "@/components/RecentTransactions";
 import useFetchDashboard from "@/lib/hooks/useFetchDashboard";
+
 
 export default function Dashboard() {
   const {data} = useFetchDashboard();
@@ -12,7 +14,7 @@ export default function Dashboard() {
   return (
   <div className="flex min-h-screen w-full flex-col mt-[40px]">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <div className="grid gap-4 min-[500px]:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        <div className="grid gap-4 min-[500px]:grid-cols-2 md:gap-6 lg:grid-cols-4">
           <DynamicCard
             title="Total Revenue"
             Icon={DollarSign}
@@ -42,9 +44,27 @@ export default function Dashboard() {
           />
            <DynamicCard
             title="Total Stock"
-            Icon={Package}
+            Icon={Package2}
             description="+180.1% from last month"
             amount={data?.total_in_stock || 0}
+          />
+            <DynamicCard
+            title="Total Inventory Value"
+            Icon={Boxes}
+            description="+180.1% from last month"
+            amount={data?.total_inventory_value || 0}
+          />
+          <DynamicCard
+            title="Average Order Value"
+            Icon={ShoppingCart}
+            description="+180.1% from last month"
+            amount={data?.average_order_value || 0}
+          />
+            <DynamicCard
+            title="Total Transactions"
+            Icon={Banknote}
+            description="+180.1% from last month"
+            amount={data?.total_invoice_bills || 0}
           />
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-5">
