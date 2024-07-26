@@ -53,12 +53,14 @@ export default function Dashboard() {
             Icon={Boxes}
             description="+180.1% from last month"
             amount={data?.total_inventory_value || 0}
+            moneyType
           />
           <DynamicCard
             title="Average Order Value"
             Icon={ShoppingCart}
             description="+180.1% from last month"
             amount={data?.average_order_value || 0}
+            moneyType
           />
             <DynamicCard
             title="Total Transactions"
