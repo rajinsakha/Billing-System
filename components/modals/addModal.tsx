@@ -7,6 +7,7 @@ import ProductForm from "../forms/ProductForm";
 
 import CategoryForm from "../forms/CategoryForm";
 import SubCategoryForm from "../forms/SubCategoryForm";
+import ImportTransactionForm from "../forms/ImportTransactionForm";
 
 interface AddModalProps {
   type: string;
@@ -38,6 +39,7 @@ const AddModal = ({ type }: AddModalProps) => {
         {type === "Product" && <ProductForm initialData={null} />}
         {type === "Category" && <CategoryForm initialData={null}/>}
         {type === "SubCategory" && <SubCategoryForm initialData={null} />}
+        {type === "Import" && <ImportTransactionForm initialData={null} /> }
       </DialogContent>
     </Dialog>
   );

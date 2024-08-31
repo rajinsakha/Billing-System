@@ -60,6 +60,17 @@ export const extractTableData = (
           mode_of_payment: capitalizeFirstLetter(item?.mode_of_payment) ,
           invoice_miti: item?.invoice_miti,
         };
+      case "Import":
+        return{
+          id: item?.id,
+         importer_name: item?.name,
+          total_price: formatNumber(item?.total_price),
+          mode_of_payment: capitalizeFirstLetter(item?.mode_of_payment),
+          paid_amt: formatNumber(item?.paid_amt),
+          credit_amt: formatNumber(item?.credit_amt) ,
+          contact_no: item?.contact_no,
+          created_at: item?.invoice_miti,
+        }  
       default:
         return item;
     }

@@ -1,5 +1,6 @@
 "use client";
 import api from "@/api/axiosInstance";
+import { getImportPage } from "@/api/import/importTransactionAPI";
 import { getTransactionPage } from "@/api/invoices/transaction";
 import { getProductPage } from "@/api/products/product";
 import {
@@ -57,6 +58,9 @@ const TablePagination = ({type}:{type:string}) => {
       }
       if(type === "Product"){
         res = await getProductPage(pageNo);
+      }
+      if(type === "Import"){
+        res = await getImportPage(pageNo);
       }
 
       if (res?.status === 200) {

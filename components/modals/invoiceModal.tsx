@@ -79,22 +79,22 @@ const InvoiceModal = ({
         invoice_miti: invoiceData.invoice_miti,
       };
 
-      // const blob = await pdf(
-      //   <BillPDF
-      //     productData={dynamicTableData as ProductData[]}
-      //     invoiceData={invoiceData}
-      //   />
-      // ).toBlob();
+      const blob = await pdf(
+        <BillPDF
+          productData={dynamicTableData as ProductData[]}
+          invoiceData={invoiceData}
+        />
+      ).toBlob();
 
-      // // Create a form data to upload the PDF
-      // const formData = new FormData();
-      // formData.append("pdf", blob);
+      // Create a form data to upload the PDF
+      const formData = new FormData();
+      formData.append("pdf", blob);
 
-      // Object.keys(newData).forEach((key) => {
-      //   formData.append(key, newData[key as keyof typeof newData]);
-      // });
+      Object.keys(newData).forEach((key) => {
+        formData.append(key, newData[key as keyof typeof newData]);
+      });
 
-      const res = await createTransactionBill(newData);
+      const res = await createTransactionBill(formData);
       if (res.status === 201) {
         dispatch(setRefetch(!refetch));
         toast({

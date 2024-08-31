@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import {
   genericTransaction,
-  productFormSchema,
   transactionFormSchema,
 } from "@/schemas/formSchema";
 import { z } from "zod";
@@ -21,14 +20,14 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { addProduct, updateProduct } from "@/api/products/product";
+
 import { useToast } from "../ui/use-toast";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { ISubCategoryDropdown } from "@/types/products";
+
 import { setRefetch } from "@/redux/features/tableReducer";
 import { useEffect, useState } from "react";
 import { updateTransaction } from "@/api/invoices/transaction";
-import { init } from "next/dist/compiled/webpack/webpack";
+
 
 export type TransactionFormValues = z.infer<typeof genericTransaction>;
 
@@ -62,8 +61,8 @@ const TransactionForm = ({ initialData }: formProps) => {
 
   useEffect(() => {
     if (amount !== undefined) {
-      const newPaidAmount = Number(initialData.paid_amt) + Number(amount);
-      const newCreditAmount = Number(initialData.credit_amt) - Number(amount);
+      const newPaidAmount = Number(initialData?.paid_amt) + Number(amount);
+      const newCreditAmount = Number(initialData?.credit_amt) - Number(amount);
       setPaidAmount(newPaidAmount);
       setCreditAmount(newCreditAmount);
     }

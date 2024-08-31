@@ -42,7 +42,7 @@ export default function Dashboard() {
             description="+180.1% from last month"
             amount={data?.total_quantity_sold || 0}
           />
-           <DynamicCard
+           {/* <DynamicCard
             title="Total Stock"
             Icon={Package2}
             description="+180.1% from last month"
@@ -67,7 +67,7 @@ export default function Dashboard() {
             Icon={Banknote}
             description="+180.1% from last month"
             amount={data?.total_invoice_bills || 0}
-          />
+          /> */}
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-5">
           <div className="col-span-1 xl:col-span-3 max-lg:overflow-x-scroll">

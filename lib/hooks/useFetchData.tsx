@@ -13,6 +13,7 @@ import {
 } from "@/api/products/dropdown/dropdown";
 import { getAllTransactions } from "@/api/invoices/transaction";
 import { useParams } from "next/navigation";
+import { getAllImports } from "@/api/import/importTransactionAPI";
 
 interface Criteria {
   [key: string]: string;
@@ -31,13 +32,17 @@ const useFetchData = (
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-
+ 
 
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       let response;
+
+      if (type === "Import") {
+        response = await getAllImports(searchQuery, criteria?.mode_of_payment);
+      }
+
       if (type === "Inventory") {
         response = await getAllProducts(
           searchQuery,
@@ -67,7 +72,10 @@ const useFetchData = (
       }
 
       if (type === "Transaction") {
-        response = await getAllTransactions(searchQuery, criteria?.mode_of_payment);
+        response = await getAllTransactions(
+          searchQuery,
+          criteria?.mode_of_payment
+        );
       }
 
       if (response?.status === 200) {

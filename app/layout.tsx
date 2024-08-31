@@ -8,9 +8,9 @@ import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Phulchowki Billing System",
+  title: "Billing System",
   description:
-    "Phulchowki Billing System is a billing system created for Phulchowki Pipes and Fitting Suppliers.",
+    "Billing System with Inventory Management",
 };
 
 export default function RootLayout({
