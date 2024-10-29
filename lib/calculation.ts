@@ -16,10 +16,10 @@ export const calculateTotalPrice = (
   const finalPrice = totalPriceAfterDiscount - voucherAmount;
 
   return {
-    totalPriceBeforeDiscount: parseFloat(totalPriceBeforeDiscount.toFixed(2)),
-    totalPriceAfterDiscount: parseFloat(totalPriceAfterDiscount.toFixed(2)),
-    finalPrice: parseFloat(finalPrice.toFixed(2)),
-    finalDiscount: parseFloat(finalDiscount.toFixed(2)),
+    totalPriceBeforeDiscount: parseFloat(totalPriceBeforeDiscount?.toFixed(2)),
+    totalPriceAfterDiscount: parseFloat(totalPriceAfterDiscount?.toFixed(2)),
+    finalPrice: parseFloat(finalPrice?.toFixed(2)),
+    finalDiscount: parseFloat(finalDiscount?.toFixed(2)),
   };
 };
 

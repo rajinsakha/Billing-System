@@ -28,11 +28,11 @@ export const sidebarlist:ISidebar[] = [
         href:"/transactions",
         Icon: Banknote
     },
-    {
-        title:"Imports",
-        href:"/import",
-        Icon: Import
-    },
+    // {
+    //     title:"Imports",
+    //     href:"/import",
+    //     Icon: Import
+    // },
     
 
 ]

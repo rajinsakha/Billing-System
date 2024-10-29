@@ -7,6 +7,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import SearchBox from "./searchBox";
 import { usePathname } from "next/navigation";
+import { FaFileInvoice } from "react-icons/fa";
 
 const Navbar = () => {
 
@@ -19,8 +20,8 @@ const Navbar = () => {
 
       <div className="flex gap-4 h-14 items-center border-b lg:h-[60px] max-sm:hidden">
         <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Package2 className="h-6 w-6" />
-          <span className="">Billing System</span>
+          <FaFileInvoice className="h-7 w-7 text-primary" />
+          <span className="text-xl text-primary font-semibold">Billing System</span>
         </Link>
       </div>
 

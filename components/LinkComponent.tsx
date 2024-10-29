@@ -11,7 +11,7 @@ const LinkComponent = ({title, href, Icon}:ISidebar) => {
   return (
     <Link
     href={href}
-    className={` flex items-center gap-3 rounded-lg px-4 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-blue-100 w-[200px] ${isActive && "bg-blue-100 text-primary"}`}
+    className={` flex items-center gap-3 rounded-lg px-4 py-2 text-muted-foreground transition-all hover:text-white hover:bg-primary w-[200px] ${isActive && "bg-primary text-white"}`}
   >
     <Icon className="h-4 w-4"  />
     {title}
