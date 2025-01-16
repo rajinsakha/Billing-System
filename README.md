@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Billing System
 
-## Getting Started
+This is a web application designed to manage billing operations efficiently.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **User Authentication:** Secure login and registration for users.
+- **Product Management:** Enables adding, updating, and deleting product information seamlessly.
+- **Invoice Generation:** Facilitates the creation of invoices with detailed billing information.
+- **Payment Tracking:** Monitors payment statuses to keep financial records up-to-date.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Frontend:** Developed using [Next.js](https://nextjs.org/), a React framework for server-side rendering and static site generation.
+- **Styling:** Styled with [Tailwind CSS](https://tailwindcss.com/) for rapid UI development.
+- **State Management:** Utilizes [Redux](https://redux.js.org/) for managing application state effectively.
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the Repository:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/rajinsakha/Billing-System.git
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Navigate to the Project Directory:**
 
-## Deploy on Vercel
+   ```bash
+   cd Billing-System
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Install Dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   npm install
+   ```
+
+## Running the Application
+
+1. **Start the Development Server:**
+
+   ```bash
+   npm run dev
+   ```
+
+2. **Access the Application:**
+
+   Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Deployment
+
+The application is deployed and accessible at [billings-system.vercel.app](https://billings-system.vercel.app).
