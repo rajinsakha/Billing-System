@@ -1,8 +1,5 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-   Menu,
-  Package2,
-} from "lucide-react"; 
+import { Menu, Package2 } from "lucide-react";
 import { Button } from "./ui/button";
 
 import { sidebarlist } from "@/constants/data";
@@ -12,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 const MobileNav = () => {
   const pathname = usePathname();
-  
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -27,19 +24,20 @@ const MobileNav = () => {
             href="#"
             className="flex items-center gap-2 text-lg font-semibold"
           >
-             <span className="text-[13px]">फुल्चोकी पाईप फिटिङ्ग सप्लायर्स</span>
+            <span className="text-[13px]">Billing System</span>
           </Link>
           {sidebarlist.map((item, index) => (
             <Link
-            key={index}
+              key={index}
               href={item.href}
-              className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2  hover:text-primary text-muted-foreground hover:bg-blue-100 ${pathname === item.href && "bg-blue-100 text-primary"}`}
+              className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2  hover:text-primary text-muted-foreground hover:bg-blue-100 ${
+                pathname === item.href && "bg-blue-100 text-primary"
+              }`}
             >
               <item.Icon className="h-5 w-5" />
               {item.title}
             </Link>
           ))}
-  
         </nav>
         <Logout />
       </SheetContent>

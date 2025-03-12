@@ -31,16 +31,13 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
-        
-            <Text style={styles.titleText}>
-              Phulchowki Pipes Fitting Suppliers
-            </Text>
+            <Text style={styles.titleText}>Pipes and Fitting Suppliers</Text>
             <Text style={styles.headerText}>Kathmandu, Nepal</Text>
           </View>
 
           <View>
-            <Text style={styles.headerText}>Phone No: 9851157901</Text>
-            <Text style={styles.headerText}>PAN No: 619242851</Text>
+            <Text style={styles.headerText}>Phone No: 9851157902</Text>
+            <Text style={styles.headerText}>PAN No: 612345678</Text>
           </View>
 
           <View style={styles.billTextContainer}>
@@ -53,7 +50,9 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.detailsText}>
               Customer Name: {invoiceData.bill_for}
             </Text>
-            <Text style={styles.detailsText}>Invoice No.: {invoiceData.invoice_number}</Text>
+            <Text style={styles.detailsText}>
+              Invoice No.: {invoiceData.invoice_number}
+            </Text>
           </View>
           <View style={styles.detailsRow}>
             <Text style={styles.detailsText}>
@@ -93,22 +92,20 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             </Text>
             {invoiceData.payment === "credit" && (
               <>
-              <Text style={styles.calculationText}>
-                Paid Amount:Rs 
-                {new Intl.NumberFormat("en-IN", {
-                   minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-
-                }).format(invoiceData.paid_amt)}
-              </Text>
                 <Text style={styles.calculationText}>
-                Remaining Amount:Rs 
-                {new Intl.NumberFormat("en-IN", {
-                   minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-
-                }).format(invoiceData.credit_amt)}
-              </Text>
+                  Paid Amount:Rs
+                  {new Intl.NumberFormat("en-IN", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(invoiceData.paid_amt)}
+                </Text>
+                <Text style={styles.calculationText}>
+                  Remaining Amount:Rs
+                  {new Intl.NumberFormat("en-IN", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(invoiceData.credit_amt)}
+                </Text>
               </>
             )}
           </View>
@@ -116,25 +113,22 @@ export const BillPDF = ({ invoiceData, productData }: BillPDFProps) => {
             <Text style={styles.calculationText}>
               Total: Rs{" "}
               {new Intl.NumberFormat("en-IN", {
-                 minimumFractionDigits: 2,
+                minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-
               }).format(invoiceData.price_before_discount)}
             </Text>
             <Text style={[styles.calculationText, styles.discount]}>
               Discount: Rs{" "}
               {new Intl.NumberFormat("en-IN", {
-                 minimumFractionDigits: 2,
+                minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-
               }).format(invoiceData.discount)}
             </Text>
             <Text style={styles.grandTotalText}>
               Grand Total: Rs{" "}
               {new Intl.NumberFormat("en-IN", {
-                 minimumFractionDigits: 2,
+                minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-
               }).format(invoiceData.total_price)}
             </Text>
           </View>
