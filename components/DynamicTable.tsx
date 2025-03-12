@@ -38,8 +38,9 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
           ? "h-[52vh]"
           : type === "dashboardTransaction"
           ? "h-[320px]"
-          : type === "Transaction" ? "h-[65vh]"
-          : "h-[75vh]"
+          : type === "Transaction"
+          ? "h-[65vh]" 
+          : "h-[60vh]"
       } w-full`}
     >
       <Table className="max-lg:overflow-x-scroll relative">
@@ -72,29 +73,32 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
                     <TableCell>
                       <QuantityForm initialData={row} />
                     </TableCell>
-                  ) :  key === "total_price" ||
+                  ) : key === "total_price" ||
                     key === "paid_amt" ||
-                    key === "credit_amt" || key === "price"  ? (
+                    key === "credit_amt" ||
+                    key === "price" ? (
                     <TableCell>
                       <div className="font-medium">Rs {value}</div>
                     </TableCell>
-                  ): type === "SubCategory" && key === "id" ? (
+                  ) : type === "SubCategory" && key === "id" ? (
                     <TableCell>
-                      <div className="font-medium">{rowIndex+1}</div>
+                      <div className="font-medium">{rowIndex + 1}</div>
                     </TableCell>
-                  )
-                   : typeof value === "object" &&
+                  ) : typeof value === "object" &&
                     value?.hasOwnProperty("label") &&
                     value?.hasOwnProperty("value") ? (
-                    <TableCell><div className="font-medium">{value.label}
-                      </div></TableCell>
+                    <TableCell>
+                      <div className="font-medium">{value.label}</div>
+                    </TableCell>
                   ) : type === "Invoice" && key === "id" ? (
                     <TableCell>{rowIndex + 1}</TableCell>
                   ) : (
                     <TableCell
                       key={colIndex}
                       onClick={() => handleClick(row?.id, row?.name)}
-                      className={`${type === "dashboardTransaction" && "!py-4"}`}
+                      className={`${
+                        type === "dashboardTransaction" && "!py-4"
+                      }`}
                     >
                       <div className="font-medium">{value}</div>
                     </TableCell>
