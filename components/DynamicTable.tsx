@@ -39,7 +39,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
           : type === "dashboardTransaction"
           ? "h-[320px]"
           : type === "Transaction"
-          ? "h-[65vh]" 
+          ? "h-[65vh]"
           : "h-[60vh]"
       } w-full`}
     >
@@ -49,7 +49,7 @@ const DynamicTable = ({ headers, data, type }: TableProps) => {
             {headers.map((head, index) => (
               <TableHead
                 key={index}
-                className={`${
+                className={`whitespace-nowrap ${
                   head === "Quantity" && "flex justify-center items-center"
                 }  `}
               >

@@ -1,20 +1,17 @@
 import { z } from "zod";
 
 export const authenticationFormSchema = z.object({
-  username: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
-  }),
+  username: z
+    .string()
+    .min(1, {
+      message: "Email is required.",
+    })
+    .email("Invalid email address."),
   password: z
     .string()
     .trim()
     .refine((val) => val.length > 0, {
       message: "Password cannot be empty.",
-    })
-    .refine((val) => val.length >= 8, {
-      message: "Password must be at least 8 characters long.",
-    })
-    .refine((val) => val.length <= 20, {
-      message: "Password must be at most 20 characters long.",
     }),
 });
 

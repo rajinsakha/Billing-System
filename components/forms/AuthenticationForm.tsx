@@ -22,94 +22,102 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useToast } from "../ui/use-toast";
+import ButtonLoader from "../ButtonLoader";
 
 export type AuthenticationFormValues = z.infer<typeof authenticationFormSchema>;
 
 const AuthenticationForm = () => {
-  const {toast} = useToast();
+  const { toast } = useToast();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const searchParams = new URLSearchParams(window.location.search);
+
+  const demoEmail = searchParams.get("email") || "";
+  const demoPassword = searchParams.get("password") || "";
 
   const form = useForm<AuthenticationFormValues>({
     resolver: zodResolver(authenticationFormSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: demoEmail,
+      password: demoPassword,
     },
   });
 
   const onSubmit = async (data: AuthenticationFormValues) => {
     try {
+      setLoading(true);
       const res = await userLogin(data);
       if (res.status === 200) {
-        dispatch(setToken(res.data.token))
+        dispatch(setToken(res.data.token));
         toast({
-          variant:'default',
+          variant: "default",
           title: "Login Successful",
           description: `You have successfully logged in to the system.`,
-          duration: 3000
-        })
-        router.push('/');
+          duration: 3000,
+        });
+
+        router.push("/");
       }
 
-      if(res.status === 401){
+      if (res.status === 401) {
         toast({
-          variant: 'destructive',
+          variant: "destructive",
           title: "Failed to Log In",
           description: `${res.data.error}`,
-        })
+        });
       }
     } catch (error) {
       console.log(error);
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         title: "Failed to Log In",
         description: `Error Occured: ${error}`,
-      })
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className=" w-full flex items-center justify-center py-12 ">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="mx-auto grid w-[350px] gap-6">
-            <div className="grid gap-2 text-center">
-              <h1 className="text-3xl font-bold">Login</h1>
-              <p className="text-balance text-sm text-muted-foreground">
-                Enter your username below to login to your account
-              </p>
-            </div>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter your username" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                      <div className="relative">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-2xl font-bold">Login to your account</h1>
+          <p className="text-balance text-sm text-muted-foreground">
+            Enter your email below to login to your account
+          </p>
+        </div>
+        <div className="grid gap-4">
+          <div className="grid gap-2">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter your email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid gap-2">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
                       <Input
                         type={passwordVisible ? "text" : "password"}
-                        placeholder={"Enter your password"
-                        }
+                        placeholder={"Enter your password"}
                         {...field}
                       />
                       <button
@@ -124,26 +132,24 @@ const AuthenticationForm = () => {
                         )}
                       </button>
                     </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Link
-                  href="/forgot-password"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
-            </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Link
+              href="/forgot-password"
+              className="ml-auto inline-block text-xs hover:text-primary underline underline-offset-4"
+            >
+              Forgot your password?
+            </Link>
           </div>
-        </form>
-      </Form>
-    </div>
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? <ButtonLoader /> : "Login"}
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 };
 
